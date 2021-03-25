@@ -31,6 +31,7 @@ class FormSignup extends Component {
   };
 
   handleSubmit = (event) => {
+    event.preventDefault()
     const uploadData = new FormData();
     uploadData.append("email", this.state.email);
     uploadData.append("password", this.state.password);
@@ -45,7 +46,7 @@ class FormSignup extends Component {
     apiHandler
       .signup(uploadData)
       .then((data) => {
-        console.log('coucou')
+        console.log('this.props.context', this.props.context)
         this.props.context.setUser(data);
         this.props.history.push("/profile"); 
 

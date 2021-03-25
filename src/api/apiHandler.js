@@ -26,7 +26,9 @@ const apiHandler = {
   signin(userInfo) {
     return service
       .post("/api/auth/signin", userInfo)
-      .then((res) => res.data)
+      .then((res) => {
+        console.log('bonjour')
+        console.log(res.data)})
       .catch(errorHandler);
   },
 
