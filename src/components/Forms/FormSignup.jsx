@@ -5,8 +5,14 @@ import apiHandler from "../../api/apiHandler";
 
 class FormSignup extends Component {
   state = {
-    email: "",
-    password: "",
+    email: "toto@gmail.com",
+    password: "toto",
+    username:"toto",
+    avatar:null,
+    instagram:"",
+    website:"",
+    description:"",
+    credit:0
   };
 
   handleChange = (event) => {
@@ -16,13 +22,33 @@ class FormSignup extends Component {
     this.setState({ [key]: value });
   };
 
+  handleFileChange = (event) => {
+
+    console.log("The file added by the use is: ", event.target.files[0]);
+    this.setState({
+      avatar: event.target.files[0],
+    });
+  };
+
   handleSubmit = (event) => {
-    event.preventDefault();
+    const uploadData = new FormData();
+    uploadData.append("email", this.state.email);
+    uploadData.append("password", this.state.password);
+    uploadData.append("username", this.state.username);
+    uploadData.append("avatar", this.state.avatar);
+    uploadData.append("instagram", this.state.instagram);
+    uploadData.append("website", this.state.website);
+    uploadData.append("description", this.state.description);
+    uploadData.append("credit", this.state.credit);
+
 
     apiHandler
-      .signup(this.state)
+      .signup(uploadData)
       .then((data) => {
+        console.log('coucou')
         this.props.context.setUser(data);
+        this.props.history.push("/profile"); 
+
       })
       .catch((error) => {
         console.log(error);
@@ -51,6 +77,53 @@ class FormSignup extends Component {
           type="password"
           id="password"
           name="password"
+        />
+        <label htmlFor="username">Username</label>
+        <input
+          onChange={this.handleChange}
+          value={this.state.username}
+          type="text"
+          id="username"
+          name="username"
+        />
+        <label htmlFor="avatar">Avatar</label>
+        <input
+          onChange={this.handleFileChange}
+          type="file"
+          id="avatar"
+          name="avatar"
+        />
+        <label htmlFor="instagram">Instagram</label>
+        <input
+          onChange={this.handleChange}
+          value={this.state.instagram}
+          type="text"
+          id="instagram"
+          name="instagram"
+        />
+        <label htmlFor="website">Website</label>
+        <input
+          onChange={this.handleChange}
+          value={this.state.website}
+          type="text"
+          id="website"
+          name="website"
+        />
+        <label htmlFor="description">Description</label>
+        <input
+          onChange={this.handleChange}
+          value={this.state.description}
+          type="text"
+          id="description"
+          name="description"
+        />
+        <label htmlFor="credit">Credit</label>
+        <input
+          onChange={this.handleChange}
+          value={this.state.credit}
+          type="number"
+          id="credit"
+          name="credit"
         />
         <button>Submit</button>
       </form>
