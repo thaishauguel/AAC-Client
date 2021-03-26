@@ -52,6 +52,14 @@ const apiHandler = {
       .then((res) => res.data)
       .catch(errorHandler);
   },
+
+  // fetch results from searchBar query
+  getResults(query) {
+    return service
+      .get(`/api/artworks/results?search=${query}`)
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
 };
 
 export default apiHandler;
