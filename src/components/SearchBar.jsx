@@ -5,7 +5,6 @@ class SearchBar extends Component {
   handleEnter = (evt) => {
     if (evt.key === "Enter") {
       this.props.getSearchedValue();
-      console.log("search!");
       this.props.history.push("/results");
     }
   };
