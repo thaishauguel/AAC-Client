@@ -1,0 +1,44 @@
+.ArtworkCard img {
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+} 
+.ArtworkCard .details {
+    background-color: #fff;
+    padding: 16px 25px;
+}
+.ArtworkCard .details h5 {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 500;
+}
+.ArtworkCard .details h6 {
+    font-size: 16px;
+    line-height: 15px;
+    margin-bottom: 30px;
+}
+.ArtworkCard .details h6::before {
+   content: "@";
+}
+
+.Bid-status {
+    position: relative;
+    bottom: 0;
+}
+.Bid-status p{
+    font-size: 14px;
+    font-weight: 300;
+}
+.Bid-status .Price{
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 30px;
+}
+.Bid-status .Currency{
+    font-size: 0.7em;
+}
+.Bid-status .Dollars{
+    line-height: 10px;
+    color: #8C8C8C;
+}
+

@@ -1,0 +1,38 @@
+.Home {
+}
+
+.Top-artwork {
+    padding: 50px 100px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 90px;
+}
+.Top-artwork h1 {
+    font-size: 55px;
+}
+.Top-artwork h4 {
+    font-weight: 300;
+    font-size: 20px;
+    color: #8C8C8C;
+}
+.Top-artwork img {
+    max-width: 550px;
+    max-height: 500px;
+    object-fit: cover;
+}
+
+.Cards-gallery {
+    margin: 0 100px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-gap: 20px;
+    align-items: center;
+}
+
+.Cards-gallery h3 {
+    font-size: 50px;
+    font-weight: 400;
+    text-decoration: underline;
+}
