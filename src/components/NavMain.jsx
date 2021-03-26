@@ -23,7 +23,7 @@ console.log("navBar props: ", props)
   return (
     <nav className="NavMain">
       <NavLink exact to="/">
-        <h3 className="logo">App name</h3>
+        <h3 className="logo">.aac</h3>
       </NavLink>
 
       <SearchBar           

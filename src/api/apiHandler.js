@@ -46,6 +46,26 @@ const apiHandler = {
       .catch(errorHandler);
   },
 
+  getSalesOn() {
+    return service
+      .get("/api/artworks")
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
+
+  getOneArtwork(id) {
+    return service
+      .get(`/api/artworks/${id}`)
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
+  getOneCreator(id) {
+    return service
+      .get(`/api/artworks/artist/${id}`)
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
+
   getItems() {
     return service
       .get("/api/items")
