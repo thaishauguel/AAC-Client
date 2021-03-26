@@ -28,7 +28,7 @@ export default class App extends Component {
     this.clearInputSearch());
   };
   render() {
-    console.log(this.state);
+
     return (
       <div className="App">
         <NavMain

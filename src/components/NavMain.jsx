@@ -8,7 +8,6 @@ import "../styles/NavMain.css";
 
 const NavMain = (props) => {
   const { context } = props;
-console.log("navBar props: ", props)
   function handleLogout() {
     apiHandler
       .logout()
