@@ -16,13 +16,14 @@ class MyActivity extends Component {
         .getMyCurrentBids()
         .then((data) => {
         this.setState({myCurrentBids : data})
-    })
+        })
+        .catch(err=>console.log(err))
         apiHandler
         .getMyCurrentSales()
         .then((data) => {
         this.setState({myCurrentSales : data})
-    })
-    
+        })
+        .catch(err=>console.log(err))
     }
 
     render() {
