@@ -6,6 +6,11 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./pages/Profile";
+// import MyActivity from "./pages/SubProfilePages/MyActivity";
+// import MyCollection from "./pages/SubProfilePages/MyCollection";
+// import MyCreactions from "./pages/SubProfilePages/MyCreactions";
+
+
 
 function App() {
   return (
@@ -16,6 +21,9 @@ function App() {
         <Route exact path="/signin" component={Signin} />
         <Route exact path="/signup" component={Signup} />
         <ProtectedRoute exact path="/profile" component={Profile} />
+
+
+
       </Switch>
     </div>
   );

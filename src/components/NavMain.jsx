@@ -19,6 +19,7 @@ const NavMain = (props) => {
       });
   }
 
+
   return (
     <nav className="NavMain">
       <NavLink exact to="/">

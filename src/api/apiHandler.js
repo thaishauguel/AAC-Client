@@ -46,12 +46,40 @@ const apiHandler = {
       .catch(errorHandler);
   },
 
-  getItems() {
+  // getItems() {
+  //   return service
+  //     .get("/api/items")
+  //     .then((res) => res.data)
+  //     .catch(errorHandler);
+  // },
+
+  getMyCurrentBids(){
     return service
-      .get("/api/items")
+      .get("/api/profile/my-current-bids")
       .then((res) => res.data)
       .catch(errorHandler);
   },
+
+  getMyCurrentSales(){
+    return service
+      .get("/api/profile/my-current-sales")
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
+
+  getMyCollection(){
+    return service
+    .get("/api/profile/my-collection")
+    .then((res)=>res.data)
+    .catch(errorHandler);
+  },
+
+  getMyCreations(){
+    return service
+    .get("/api/profile/my-creations")
+    .then((res)=>res.data)
+    .catch(errorHandler);
+  }
 };
 
 export default apiHandler;
