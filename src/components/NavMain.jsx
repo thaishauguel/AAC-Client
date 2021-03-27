@@ -2,12 +2,12 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { withUser } from "../components/Auth/withUser";
 import apiHandler from "../api/apiHandler";
+import SearchBar from "./../components/SearchBar";
 
 import "../styles/NavMain.css";
 
 const NavMain = (props) => {
   const { context } = props;
-
   function handleLogout() {
     apiHandler
       .logout()
@@ -23,8 +23,14 @@ const NavMain = (props) => {
   return (
     <nav className="NavMain">
       <NavLink exact to="/">
-        <h3 className="logo">App name</h3>
+        <h3 className="logo">.aac</h3>
       </NavLink>
+
+      <SearchBar           
+        getInputSearch={props.getInputSearch}
+        inputSearch={props.inputSearch}
+        getSearchedValue={props.getSearchedValue}/>
+      
       <ul className="nav-list">
         {context.isLoggedIn && (
           <React.Fragment>

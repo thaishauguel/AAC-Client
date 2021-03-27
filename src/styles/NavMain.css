@@ -1,14 +1,20 @@
 .NavMain {
-  background-color: transparent;
-  color: rgb(57, 57, 57);
+  width: 100vw;
+  background-color: white;
+  color: #000;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 20px 50px;
   height: 70px;
 }
 
+.NavMain h3 {
+  font-size: 40px;
+  font-weight: 300;
+}
+
 .NavMain .nav-list {
-  margin-left: auto;
   display: flex;
 }
 

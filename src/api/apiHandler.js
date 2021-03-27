@@ -46,21 +46,35 @@ const apiHandler = {
       .catch(errorHandler);
   },
 
-  // getItems() {
-  //   return service
-  //     .get("/api/items")
-  //     .then((res) => res.data)
-  //     .catch(errorHandler);
-  // },
 
   getMyCurrentBids(){
     return service
       .get("/api/profile/my-current-bids")
+      .then((res)=>res.data)
+      .catch(errorHandler)
+  },
+  getSalesOn() {
+    return service
+      .get("/api/artworks")
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
+
+  getOneArtwork(id) {
+    return service
+      .get(`/api/artworks/${id}`)
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
+  getOneCreator(id) {
+    return service
+      .get(`/api/artworks/artist/${id}`)
       .then((res) => res.data)
       .catch(errorHandler);
   },
 
   getMyCurrentSales(){
+
     return service
       .get("/api/profile/my-current-sales")
       .then((res) => res.data)
@@ -79,7 +93,14 @@ const apiHandler = {
     .get("/api/profile/my-creations")
     .then((res)=>res.data)
     .catch(errorHandler);
-  }
+  },
+  // fetch results from searchBar query
+  getResults(query) {
+    return service
+      .get(`/api/artworks/results?search=${query}`)
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
 };
 
 export default apiHandler;

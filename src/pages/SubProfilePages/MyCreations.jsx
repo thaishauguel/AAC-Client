@@ -11,7 +11,7 @@ class MyCreations extends Component {
         displayAddForm:false,
         title:"",
         description:"",
-        image : null
+        image : ""
     }
 
 
@@ -47,7 +47,7 @@ class MyCreations extends Component {
                 return <div key={artwork._id} style={{display:"flex", padding:5}}><img style={{width:50, padding : 5}} src={artwork.image} alt=""/>
                 <h4 style={{padding:5}} >{artwork.title}</h4>
                 <h4 style={{padding:5}} >{artwork.creator.username}</h4>
-                {artwork.creator===artwork.owner._id?<h4 style={{padding:5}} >Sell</h4>: <h4 style={{padding:5}} >Already sold</h4>}
+                {artwork.creator===artwork.owner._id?<button style={{padding:5}} >Sell</button>: <h4 style={{padding:5}} >Already sold</h4>}
                 </div>
             })}
             <button onClick={this.handleClickAdd}>Add an artwork</button>
