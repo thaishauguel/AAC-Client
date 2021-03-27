@@ -19,7 +19,8 @@ class MyCollection extends Component {
         .getMyCollection()
         .then((data) => {
         this.setState({myCollection : data})
-    })
+        })
+        .catch(err=>console.log(err))
     }
     handleClickSell=(title)=>{
         this.setState({displaySellForm : !this.state.displaySellForm, artworkToSell: title})
