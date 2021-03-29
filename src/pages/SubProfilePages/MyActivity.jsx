@@ -12,8 +12,7 @@ class MyActivity extends Component {
     }
 
 
-    componentDidMount(){
-        
+    componentDidMount(){      
         apiHandler
         .getMyCurrentBids()
         .then((data) => {

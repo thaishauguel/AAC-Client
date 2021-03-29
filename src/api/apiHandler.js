@@ -48,6 +48,7 @@ const apiHandler = {
       .catch(errorHandler);
   },
 
+  // Profile Calls
   UpdateMyProfile(userInfo) {
     return service
       .patch("/api/profile/my-profile/update", userInfo)
@@ -67,9 +68,32 @@ const apiHandler = {
     return service
       .get("/api/profile/my-current-bids")
       .then((res)=>res.data)
+
       .catch(errorHandler)
   },
 
+  getMyCurrentSales(){
+    return service
+      .get("/api/profile/my-current-sales")
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
+
+  getMyCollection(){
+    return service
+    .get("/api/profile/my-collection")
+    .then((res)=>res.data)
+    .catch(errorHandler);
+  },
+
+  getMyCreations(){
+    return service
+    .get("/api/profile/my-creations")
+    .then((res)=>res.data)
+    .catch(errorHandler);
+  },
+
+   // Artworks Calls
   getSalesOn() {
     return service
       .get("/api/artworks")
@@ -90,33 +114,27 @@ const apiHandler = {
       .catch(errorHandler);
   },
 
-  getMyCurrentSales(){
-
-    return service
-      .get("/api/profile/my-current-sales")
-      .then((res) => res.data)
-      .catch(errorHandler);
-  },
-
-  getMyCollection(){
-    return service
-    .get("/api/profile/my-collection")
-    .then((res)=>res.data)
-    .catch(errorHandler);
-  },
-
-  getMyCreations(){
-    return service
-    .get("/api/profile/my-creations")
-    .then((res)=>res.data)
-    .catch(errorHandler);
-  },
   // fetch results from searchBar query
   getResults(query) {
     return service
       .get(`/api/artworks/results?search=${query}`)
       .then((res) => res.data)
       .catch(errorHandler);
+  },
+
+  //Auctions Call
+  getLastAuction(id) {
+    return service
+      .get(`/api/auctions/${id}/last-auction`)
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
+
+  addAnAuction(auctionInfo){
+    return service
+    .post('/api/auctions/new', auctionInfo)
+    .then((res)=>res.data)
+    .catch(errorHandler)
   },
 
   addAnAuction(auctionInfo){
