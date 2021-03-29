@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import apiHandler from "../../api/apiHandler";
 import { withUser } from "../../components/Auth/withUser";
+import {Link} from 'react-router-dom'
 
 
 
@@ -29,7 +30,6 @@ class MyActivity extends Component {
     render() {
         if (!this.state.myCurrentSales || !this.state.myCurrentBids || !this.props.context.user ){return <div>Loading...</div>}
         
-        console.log(this.state.myCurrentBids, this.state.myCurrentSales)
         return (
         <div className="flex">
             <div>
@@ -39,10 +39,10 @@ class MyActivity extends Component {
                         {this.state.myCurrentBids.map((auction)=>{
                             return <tr key={auction._id}>
                                 <td>
-                                    <img className="Miniature" src={auction._artworkId.image} alt={auction._artworkId.title}/>
+                                    <Link ><img className="Miniature" src={auction._artworkId.image} alt={auction._artworkId.title}/></Link>
                                 </td>
                                 <td>
-                                    <p>{auction._artworkId.title}</p>
+                                <Link><h4>{auction._artworkId.title}</h4></Link>
                                 </td>
                                 <td>
                                 <p>Current bid : ${auction.bids[0].bidValue}</p>
@@ -69,9 +69,10 @@ class MyActivity extends Component {
                                 <p>{auction._artworkId.title} by {auction._artworkId.creator.username}</p>
                             </td>
                             <td>
-                                <p>Current bid : ${auction.bids[0].bidValue}</p>
-                                <p>Placed by : {auction.bids[0].bidder.username}</p>
-                            </td>
+                            {auction.bids[0]? <div><p>Current bid : ${auction.bids[0].bidValue}</p>
+                                <p>Placed by : {auction.bids[0].bidder.username}</p></div>
+                             : <p>No bid yet</p>}
+                             </td>
                         </tr>
                     })}
                 </tbody>

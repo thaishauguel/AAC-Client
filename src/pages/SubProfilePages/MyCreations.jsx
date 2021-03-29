@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import AddAnAuction from "../../components/Forms/AddAnAuction";
+
 
 import apiHandler from "../../api/apiHandler";
 
@@ -13,7 +15,12 @@ class MyCreations extends Component {
     title: "",
     description: "",
     image: "",
+    displaySellForm : false,
+    artworkToSell : null
   };
+
+
+
 
   componentDidMount() {
     apiHandler
@@ -24,13 +31,39 @@ class MyCreations extends Component {
       .catch((err) => console.log(err));
   }
 
+  handleClickSell=(artwork)=>{
+    this.setState({displaySellForm : true, artworkToSell:artwork })
+}
+
   handleClickAdd = () => {
     this.setState({ displayAddForm: !this.state.displayAddForm });
   };
 
-  handleSubmit = () => {
-    console.log("submitted!");
+  handleFileChange = (event) => {
+
+    // console.log("The file added by the use is: ", event.target.files[0]);
+    this.setState({
+      image: event.target.files[0],
+    });
   };
+
+  handleSubmit = (event) => {
+    // event.preventDefault() // parti pris de faire un refresh ici
+    // console.log(this.state.title, this.state.description)
+    const newArtwork= new FormData()
+    newArtwork.append("title", this.state.title)
+    newArtwork.append("description", this.state.description)
+    newArtwork.append("image", this.state.image)
+
+    apiHandler
+  .addAnArtwork(newArtwork)
+  .then(()=>console.log('artwork created!'))
+  .catch(err=>console.log(err))
+  };
+  
+  
+
+  
 
   handleChange = (event) => {
     const name = event.target.name;
@@ -42,7 +75,7 @@ class MyCreations extends Component {
     if (!this.state.myCreations) {
       return <div>Loading...</div>;
     }
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <div className="flex">
         <section>
@@ -50,7 +83,6 @@ class MyCreations extends Component {
           <table className="Profile-table">
             <tbody>
                 {this.state.myCreations.map((artwork) => {
-                  console.log(artwork)
                   return (
                     <tr key={artwork._id} >
                         
@@ -75,7 +107,7 @@ class MyCreations extends Component {
                         
                         <td>
                           {artwork.creator === artwork.owner._id ? (
-                            <button><img className="Btn-icon" src="img/auction-btn.svg" alt="auction-btn" /></button>
+                            artwork.forSale===false? <button onClick={()=>this.handleClickSell(artwork)}><img className="Btn-icon" src="img/auction-btn.svg" alt="auction-btn" /></button> : <Link to={`artworks/${artwork._id}`}><h4>Auction in progress</h4></Link>
                           ) : (
                             <p>Already sold</p>
                           )}
@@ -88,7 +120,9 @@ class MyCreations extends Component {
           <button className="Btn-black" onClick={this.handleClickAdd}>{this.state.displayAddForm ? "Close" : "Add an artwork"}</button>
         </section>
 
-        
+        {this.state.displaySellForm && <AddAnAuction  auction={this.state.artworkToSell}/>}
+
+
         {this.state.displayAddForm && (
           <section>
             <h3>Add an artwork</h3>
@@ -116,8 +150,7 @@ class MyCreations extends Component {
               <input
                 id="image"
                 name="image"
-                value={this.state.image}
-                onChange={this.handleChange}
+                onChange={this.handleFileChange}
                 type="file"
                 placeholder="Upload the image"
               />
