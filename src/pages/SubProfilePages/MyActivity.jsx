@@ -17,45 +17,66 @@ class MyActivity extends Component {
         .getMyCurrentBids()
         .then((data) => {
         this.setState({myCurrentBids : data})
-    })
+        })
+        .catch(err=>console.log(err))
         apiHandler
         .getMyCurrentSales()
         .then((data) => {
         this.setState({myCurrentSales : data})
-    })
+        })
+        .catch(err=>console.log(err))
     }
 
     render() {
-        console.log(this.props)
-        if (!this.state.myCurrentSales || !this.state.myCurrentBids ){return <div>Loading...</div>}
+        if (!this.state.myCurrentSales || !this.state.myCurrentBids || !this.props.context.user ){return <div>Loading...</div>}
+        
         console.log(this.state.myCurrentBids, this.state.myCurrentSales)
         return (
-        <div>
+        <div className="flex">
             <div>
                 <h3>My current bids</h3>
-                {this.state.myCurrentBids.length!==0 && this.state.myCurrentBids.map((auction)=>{
-                    return <div key={auction._id} style={{display:"flex", padding:5}}><img style={{width:50}} src={auction._artworkId.image} alt=""/>
-                    <h4 style={{padding:5}} >{auction._artworkId.title}</h4>
-                    <div>
-                    <h4 style={{padding:5}} >Current bid : ${auction.bids[0].bidValue}</h4>
-                    {auction.bids.filter((bid)=>bid.bidder._id=== this.props.context.user._id).length>0 && <h4 style={{padding:5}}>My last bid : ${auction.bids.filter((bid)=>bid.bidder._id=== this.props.context.user._id)[0].bidValue}</h4>}
-                    </div>
-                    </div>
-                })}
-                
+                <table className="Profile-table">
+                    <tbody>
+                        {this.state.myCurrentBids.map((auction)=>{
+                            return <tr key={auction._id}>
+                                <td>
+                                    <img className="Miniature" src={auction._artworkId.image} alt={auction._artworkId.title}/>
+                                </td>
+                                <td>
+                                    <h4>{auction._artworkId.title}</h4>
+                                </td>
+                                <td>
+                                <p>Current bid : ${auction.bids[0].bidValue}</p>
+                                {
+                                    auction.bids.filter((bid)=> bid.bidder._id === this.props.context.user._id).length > 0 
+                                    && <p>My last bid : ${auction.bids.filter((bid)=>bid.bidder._id === this.props.context.user._id)[0].bidValue}</p>}
+                                </td>
+                            </tr>
+                        })}
+                    </tbody>
+                </table>
             </div>
+
             <div>
             <h3>My current Sales</h3>
-            {this.state.myCurrentSales.map((auction)=>{
-                return <div key={auction._id} style={{display:"flex", padding:5}}><img style={{width:50}} src={auction._artworkId.image} alt=""/>
-                <h4 style={{padding:5}} >{auction._artworkId.title}</h4>
-                <h4 style={{padding:5}} >{auction._artworkId.creator.username}</h4>
-                <div>
-                <h4 style={{padding:5}} >Current bid : ${auction.bids[0].bidValue}</h4>
-                <h4 style={{padding:5}} >Placed by : {auction.bids[0].bidder.username}</h4>
-                </div>
-                </div>
-            })}
+            <table className="Profile-table">
+                <tbody>
+                    {this.state.myCurrentSales.map((auction)=>{
+                        return <tr key={auction._id}>
+                            <td>
+                                <img className="Miniature" src={auction._artworkId.image} alt={auction._artworkId.title}/>
+                            </td>
+                            <td>
+                                <p>{auction._artworkId.title} by {auction._artworkId.creator.username}</p>
+                            </td>
+                            <td>
+                                <p>Current bid : ${auction.bids[0].bidValue}</p>
+                                <p>Placed by : {auction.bids[0].bidder.username}</p>
+                            </td>
+                        </tr>
+                    })}
+                </tbody>
+            </table>
             
             </div> 
         </div>

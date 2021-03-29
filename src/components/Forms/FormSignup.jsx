@@ -8,7 +8,7 @@ class FormSignup extends Component {
     email: "toto@gmail.com",
     password: "toto",
     username:"toto",
-    avatar:null,
+    avatar: "https://cdn.boldomatic.com/content/post/fl4sZw/LOVE-ME-I-M-AN-ARTIST?size=800",
     instagram:"",
     website:"",
     description:"",

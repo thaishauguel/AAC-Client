@@ -43,6 +43,10 @@ export default class Results extends Component {
             <h2>Results for: <span className="searched-keyword">{this.props.searchedValue}</span></h2>
           )}
           </section>
+          <section style={{margin: "70px"}}>
+            {/* A REMPLACER */}
+            <p> Romain | Romain33 | Romain75 | RomainBlabla</p>
+          </section>
             <section className="Cards-gallery">
             {this.state.artworks.map((artwork) => (
               <ArtworkCard key={artwork._id} artwork={artwork} />
