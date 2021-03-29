@@ -20,6 +20,8 @@ class UserProvider extends Component {
       });
   }
 
+  
+
   setUser = (user) => {
     this.setState({ user, isLoggedIn: true });
   };

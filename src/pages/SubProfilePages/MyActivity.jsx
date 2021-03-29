@@ -12,6 +12,7 @@ class MyActivity extends Component {
 
 
     componentDidMount(){
+        
         apiHandler
         .getMyCurrentBids()
         .then((data) => {
@@ -22,17 +23,17 @@ class MyActivity extends Component {
         .then((data) => {
         this.setState({myCurrentSales : data})
     })
-    
     }
 
     render() {
-        if (!this.state.myCurrentSales || !this.state.myCurrentBids){return <div>Loading...</div>}
+        console.log(this.props)
+        if (!this.state.myCurrentSales || !this.state.myCurrentBids ){return <div>Loading...</div>}
         console.log(this.state.myCurrentBids, this.state.myCurrentSales)
         return (
         <div>
             <div>
                 <h3>My current bids</h3>
-                {this.state.myCurrentBids.map((auction)=>{
+                {this.state.myCurrentBids.length!==0 && this.state.myCurrentBids.map((auction)=>{
                     return <div key={auction._id} style={{display:"flex", padding:5}}><img style={{width:50}} src={auction._artworkId.image} alt=""/>
                     <h4 style={{padding:5}} >{auction._artworkId.title}</h4>
                     <div>
