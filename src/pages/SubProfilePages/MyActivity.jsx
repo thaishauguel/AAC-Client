@@ -11,8 +11,7 @@ class MyActivity extends Component {
     }
 
 
-    componentDidMount(){
-        
+    componentDidMount(){      
         apiHandler
         .getMyCurrentBids()
         .then((data) => {
@@ -43,7 +42,7 @@ class MyActivity extends Component {
                                     <img className="Miniature" src={auction._artworkId.image} alt={auction._artworkId.title}/>
                                 </td>
                                 <td>
-                                    <h4>{auction._artworkId.title}</h4>
+                                    <p>{auction._artworkId.title}</p>
                                 </td>
                                 <td>
                                 <p>Current bid : ${auction.bids[0].bidValue}</p>

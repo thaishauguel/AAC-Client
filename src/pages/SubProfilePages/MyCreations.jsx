@@ -77,7 +77,7 @@ class MyCreations extends Component {
                           {artwork.creator === artwork.owner._id ? (
                             <button><img className="Btn-icon" src="img/auction-btn.svg" alt="auction-btn" /></button>
                           ) : (
-                            <h4>Already sold</h4>
+                            <p>Already sold</p>
                           )}
                         </td>
                       </tr>

@@ -8,10 +8,6 @@ import FormUpdate from "./SubProfilePages/FormUpdate";
 //CSS
 import "../styles/Profile.css"
 
-
-
-
-
 class Profile extends Component {
 
   state={
