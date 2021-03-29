@@ -137,6 +137,13 @@ const apiHandler = {
     .catch(errorHandler)
   },
 
+  addAnAuction(auctionInfo){
+    return service
+    .post('/api/auctions/new', auctionInfo)
+    .then((res)=>res.data)
+    .catch(errorHandler)
+  },
+
   addAnArtwork(artworkInfo){
     return service
     .post('/api/artworks/new', artworkInfo)
