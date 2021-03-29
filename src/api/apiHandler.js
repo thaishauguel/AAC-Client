@@ -28,7 +28,9 @@ const apiHandler = {
       .post("/api/auth/signin", userInfo)
       .then((res) => {
         console.log('bonjour')
-        console.log(res.data)})
+        console.log(res.data)
+        return res.data
+      })
       .catch(errorHandler);
   },
 
@@ -46,6 +48,20 @@ const apiHandler = {
       .catch(errorHandler);
   },
 
+  UpdateMyProfile(userInfo) {
+    return service
+      .patch("/api/profile/my-profile/update", userInfo)
+      .then((res)=> {console.log("in ApiHandler", res.data)
+      return res.data })  
+      .catch(errorHandler);
+  },
+  
+  getMyProfile(){
+    return service
+      .get("/api/profile/my-profile")
+      .then((res)=>res.data)
+      .catch(errorHandler)
+  },
 
   getMyCurrentBids(){
     return service
@@ -53,6 +69,7 @@ const apiHandler = {
       .then((res)=>res.data)
       .catch(errorHandler)
   },
+
   getSalesOn() {
     return service
       .get("/api/artworks")
