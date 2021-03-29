@@ -23,7 +23,7 @@ class MyCollection extends Component {
         .catch(err=>console.log(err))
     }
     handleClickSell=(title)=>{
-        this.setState({displaySellForm : !this.state.displaySellForm, artworkToSell: title})
+        this.setState({displaySellForm : true, artworkToSell: title})
     }
         
      handleSubmit=()=>{
@@ -39,19 +39,33 @@ render(){
     if (!this.state.myCollection){return <div>Loading...</div>}
     console.log(this.state)
     return (
-        <div>
-            {this.state.myCollection.map((artwork)=>{
-                return <div key={artwork._id} style={{display:"flex", padding:5}}><img style={{width:50}} src={artwork.image} alt=""/>
-                <h4 style={{padding:5}} >{artwork.title}</h4>
-                <h4 style={{padding:5}} >{artwork.creator.username}</h4>
-                <button onClick={()=>this.handleClickSell(artwork.title)}>Sell</button>
+        <div className="flex">
+            <table className="Profile-table">
+                <tbody>
+                    {this.state.myCollection.map((artwork)=>{
+                        return (
+                        <tr key={artwork._id}> 
+                            <td>
+                                <img className="Miniature" src={artwork.image} alt={artwork.title}/>
+                            </td>
+                            <td>
+                                <p> {artwork.title} by {artwork.creator.username} </p>
+                            </td>
+                            <td>
+                            <button onClick={()=>this.handleClickSell(artwork.title)}>
+                                <img className="Btn-icon" src="img/auction-btn.svg" alt="auction-btn" />
+                            </button>
+                            </td>
+                        </tr> )
+                    })}    
+                </tbody>
+            </table>
 
-                </div>
-            })}
-            {this.state.displaySellForm && <form onSubmit={this.handleSubmit}>
-            <input type="text"  readOnly value={this.state.artworkToSell}/>
-            <input id="initialPrice" onChange={this.handleChange} name="initialPrice" value={this.state.initialValue} type="number" placeholder="Initial price"/>
-            <button>Submit</button>
+            {this.state.displaySellForm && 
+            <form onSubmit={this.handleSubmit}>
+                <input type="text"  readOnly value={this.state.artworkToSell}/>
+                <input id="initialPrice" onChange={this.handleChange} name="initialPrice" value={this.state.initialValue} type="number" placeholder="Initial price"/>
+                <button className="Btn-black">Create an Auction</button> 
             </form>}
         </div>
     )

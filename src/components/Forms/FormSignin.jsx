@@ -23,8 +23,7 @@ class FormSignin extends Component {
       .signin(this.state)
       .then((data) => {
         this.props.context.setUser(data);
-        this.props.history.push("/profile"); 
-
+     
       })
       .catch((error) => {
         console.log(error);
@@ -34,7 +33,7 @@ class FormSignin extends Component {
 
   render() {
     if (this.props.context.user) {
-      return <Redirect to="/" />;
+      return <Redirect to="/profile" />;
     }
 
     return (

@@ -1,0 +1,55 @@
+
+.Profile {
+  margin: 0 100px;
+  margin-top: 50px;
+}
+.Profile-title {
+  position: relative;
+  display: inline-block
+}
+.Profile h1 {
+  font-weight: 400;
+  font-size: 50px;
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+
+.Profile h1 + img {
+  position: absolute;
+  cursor: pointer;
+  top: 10px;
+  right: -30px;
+  width: 24px;
+}
+
+.Profile-nav ul {
+    display: flex;
+    margin-bottom: 40px;
+    align-items: center;
+}
+.Profile-nav li {
+    cursor: pointer;
+    text-align: center;
+    padding: 0 10px;
+    font-size: 20px;
+}
+.Profile-nav li:first-child {
+    padding: 0 10px 0 0;
+}
+.Profile-table {
+    border-collapse:collapse;
+    margin-bottom: 20px;
+    margin-right: 50px;
+}
+.Profile-table tr {
+    border: 1px solid #000;
+}
+.Profile-table td {
+    border-left: 1px solid #8C8C8C;
+    padding: 10px 20px ;
+    align-items: center;
+}
+.Profile-table td:last-child {
+    text-align: center;
+}
+

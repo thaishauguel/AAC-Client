@@ -24,16 +24,14 @@ export class OneArtwork extends Component {
                         const selectArtworks = res.slice(0,4)
                         this.setState({otherArtworks: selectArtworks})
                 })
-            })    
+            })
+            .catch(err => console.log(err))
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log('update')
         if (prevState.artwork !== null) {
             if (prevState.artwork._id !== this.props.match.params.id ) {
-                console.log('update3')
                 const artworkId = this.props.match.params.id
-                console.log('new artworkId', artworkId)
                 let creatorId;
                 api.getOneArtwork(artworkId)
                     .then(res => {
@@ -44,7 +42,8 @@ export class OneArtwork extends Component {
                                 const selectArtworks = res.slice(0,4)
                                 this.setState({otherArtworks: selectArtworks})
                         })
-                    })    
+                    })
+                    .catch(err => console.log(err))
             }
         }
     }
@@ -63,6 +62,7 @@ export class OneArtwork extends Component {
                     <div>
                         <h1>{artwork.title}</h1>
                         <h4>{artwork.creator.username}</h4>
+                        <h4>{artwork.description}</h4>
                         {/* 
                         Bid Component to add 
                         */}
