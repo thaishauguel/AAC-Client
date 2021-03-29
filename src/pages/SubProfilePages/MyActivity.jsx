@@ -39,7 +39,7 @@ class MyActivity extends Component {
                         {this.state.myCurrentBids.map((auction)=>{
                             return <tr key={auction._id}>
                                 <td>
-                                    <Link ><img className="Miniature" src={auction._artworkId.image} alt={auction._artworkId.title}/></Link>
+                                    <Link><img className="Miniature" src={auction._artworkId.image} alt={auction._artworkId.title}/></Link>
                                 </td>
                                 <td>
                                 <Link><h4>{auction._artworkId.title}</h4></Link>

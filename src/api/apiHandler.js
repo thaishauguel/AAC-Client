@@ -130,10 +130,12 @@ const apiHandler = {
       .catch(errorHandler);
   },
 
-  addAnAuction(auctionInfo){
+  addABid(bidValue, id){
     return service
-    .post('/api/auctions/new', auctionInfo)
-    .then((res)=>res.data)
+    .patch(`/api/auctions/${id}/new-bid`, {bidValue: bidValue} )
+    .then((res)=> {
+      console.log("AddaBid ", res.data)
+      return res.data })
     .catch(errorHandler)
   },
 
@@ -149,7 +151,17 @@ const apiHandler = {
     .post('/api/artworks/new', artworkInfo)
     .then((res)=>res.data)
     .catch(errorHandler)
-  }
+  },
+
+  // Conversion ETH to $
+  // getCurrentPrice() {
+  //   return service
+  //   .get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR')
+  //   .then(res => res.data)
+  //   .catch(errorHandler)
+  // },
+  
 };
+
 
 export default apiHandler;

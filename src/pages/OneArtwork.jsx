@@ -32,7 +32,6 @@ export class OneArtwork extends Component {
     api
       .getLastAuction(artworkId)
       .then((res) => {
-        console.log(res);
         if (res.active) {
           this.setState({ auction: res, isActive: true });
         } else if (!res.active && res.bids) {
@@ -89,7 +88,7 @@ export class OneArtwork extends Component {
             <div>
               <img src={artwork.image} alt="hey" />
               {auction && !isActive && <IsSold bids={auction.bids} />}
-              {auction && isActive && <IsActive bids={auction.bids} />}
+              {auction && isActive && <IsActive auction={auction} />}
               {!auction && !isActive && <NeverSold />}
             </div>
             <div>

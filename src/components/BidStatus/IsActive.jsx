@@ -1,27 +1,56 @@
 import React, { Component } from "react";
+import apiHandler from "../../api/apiHandler";
 import "../../styles/BidStatus.css";
 
 export class IsActive extends Component {
   state = {
     isFormOpen: false,
+    bidValue: 0,
+    currentInput: 0,
   };
+
+  componentDidMount() {
+    this.setState({ bidValue: this.props.auction.bids[0].bidValue });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("hey");
+    if (prevState.bidValue !== this.state.bidValue) {
+      this.setState({ bidValue: this.state.bidValue });
+    }
+  }
 
   displayBidForm = () => {
     this.setState({ isFormOpen: !this.state.isFormOpen });
   };
 
-  handleSubmit = () => {};
+  handleChange = (event) => {
+    const value = event.target.value;
+    this.setState({ currentInput: value }, () =>
+      console.log(this.state.bidValue)
+    );
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.setState({ bidValue: this.state.currentInput }, () => {
+      apiHandler
+        .addABid(this.state.bidValue, this.props.auction._id)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    });
+  };
 
   render() {
     const { isFormOpen } = this.state;
-    const { bids } = this.props;
+    const { auction } = this.props;
     return (
       <div className="BidStatus active">
         <div className="Auction-on flex">
           <div className="Infos-sale">
             <h5>Current Bid</h5>
             <p className="Price">
-              {bids[0].bidValue}
+              {this.state.bidValue}
               <span className="Currency">ETH</span>
             </p>
             <p className="Dollars">$700</p>
@@ -36,11 +65,15 @@ export class IsActive extends Component {
           <form onSubmit={this.handleSubmit} className="Input-bid flex">
             <input
               type="number"
-              name=""
-              id="bid"
-              min={bids[0].bidValue}
+              id="bidValue"
+              name="bidValue"
+              min={auction.bids[0].bidValue + 0.01}
+              step="0.01"
               placeholder="Place your bid"
+              onChange={this.handleChange}
+              value={this.state.currentInput}
             />
+
             <button className="Btn-bid">Submit</button>
           </form>
         )}
