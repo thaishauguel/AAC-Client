@@ -109,7 +109,7 @@ class MyCreations extends Component {
                           {artwork.creator === artwork.owner._id ? (
                             artwork.forSale===false? <button onClick={()=>this.handleClickSell(artwork)}><img className="Btn-icon" src="img/auction-btn.svg" alt="auction-btn" /></button> : <Link to={`artworks/${artwork._id}`}><h4>Auction in progress</h4></Link>
                           ) : (
-                            <h4>Already sold</h4>
+                            <p>Already sold</p>
                           )}
                         </td>
                       </tr>

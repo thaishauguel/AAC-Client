@@ -1,0 +1,61 @@
+.BidStatus {
+  border: 2px solid #000;
+  padding: 20px 40px;
+  margin-top: 20px;
+}
+.BidStatus.active {
+  background-color: #000;
+  margin-top: 0;
+}
+
+.BidStatus h5 {
+  font-size: 20px;
+}
+
+.Infos-sale {
+  margin-right: 40px;
+}
+.Infos-sale .Price {
+  font-size: 40px;
+  font-weight: 500;
+}
+.Infos-sale .Currency {
+  font-size: 0.7em;
+}
+.Infos-sale .Dollars {
+  line-height: 10px;
+  color: #8c8c8c;
+}
+
+.Infos-owner p {
+  font-size: 26px;
+}
+
+.Auction-on {
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000;
+  color: white;
+}
+
+.Btn-bid {
+  padding: 13px 20px;
+  color: #00f035;
+  border: 1px solid #00f035;
+}
+
+.Input-bid {
+  margin-top: 20px;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+}
+.Input-bid label {
+  color: #fff;
+}
+.Input-bid input {
+  margin: 0; /* reset from global.css */
+  background-color: inherit;
+  color: #00f035;
+  width: 50%;
+}
