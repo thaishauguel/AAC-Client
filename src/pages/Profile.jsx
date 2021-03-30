@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {NavLink} from 'react-router-dom'
 import MyActivity from "./SubProfilePages/MyActivity";
 import MyCollection from "./SubProfilePages/MyCollection";
 import MyCreations from "./SubProfilePages/MyCreations";
@@ -30,6 +29,7 @@ class Profile extends Component {
 
   }
   render(){
+    console.log("profile state: ",this.state)
     const {displayCrea, displayColl, displayAct, displayUpdate} = this.state
     const isActive = { fontWeight: "500" }
     return (

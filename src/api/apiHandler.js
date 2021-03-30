@@ -111,6 +111,12 @@ const apiHandler = {
       .then((res) => res.data)
       .catch(errorHandler);
   },
+  addAnArtwork(artworkInfo){
+    return service
+    .post('/api/artworks/new', artworkInfo)
+    .then((res)=>res.data)
+    .catch(errorHandler)
+  },
 
   // fetch results from searchBar query
   getResults(query) {
@@ -144,17 +150,17 @@ const apiHandler = {
     .catch(errorHandler)
   },
 
-  addAnArtwork(artworkInfo){
-    return service
-    .post('/api/artworks/new', artworkInfo)
-    .then((res)=>res.data)
-    .catch(errorHandler)
-  },
-
   closeAnAuction(auctionId, owner){
     console.log('new owner id dans le api handler', owner)
     return service
     .patch(`/api/auctions/close-auction/${auctionId}`, owner)
+    .then((res)=>res.data)
+    .catch(errorHandler)
+  },
+
+  deleteAuction(auctionId) {
+    return service
+    .delete(`/api/auctions/${auctionId}`)
     .then((res)=>res.data)
     .catch(errorHandler)
   }

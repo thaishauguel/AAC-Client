@@ -19,9 +19,6 @@ class MyCreations extends Component {
     artworkToSell : null
   };
 
-
-
-
   componentDidMount() {
     apiHandler
       .getMyCreations()
@@ -40,16 +37,13 @@ class MyCreations extends Component {
   };
 
   handleFileChange = (event) => {
-
-    // console.log("The file added by the use is: ", event.target.files[0]);
     this.setState({
       image: event.target.files[0],
     });
   };
 
   handleSubmit = (event) => {
-    // event.preventDefault() // parti pris de faire un refresh ici
-    // console.log(this.state.title, this.state.description)
+    event.preventDefault()
     const newArtwork= new FormData()
     newArtwork.append("title", this.state.title)
     newArtwork.append("description", this.state.description)
@@ -57,13 +51,29 @@ class MyCreations extends Component {
 
     apiHandler
   .addAnArtwork(newArtwork)
-  .then(()=>console.log('artwork created!'))
+  .then(()=>{
+    // after creation: close form and reset inputs
+    this.setState({displayAddForm:false});
+    this.setState({title: "", description: "", image: ""}) 
+    console.log('artwork created!')
+    })
   .catch(err=>console.log(err))
   };
   
-  
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.displayAddForm!==this.state.displayAddForm || prevState.displaySellForm!==this.state.displaySellForm) {
+    apiHandler
+      .getMyCreations()
+      .then((data) => {
+        this.setState({ myCreations: data });
+      })
+      .catch((err) => console.log(err));
+    }
+  };
 
-  
+  closeSellForm = () => {
+    this.setState({displaySellForm: false})
+  };
 
   handleChange = (event) => {
     const name = event.target.name;
@@ -75,7 +85,7 @@ class MyCreations extends Component {
     if (!this.state.myCreations) {
       return <div>Loading...</div>;
     }
-    // console.log(this.state);
+    // console.log("mycreation state: ",this.state);
     return (
       <div className="flex">
         <section>
@@ -120,7 +130,7 @@ class MyCreations extends Component {
           <button className="Btn-black" onClick={this.handleClickAdd}>{this.state.displayAddForm ? "Close" : "Add an artwork"}</button>
         </section>
 
-        {this.state.displaySellForm && <AddAnAuction  auction={this.state.artworkToSell}/>}
+        {this.state.displaySellForm && <AddAnAuction  auction={this.state.artworkToSell} closeForm={this.closeSellForm}/>}
 
 
         {this.state.displayAddForm && (

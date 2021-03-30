@@ -11,17 +11,21 @@ class MyActivity extends Component {
     state={
         myCurrentBids: null,
         myCurrentSales: null,
-        boolean: true
+        boolean: true // is toggled when auction is closed
     }
 
     closeTheAuction=(auction)=>{
-        // console.log(auction.bids[0].bidder._id)
-        // let newOwnerId = auction.bids[0].bidder._id
+        if (auction.bids[0]) { // if there is at least one bid, new owner is last bidder
         apiHandler
         .closeAnAuction(auction._id,{owner : auction.bids[0].bidder._id } )
         .then(()=>this.setState({boolean : !this.state.boolean}))
         .catch(err=>console.log(err))
-
+        } else { // if no one has bidded yet, auction is deleted
+        apiHandler
+        .deleteAuction(auction._id)
+        .then(()=>this.setState({boolean : !this.state.boolean}))
+        .catch(err=>console.log(err))
+        }
     }
 
     componentDidUpdate(prevProps, prevState){
