@@ -83,7 +83,7 @@ export default class FormUpdateOneCreation extends Component {
 
             <button className="Btn-black">Update</button>
             </form>
-            <button onClick={this.handleDelete}>Delete</button>
+            <button className="Btn-minimal" onClick={this.handleDelete}>Delete</button>
           </section>
         )
     }

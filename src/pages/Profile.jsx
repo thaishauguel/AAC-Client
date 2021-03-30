@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {NavLink} from 'react-router-dom'
+import {withUser} from '../components/Auth/withUser'
+import Credits from "./../components/Credits";
 import MyActivity from "./SubProfilePages/MyActivity";
 import MyCollection from "./SubProfilePages/MyCollection";
 import MyCreations from "./SubProfilePages/MyCreations";
@@ -30,20 +31,25 @@ class Profile extends Component {
 
   }
   render(){
+    const {user} = this.props.context
     const {displayCrea, displayColl, displayAct, displayUpdate} = this.state
     const isActive = { fontWeight: "500" }
     return (
       <div className="Profile">
-        <div className="Profile-title">
-          <h1>Profile</h1>
-          <img
-            id="displayUpdate"
-            onClick={this.handleClick}
-            src="img/edit-btn.svg"
-            alt=""
-          />
-        </div>
-
+        <header className="flex">
+          <div className="Profile-title flex">
+            <img className="Avatar" src={user.avatar} alt="user avatar" />
+            <h1>Profile</h1>
+            <img
+              id="displayUpdate"
+              onClick={this.handleClick}
+              src="img/edit-btn.svg"
+              alt="edit-icon"
+            />
+          </div>
+          <Credits />          
+        </header>
+        
         <nav className="Profile-nav">
           <ul>
             <li
@@ -81,4 +87,4 @@ class Profile extends Component {
   
 };
 
-export default Profile;
+export default withUser(Profile);

@@ -19,7 +19,8 @@ class MyCreations extends Component {
     displayUpdateForm:false,
     displaySellForm : false,
     artworkToSell : null,
-    artworkToUpdate: null
+    artworkToUpdate: null,
+    message: ""
   };
 
 
@@ -59,6 +60,7 @@ class MyCreations extends Component {
       <div className="flex">
         <section>
           {this.state.myCreations.length===0 && <p>You don't have any creation, add some !</p>}
+          {this.state.message && <p className="Sucess-message">{this.state.message}</p>}
           <table className="Profile-table">
             <tbody>
                 {this.state.myCreations.map((artwork) => {
@@ -95,10 +97,10 @@ class MyCreations extends Component {
                 })}
             </tbody>
           </table>
-          <button className="Btn-black" onClick={this.handleClickAdd}>{this.state.displayAddForm ? "Close" : "Add an artwork"}</button>
+          <button className="Btn-black" onClick={this.handleClickAdd}>Add an artwork</button>
         </section>
 
-        {this.state.displaySellForm && <AddAnAuction  auction={this.state.artworkToSell}/>}
+        {this.state.displaySellForm && <AddAnAuction auction={this.state.artworkToSell}/>}
 
         {this.state.displayAddForm && <FormCreateAnArtwork />}
 
