@@ -10,7 +10,8 @@ export class IsActive extends Component {
   };
 
   componentDidMount() {
-    this.setState({ bidValue: this.props.auction.bids[0].bidValue });
+    if (this.props.auction.bids.length>0){this.setState({ bidValue: this.props.auction.bids[0].bidValue })}
+    else {this.setState({bidValue : this.props.auction.initialPrice })};
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -33,12 +34,16 @@ export class IsActive extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.setState({ bidValue: this.state.currentInput }, () => {
-      apiHandler
-        .addABid(this.state.bidValue, this.props.auction._id)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-    });
+    console.log(this.state.currentInput)
+    if (this.state.currentInput){
+      this.setState({ bidValue: this.state.currentInput }, () => {
+        apiHandler
+          .addABid(this.state.bidValue, this.props.auction._id)
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
+      });
+    }
+    
   };
 
   render() {
@@ -67,7 +72,7 @@ export class IsActive extends Component {
               type="number"
               id="bidValue"
               name="bidValue"
-              min={auction.bids[0].bidValue + 0.01}
+              min={Number(this.state.bidValue) + 0.01}
               step="0.01"
               placeholder="Place your bid"
               onChange={this.handleChange}

@@ -87,6 +87,7 @@ export class OneArtwork extends Component {
           <section className="Top-artwork">
             <div>
               <img src={artwork.image} alt="hey" />
+              {console.log(auction)}
               {auction && !isActive && <IsSold bids={auction.bids} />}
               {auction && isActive && <IsActive auction={auction} />}
               {!auction && !isActive && <NeverSold />}
