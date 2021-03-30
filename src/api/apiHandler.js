@@ -157,7 +157,12 @@ const apiHandler = {
     .patch(`/api/auctions/close-auction/${auctionId}`, owner)
     .then((res)=>res.data)
     .catch(errorHandler)
-  }
+  },
+  changePassword(passwords){
+    return service.patch('/api/auth/update-password', passwords)
+    .then((res)=>res.data)
+    .catch(errorHandler)
+  } 
 };
 
 

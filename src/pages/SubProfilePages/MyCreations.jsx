@@ -75,11 +75,11 @@ class MyCreations extends Component {
     if (!this.state.myCreations) {
       return <div>Loading...</div>;
     }
-    // console.log(this.state);
+    console.log(this.state);
     return (
       <div className="flex">
         <section>
-
+          {this.state.myCreations.length===0 && <p>You don't have any creation, add some !</p>}
           <table className="Profile-table">
             <tbody>
                 {this.state.myCreations.map((artwork) => {

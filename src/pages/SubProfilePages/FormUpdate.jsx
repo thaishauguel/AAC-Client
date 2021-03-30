@@ -12,7 +12,11 @@ class FormUpdate extends Component {
     instagram:"",
     website:"",
     description:"",
-    credit:0
+    credit:0, 
+    isFormPwdDisplayed: false, 
+    formerPassword:"",
+    newPassword:"", 
+    message:""
   };
 
   componentDidMount() {
@@ -31,13 +35,11 @@ class FormUpdate extends Component {
       .catch((err) => console.log(err));
   }
 
- 
-
   handleChange = (event) => {
     const value = event.target.value;
     const key = event.target.name;
 
-    this.setState({ [key]: value }, () => console.log(this.state));
+    this.setState({ [key]: value });
   };
 
   handleFileChange = (event) => {
@@ -69,11 +71,30 @@ class FormUpdate extends Component {
         .catch(error => console.log(error))
   };
 
+  displayFormPwd=()=>{
+    this.setState({isFormPwdDisplayed : !this.state.isFormPwdDisplayed})
+  }
+
+  handleChangePwd=(event)=>{
+    event.preventDefault()
+    let passwords={
+      formerPassword:this.state.formerPassword,
+      newPassword:this.state.newPassword
+    }
+
+    apiHandler
+    .changePassword(passwords)
+    .then(()=>{
+      console.log('successfully changed')
+      this.setState({isFormPwdDisplayed : !this.state.isFormPwdDisplayed, newPassword:"", formerPassword:"", message:"password successfully changed"})
+    })
+    .catch(err=>console.log(err))
+  }
 
   render() {
     return (
-      <div>
-        <h3>Parameters</h3>
+      <div style={{display:"flex", justifyContent:"space-evenly"}}>
+        {/* <h3>Parameters</h3> */}
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="email">Email</label>
           <input
@@ -142,7 +163,24 @@ class FormUpdate extends Component {
           />
 
           <button className="Btn-black" >Update</button>
-        </form>
+          </form>
+        
+        <div>
+        {!this.state.isFormPwdDisplayed && <button onClick={this.displayFormPwd} className="Btn-black">Change your password</button>}
+        {this.state.isFormPwdDisplayed && <form onSubmit={this.handleChangePwd}>
+        <label htmlFor="formerPassword">Former password</label>
+        <input name="formerPassword" onChange={this.handleChange} id="formerPassword" type="password" placeholder="former password"
+                value={this.state.formerPassword}/>
+
+        <label htmlFor="newPassword">New password</label>
+        <input name="newPassword" onChange={this.handleChange} id="newPassword" type="password" placeholder="new password"
+                value={this.state.newPassword}/>
+
+        <button className="Btn-black">Update password</button>
+
+        </form>}
+        {this.state.message && <p className="Success-message">{this.state.message}</p>}
+        </div>
       </div>
     );
   }

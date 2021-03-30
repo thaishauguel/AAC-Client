@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import apiHandler from "../../api/apiHandler";
 import "../../styles/BidStatus.css";
+import {withUser} from './../Auth/withUser'
 
 export class IsActive extends Component {
   state = {
@@ -15,14 +16,15 @@ export class IsActive extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("hey");
     if (prevState.bidValue !== this.state.bidValue) {
       this.setState({ bidValue: this.state.bidValue });
     }
   }
 
   displayBidForm = () => {
-    this.setState({ isFormOpen: !this.state.isFormOpen });
+    if (this.props.context.user){
+      this.setState({ isFormOpen: !this.state.isFormOpen })    
+    }else {this.setState({message : "You have to log in to place a bid"})}
   };
 
   handleChange = (event) => {
@@ -87,4 +89,4 @@ export class IsActive extends Component {
   }
 }
 
-export default IsActive;
+export default withUser(IsActive);
