@@ -12,7 +12,9 @@ class FormSignup extends Component {
     instagram:"",
     website:"",
     description:"",
-    credit:0
+    credit:0,
+    DetailsOpen: false,
+    message: ""
   };
 
   handleChange = (event) => {
@@ -29,6 +31,10 @@ class FormSignup extends Component {
       avatar: event.target.files[0],
     });
   };
+
+  handleToggle = () => {
+    this.setState({DetailsOpen: !this.state.DetailsOpen})
+  }
 
   handleSubmit = (event) => {
     event.preventDefault()
@@ -49,9 +55,9 @@ class FormSignup extends Component {
         console.log('this.props.context', this.props.context)
         this.props.context.setUser(data);
         this.props.history.push("/profile"); 
-
       })
       .catch((error) => {
+        this.setState({message: "Oups, email or username already exist"})
         console.log(error);
       });
   };
@@ -60,11 +66,13 @@ class FormSignup extends Component {
     if (this.props.context.user) {
       return <Redirect to="/" />;
     }
+    console.log("message is", this.state.message)
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form  onSubmit={this.handleSubmit}>
         <label htmlFor="email">Email</label>
         <input
+          required
           onChange={this.handleChange}
           value={this.state.email}
           type="email"
@@ -73,6 +81,7 @@ class FormSignup extends Component {
         />
         <label htmlFor="password">Password</label>
         <input
+          required
           onChange={this.handleChange}
           value={this.state.password}
           type="password"
@@ -81,52 +90,72 @@ class FormSignup extends Component {
         />
         <label htmlFor="username">Username</label>
         <input
+          required
           onChange={this.handleChange}
           value={this.state.username}
           type="text"
           id="username"
           name="username"
         />
-        <label htmlFor="avatar">Avatar</label>
+        
+        <label htmlFor="credit">Credits</label>
         <input
-          onChange={this.handleFileChange}
-          type="file"
-          id="avatar"
-          name="avatar"
-        />
-        <label htmlFor="instagram">Instagram</label>
-        <input
-          onChange={this.handleChange}
-          value={this.state.instagram}
-          type="text"
-          id="instagram"
-          name="instagram"
-        />
-        <label htmlFor="website">Website</label>
-        <input
-          onChange={this.handleChange}
-          value={this.state.website}
-          type="text"
-          id="website"
-          name="website"
-        />
-        <label htmlFor="description">Description</label>
-        <input
-          onChange={this.handleChange}
-          value={this.state.description}
-          type="text"
-          id="description"
-          name="description"
-        />
-        <label htmlFor="credit">Credit</label>
-        <input
+          required
           onChange={this.handleChange}
           value={this.state.credit}
           type="number"
           id="credit"
           name="credit"
+          min="0"
         />
-        <button>Submit</button>
+
+        
+
+        <button className="Btn-minimal" onClick={this.handleToggle}>{this.state.DetailsOpen ? "Close" : "Add more infos"}</button>
+
+        { this.state.DetailsOpen && 
+          <React.Fragment>
+            <label htmlFor="avatar">Avatar</label>
+            <input
+              onChange={this.handleFileChange}
+              type="file"
+              id="avatar"
+              name="avatar"
+            />
+
+            <label htmlFor="instagram">Instagram</label>
+            <input
+              onChange={this.handleChange}
+              value={this.state.instagram}
+              type="text"
+              id="instagram"
+              name="instagram"
+            />
+            <label htmlFor="website">Website</label>
+            <input
+              onChange={this.handleChange}
+              value={this.state.website}
+              type="text"
+              id="website"
+              name="website"
+            />
+            <label htmlFor="description">Description</label>
+            <textarea
+              onChange={this.handleChange}
+              value={this.state.description}
+              type="text"
+              id="description"
+              name="description"
+              maxLength="300"
+              cols="30" 
+              rows="7"
+            >
+            Description
+            </textarea>
+          </React.Fragment>
+        }  
+        <button className="Btn-black">Submit</button>
+        {this.state.message && <p className="Alert-message">{this.state.message}</p>}
       </form>
     );
   }

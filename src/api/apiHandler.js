@@ -46,6 +46,13 @@ const apiHandler = {
       .catch(errorHandler);
   },
 
+  delete() {
+    return service
+      .get("/api/auth/delete")
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
+
   // Profile Calls
   UpdateMyProfile(userInfo) {
     return service

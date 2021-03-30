@@ -2,7 +2,12 @@ import React from "react";
 import FormSignup from "../components/Forms/FormSignup";
 
 const Signup = (props) => {
-  return <FormSignup />;
+  return (
+    <div className="flex Auth-container">
+      <h2>Create your account</h2>
+      <FormSignup />
+    </div>
+  )
 };
 
 export default Signup;

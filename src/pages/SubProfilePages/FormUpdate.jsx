@@ -12,7 +12,8 @@ class FormUpdate extends Component {
     instagram:"",
     website:"",
     description:"",
-    credit:0
+    credit:0,
+    message: ""
   };
 
   componentDidMount() {
@@ -48,8 +49,8 @@ class FormUpdate extends Component {
   };
 
   handleSubmit = (event) => {
-    const uploadData = new FormData();
     event.preventDefault()
+    const uploadData = new FormData();
     uploadData.append("email", this.state.email);
     uploadData.append("username", this.state.username);
     uploadData.append("avatar", this.state.avatar);
@@ -65,15 +66,27 @@ class FormUpdate extends Component {
 
       apiHandler
         .UpdateMyProfile(uploadData)
-        .then(data => console.log(data))
+        .then(data => {
+          this.setState({message: "Successfully Updated"})
+          console.log(data)
+        })
         .catch(error => console.log(error))
   };
 
+  handleDelete = () => {
+    apiHandler.delete()
+      .then(data => {
+        window.location.reload()        
+      }
+      )
+      .catch(err => console.log(err))
+  }
 
   render() {
     return (
       <div>
         <h3>Parameters</h3>
+
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="email">Email</label>
           <input
@@ -82,7 +95,8 @@ class FormUpdate extends Component {
             type="email"
             id="email"
             name="email"
-          />
+            required
+            />
           <label htmlFor="username">Username</label>
           <input
             onChange={this.handleChange}
@@ -90,19 +104,21 @@ class FormUpdate extends Component {
             type="text"
             id="username"
             name="username"
-          />
+            required
+            />
         
         
           <label htmlFor="description">Description</label>
-          <textarea 
+          <textarea
             onChange={this.handleChange}
             value={this.state.description}
             type="text"
             id="description"
-            name="description" 
-            cols="30" 
+            name="description"
+            maxLength="300"
+            cols="30"
             rows="7"
-          >
+            >
             description
           </textarea>
           
@@ -114,7 +130,7 @@ class FormUpdate extends Component {
             id="networks"
             name="instagram"
             placeholder="instagram"
-          />
+            />
           <input
             onChange={this.handleChange}
             value={this.state.website}
@@ -122,7 +138,7 @@ class FormUpdate extends Component {
             id="networks"
             name="website"
             placeholder="website"
-          /> 
+            /> 
           <label htmlFor="avatar">Avatar</label>
           <img className="Miniature" src={this.state.avatar} alt=""/>
           <input
@@ -130,19 +146,23 @@ class FormUpdate extends Component {
             type="file"
             id="avatar"
             name="avatar"
-          />
+            />
 
-          <label htmlFor="credit">Credit</label>
+          <label htmlFor="credit">Credits</label>
           <input
             onChange={this.handleChange}
             value={this.state.credit}
             type="number"
             id="credit"
             name="credit"
-          />
-
-          <button className="Btn-black" >Update</button>
+            min="0"
+            />
+          <div>
+            <button className="Btn-black" >Update</button>
+          </div>
+          {this.state.message && <p className="Success-message">{this.state.message}</p>}
         </form>
+        <button onClick={this.handleDelete} className="Btn-minimal" >delete your account</button>
       </div>
     );
   }

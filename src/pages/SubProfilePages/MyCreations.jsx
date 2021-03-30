@@ -16,7 +16,8 @@ class MyCreations extends Component {
     description: "",
     image: "",
     displaySellForm : false,
-    artworkToSell : null
+    artworkToSell : null,
+    message: ""
   };
 
 
@@ -57,13 +58,9 @@ class MyCreations extends Component {
 
     apiHandler
   .addAnArtwork(newArtwork)
-  .then(()=>console.log('artwork created!'))
+  .then(()=> this.setState({message: "Artwork created"}))
   .catch(err=>console.log(err))
   };
-  
-  
-
-  
 
   handleChange = (event) => {
     const name = event.target.name;
@@ -79,7 +76,7 @@ class MyCreations extends Component {
     return (
       <div className="flex">
         <section>
-
+          {this.state.message && <p className="Sucess-message">{this.state.message}</p>}
           <table className="Profile-table">
             <tbody>
                 {this.state.myCreations.map((artwork) => {
@@ -117,10 +114,10 @@ class MyCreations extends Component {
                 })}
             </tbody>
           </table>
-          <button className="Btn-black" onClick={this.handleClickAdd}>{this.state.displayAddForm ? "Close" : "Add an artwork"}</button>
+          <button className="Btn-black" onClick={this.handleClickAdd}>Add an artwork</button>
         </section>
 
-        {this.state.displaySellForm && <AddAnAuction  auction={this.state.artworkToSell}/>}
+        {this.state.displaySellForm && <AddAnAuction auction={this.state.artworkToSell}/>}
 
 
         {this.state.displayAddForm && (
@@ -128,6 +125,7 @@ class MyCreations extends Component {
             <h3>Add an artwork</h3>
             <form onSubmit={this.handleSubmit}>
               <input
+                required
                 id="title"
                 name="title"
                 value={this.state.title}
@@ -135,27 +133,32 @@ class MyCreations extends Component {
                 type="text"
                 placeholder="Title"
               />
-            <textarea 
-              onChange={this.handleChange}
-              value={this.state.description}
-              type="text"
-              id="description"
-              name="description" 
-              placeholder="Description"
-              cols="30" 
-              rows="7"
-            >
-              
-            </textarea>
-              <input
-                id="image"
-                name="image"
-                onChange={this.handleFileChange}
-                type="file"
-                placeholder="Upload the image"
-              />
-
-            <button className="Btn-black">Create</button>
+              <textarea
+                required
+                onChange={this.handleChange}
+                value={this.state.description}
+                type="text"
+                id="description"
+                name="description" 
+                placeholder="Description"
+                maxLength="300"
+                cols="30" 
+                rows="7"
+              >
+                
+              </textarea>
+                <input
+                  required
+                  id="image"
+                  name="image"
+                  onChange={this.handleFileChange}
+                  type="file"
+                  placeholder="Upload the image"
+                />
+              <div>
+                <button className="Btn-black">Create</button>
+                <button onClick={this.handleClickAdd} className="Btn-minimal">close</button>
+              </div>
             </form>
           </section>
         )}
