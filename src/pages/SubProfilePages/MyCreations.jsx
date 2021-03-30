@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import AddAnAuction from "../../components/Forms/AddAnAuction";
+import FormCreateAnArtwork from "./FormCreateAnArtwork";
+import FormUpdateOneCreation from "./FormUpdateOneCreation";
+
+
 
 
 import apiHandler from "../../api/apiHandler";
@@ -12,14 +16,11 @@ class MyCreations extends Component {
   state = {
     myCreations: null,
     displayAddForm: false,
-    title: "",
-    description: "",
-    image: "",
+    displayUpdateForm:false,
     displaySellForm : false,
-    artworkToSell : null
+    artworkToSell : null,
+    artworkToUpdate: null
   };
-
-
 
 
   componentDidMount() {
@@ -31,6 +32,10 @@ class MyCreations extends Component {
       .catch((err) => console.log(err));
   }
 
+  closeForm = (nameOfForm) => {
+    this.setState({[nameOfForm]: false})
+    }
+
   handleClickSell=(artwork)=>{
     this.setState({displaySellForm : true, artworkToSell:artwork })
 }
@@ -38,38 +43,12 @@ class MyCreations extends Component {
   handleClickAdd = () => {
     this.setState({ displayAddForm: !this.state.displayAddForm });
   };
+ 
+  handleClickUpdate=(artwork)=>{
+    this.setState({displayUpdateForm : true, artworkToUpdate:artwork })
 
-  handleFileChange = (event) => {
-
-    // console.log("The file added by the use is: ", event.target.files[0]);
-    this.setState({
-      image: event.target.files[0],
-    });
-  };
-
-  handleSubmit = (event) => {
-    // event.preventDefault() // parti pris de faire un refresh ici
-    // console.log(this.state.title, this.state.description)
-    const newArtwork= new FormData()
-    newArtwork.append("title", this.state.title)
-    newArtwork.append("description", this.state.description)
-    newArtwork.append("image", this.state.image)
-
-    apiHandler
-  .addAnArtwork(newArtwork)
-  .then(()=>console.log('artwork created!'))
-  .catch(err=>console.log(err))
-  };
+  }
   
-  
-
-  
-
-  handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    this.setState({ [name]: value });
-  };
 
   render() {
     if (!this.state.myCreations) {
@@ -101,8 +80,7 @@ class MyCreations extends Component {
                             </Link>
                           </td>
                         <td>
-                          {/* TODO */}
-                          <button><img className="Btn-icon" src="img/edit-btn.svg" alt="auction-btn" /></button>
+                          <button onClick={()=>this.handleClickUpdate(artwork)}><img className="Btn-icon" src="img/edit-btn.svg" alt="auction-btn" /></button>
                         </td>
                         
                         <td>
@@ -122,43 +100,10 @@ class MyCreations extends Component {
 
         {this.state.displaySellForm && <AddAnAuction  auction={this.state.artworkToSell}/>}
 
+        {this.state.displayAddForm && <FormCreateAnArtwork />}
 
-        {this.state.displayAddForm && (
-          <section>
-            <h3>Add an artwork</h3>
-            <form onSubmit={this.handleSubmit}>
-              <input
-                id="title"
-                name="title"
-                value={this.state.title}
-                onChange={this.handleChange}
-                type="text"
-                placeholder="Title"
-              />
-            <textarea 
-              onChange={this.handleChange}
-              value={this.state.description}
-              type="text"
-              id="description"
-              name="description" 
-              placeholder="Description"
-              cols="30" 
-              rows="7"
-            >
-              
-            </textarea>
-              <input
-                id="image"
-                name="image"
-                onChange={this.handleFileChange}
-                type="file"
-                placeholder="Upload the image"
-              />
+        {this.state.displayUpdateForm && <FormUpdateOneCreation closeForm={this.closeForm}  artwork={this.state.artworkToUpdate}/>}
 
-            <button className="Btn-black">Create</button>
-            </form>
-          </section>
-        )}
       </div>
     );
   }

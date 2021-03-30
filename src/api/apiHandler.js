@@ -162,7 +162,19 @@ const apiHandler = {
     return service.patch('/api/auth/update-password', passwords)
     .then((res)=>res.data)
     .catch(errorHandler)
-  } 
+  },
+  updateAnArtwork(artworkId, artworkUpdated){
+    return service.patch(`/api/artworks/${artworkId}`, artworkUpdated)
+      
+    .then((res)=>res.data)
+    .catch(errorHandler)
+  },
+
+  deleteAnArtwork(artworkId){
+    return service.delete(`/api/artworks/${artworkId}`)
+    .then((res)=>res.data)
+    .catch(errorHandler)
+  }
 };
 
 

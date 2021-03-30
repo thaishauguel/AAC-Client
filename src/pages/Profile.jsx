@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom'
 import MyActivity from "./SubProfilePages/MyActivity";
 import MyCollection from "./SubProfilePages/MyCollection";
 import MyCreations from "./SubProfilePages/MyCreations";
-import FormUpdate from "./SubProfilePages/FormUpdate";
+import FormUpdateProfile from "./SubProfilePages/FormUpdateProfile";
 
 //CSS
 import "../styles/Profile.css"
@@ -74,7 +74,7 @@ class Profile extends Component {
         { displayCrea && <MyCreations /> }
         { displayColl && <MyCollection /> }
         { displayAct && <MyActivity /> }
-        { displayUpdate && <FormUpdate /> }
+        { displayUpdate && <FormUpdateProfile /> }
       </div>
     );
   }
