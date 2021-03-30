@@ -11,17 +11,15 @@ export class IsActive extends Component {
   };
 
   componentDidMount() {
-    this.setState({ bidValue: this.props.auction.bids[0].bidValue, currentInput: this.props.auction.bids[0].bidValue + 0.01 });
+    if (this.props.auction.bids.length>0) {
+      this.setState({ bidValue: this.props.auction.bids[0].bidValue })
+    } else {
+      this.setState({bidValue : this.props.auction.initialPrice })
+    };
   }
 
-  //   componentDidUpdate(prevProps, prevState) {
-  //     if (prevState.bidValue !== this.state.bidValue) {
-  //       this.setState({ bidValue: this.state.bidValue });
-  //     }
-  //   }
-
   displayBidForm = () => {
-    this.setState({ isFormOpen: !this.state.isFormOpen });
+    this.setState({ isFormOpen: !this.state.isFormOpen, isSubmit: false });
   };
 
   handleChange = (event) => {
@@ -31,12 +29,22 @@ export class IsActive extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.setState({ bidValue: this.state.currentInput, isFormOpen: false, isSubmit: true }, () => {
-      apiHandler
-        .addABid(this.state.bidValue, this.props.auction._id)
-        .then(this.setState({ currentInput: this.state.bidValue + 0.01 }))
-        .catch((err) => console.log(err));
-    });
+    // this.setState({ bidValue: this.state.currentInput, isFormOpen: false, isSubmit: true }, () => {
+    //   apiHandler
+    //     .addABid(this.state.bidValue, this.props.auction._id)
+    //     .then(this.setState({ currentInput: this.state.bidValue + 0.01 }))
+    //     .catch((err) => console.log(err));
+    // });
+
+    if (this.state.currentInput){
+      this.setState({ bidValue: this.state.currentInput, isFormOpen: !this.state.isFormOpen, isSubmit: true},  () => {
+        apiHandler
+          .addABid(this.state.bidValue, this.props.auction._id)
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
+      });
+    }
+    
   };
 
   render() {
@@ -62,10 +70,11 @@ export class IsActive extends Component {
         {isFormOpen && !isSubmit && (
           <form onSubmit={this.handleSubmit} className="Input-bid flex">
             <input
+              required
               type="number"
               id="bidValue"
               name="bidValue"
-              min={bidValue + 0.01}
+              min={Number(bidValue) + 0.01}
               step="0.01"
               placeholder="Place your bid"
               onChange={this.handleChange}

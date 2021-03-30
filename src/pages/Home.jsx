@@ -15,11 +15,13 @@ class Home extends React.Component {
       .then(res => this.setState({artworks: res}))
   }
   render() {
-   const {artworks} = this.state;
+       const {artworks} = this.state;
+
+    if (!artworks){return <div>Loading</div>}
 
     return (
       <div className="Home">
-        {artworks &&
+        {artworks.length>0 &&
         <section className="Top-artwork White-bg">
             <div>
               <h1>{artworks[0].title}</h1>

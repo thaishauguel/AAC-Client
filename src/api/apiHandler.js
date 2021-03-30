@@ -27,8 +27,6 @@ const apiHandler = {
     return service
       .post("/api/auth/signin", userInfo)
       .then((res) => {
-        console.log('bonjour')
-        console.log(res.data)
         return res.data
       })
       .catch(errorHandler);
@@ -153,14 +151,13 @@ const apiHandler = {
     .catch(errorHandler)
   },
 
-  // Conversion ETH to $
-  // getCurrentPrice() {
-  //   return service
-  //   .get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR')
-  //   .then(res => res.data)
-  //   .catch(errorHandler)
-  // },
-  
+  closeAnAuction(auctionId, owner){
+    console.log('new owner id dans le api handler', owner)
+    return service
+    .patch(`/api/auctions/close-auction/${auctionId}`, owner)
+    .then((res)=>res.data)
+    .catch(errorHandler)
+  }
 };
 
 
