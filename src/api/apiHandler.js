@@ -131,6 +131,14 @@ const apiHandler = {
     .post('/api/artworks/new', artworkInfo)
     .then((res)=>res.data)
     .catch(errorHandler)
+  },
+
+  closeAnAuction(auctionId, owner){
+    console.log('new owner id dans le api handler', owner)
+    return service
+    .patch(`/api/auctions/close-auction/${auctionId}`, owner)
+    .then((res)=>res.data)
+    .catch(errorHandler)
   }
 };
 

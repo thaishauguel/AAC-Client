@@ -35,7 +35,7 @@ class MyCollection extends Component {
 
 render(){
     if (!this.state.myCollection){return <div>Loading...</div>}
-    // console.log(this.state)
+    console.log(this.state)
     return (
         <div className="flex">
             <table className="Profile-table">
