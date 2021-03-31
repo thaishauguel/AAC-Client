@@ -61,7 +61,7 @@
 }
 
 .Cards-gallery h3:first-of-type {
-    align-self: center;
+    margin-top: 0px;
 }
 
 .Cards-gallery {
