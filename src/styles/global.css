@@ -10,8 +10,6 @@ html {
   font-weight: 400;
 }
 
-
-
 h1,
 h2,
 h3,
@@ -164,4 +162,14 @@ input::placeholder {
 
 .black {
   color: black;
+}
+
+footer {
+  bottom: 0;
+  margin: 20px 0;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: #00f035;
 }

@@ -2,6 +2,7 @@
 }
 
 .Top-artwork {
+    position:relative;
     padding: 50px 200px;
     min-height: 500px;
     max-height: 764px;
@@ -10,8 +11,16 @@
     grid-gap: 20px;
     align-items: center;
     gap: 30px;
-    margin-bottom: 40px;
+    margin-bottom: 80px;
     align-items: flex-start;
+}
+.Top-arwortk-Bg {
+    z-index: -100;
+    background-color: #fff;
+    top: 0;
+    position: absolute;
+    width: 100vw;
+    height: 500px;
 }
 .Top-artwork-infos { 
     align-self: center;
@@ -56,7 +65,8 @@
 }
 
 .Cards-gallery {
-    margin: 0 100px;
+    margin: 0px 100px;
+    margin-bottom: 80px;
     display: grid;
     grid-template-columns: repeat(4,1fr);
     grid-gap: 20px;

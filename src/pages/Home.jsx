@@ -6,6 +6,7 @@ import EthToDollars from "./../controllers/EthToDollars";
 import ArtworkCard from "../components/ArtworkCard";
 // Styles
 import "../styles/Home.css";
+import "../styles/Animations.css";
 
 class Home extends React.Component {
   state = {
@@ -42,14 +43,15 @@ class Home extends React.Component {
     const { artworks, auctionTop, dollars } = this.state;
 
     if (!artworks || !auctionTop) {
-      return <div>Loading</div>;
+      return <div></div>;
     }
     let [topArtwork, ...rest] = artworks;
     return (
       <div className="Home">
         {artworks.length > 0 && (
-          <section className="Top-artwork White-bg">
-            <div className="Top-artwork-infos">
+          <section className="Top-artwork ">
+            <div className="Top-arwortk-Bg slide-in-top"></div>
+            <div className="Top-artwork-infos slide-in-bottom">
               <h1>{topArtwork.title}</h1>
               <h4>@{topArtwork.creator.username}</h4>
 
@@ -67,7 +69,7 @@ class Home extends React.Component {
                 <button className="Btn-black">See the auction</button>
               </Link>
             </div>
-            <img className="Top-img-size" src={topArtwork.image} alt="hey" />
+            <img className="Top-img-size slide-in-bottom delay" src={topArtwork.image} alt="hey" />
           </section>
         )}
 

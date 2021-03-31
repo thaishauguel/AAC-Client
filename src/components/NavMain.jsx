@@ -20,9 +20,9 @@ const NavMain = (props) => {
   }
 
   return (
-    <nav className="NavMain">
+    <nav className="NavMain text-focus-in">
       <Link to="/">
-        <h3 className="logo">.aac</h3>
+        <h3 className="logo">.aaa</h3>
       </Link>
 
       <SearchBar           

@@ -71,7 +71,7 @@ export class OneArtwork extends Component {
           <section className="Top-artwork">
             <div>
               <img
-                className="One-artwork-img-size"
+                className="Top-details-img-size"
                 src={artwork.image}
                 alt="hey"
               />
@@ -80,7 +80,7 @@ export class OneArtwork extends Component {
               {auction && isActive && <IsActive auction={auction} />}
               {!auction && !isActive && <NeverSold />}
             </div>
-            <div className="One-artwork-info">
+            <div className="Top-details">
               <h1>{artwork.title}</h1>
               <Link to={`/artist/${artwork.creator._id}`}>
                 <h4>@{artwork.creator.username}</h4>

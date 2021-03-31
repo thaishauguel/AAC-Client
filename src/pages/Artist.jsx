@@ -14,62 +14,51 @@ export default class Artist extends Component {
       .catch((err) => console.log(err));
   }
   render() {
-    if (!this.state.artworks) return <h3>Loading</h3>;
+    const {artworks} = this.state
+    if (!artworks) return <h3>Loading</h3>;
     return (
       <div>
-        <section
-          style={{
-            display: "flex",
-          }}
-        >
-          <div>
-            <h1>{this.state.artworks[0].creator.username}</h1>
-            <h4>{this.state.artworks[0].creator.description}</h4>
-            {this.state.artworks[0].creator.networks.instagram && (
-              <a
-                href={this.state.artworks[0].creator.networks.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Instagram
-              </a>
-            )}
-            {!this.state.artworks[0].creator.networks.instagram &&
-              this.state.artworks[0].creator.networks.website && (
+        <section className="Top-artwork" >
+          <div className="Top-details Artist">
+            <h1>{artworks[0].creator.username}</h1>
+            <p>{artworks[0].creator.description}</p>
+
+            <div>
+              {artworks[0].creator.networks.instagram && (
                 <a
-                  href={this.state.artworks[0].creator.networks.website}
+                  href={artworks[0].creator.networks.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Website
+                  Instagram
                 </a>
               )}
-            {this.state.artworks[0].creator.networks.instagram &&
-              this.state.artworks[0].creator.networks.website && (
-                <a
-                  href={this.state.artworks[0].creator.networks.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {" "}
-                  | Website
-                </a>
-              )}
+              { artworks[0].creator.networks.website && (
+                  <React.Fragment>
+                    <span> | </span>
+                    <a
+                      href={artworks[0].creator.networks.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Website
+                    </a>
+                  </React.Fragment>
+                )}
+            </div>
           </div>
           <div>
-            <img
-              src={this.state.artworks[0].creator.avatar}
-              alt={this.state.artworks[0].creator.username}
-            />
+            <img className="Avatar-img" src={artworks[0].creator.avatar} alt={artworks[0].creator.username} />
           </div>
         </section>
-        <section>
-          <h3>Creations</h3>
-          <div className="Cards-gallery">
-            {this.state.artworks.map((artwork) => (
-              <ArtworkCard key={artwork._id} artwork={artwork} />
-            ))}
-          </div>
+
+        <section className="More-artworks">
+          <h4 className="">Creations</h4>
+          <section className="Cards-gallery">
+            {artworks.map((artwork) => (
+                <ArtworkCard key={artwork._id} artwork={artwork} />
+              ))}
+          </section>
         </section>
       </div>
     );

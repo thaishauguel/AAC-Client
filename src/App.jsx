@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 // Components
 import NavMain from "./components/NavMain";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Footer from "./components/Footer";
 // Pages
 import Home from "./pages/Home";
 import Signin from "./pages/Signin";
@@ -70,7 +71,9 @@ export default class App extends Component {
           <Route exact path="/signin" component={Signin} />
           <Route exact path="/signup" component={Signup} />
           <ProtectedRoute exact path="/profile" component={Profile} />
-        </Switch>        
+        </Switch>
+
+        <Footer />
       </div>
     );
   }
