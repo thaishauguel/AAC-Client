@@ -185,7 +185,7 @@ class FormUpdate extends Component {
 
         </form>
 
-        <button onClick={this.handleDelete} className="Btn-minimal" >delete your account</button>
+        {/* <button onClick={this.handleDelete} className="Btn-minimal" >delete your account</button> */}
 
         <div>
           {!this.state.isFormPwdDisplayed && <button onClick={this.displayFormPwd} className="Btn-black">Change your password</button>}

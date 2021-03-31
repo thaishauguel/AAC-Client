@@ -6,6 +6,7 @@ export class Credits extends Component {
     state = {
         credit: null
     }
+
     componentDidMount() {
         EthToDollars(this.props.context.user.credit)
         .then(res => {
