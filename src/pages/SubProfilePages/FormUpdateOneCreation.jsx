@@ -6,12 +6,30 @@ import "../../styles/Profile.css"
 
 export default class FormUpdateOneCreation extends Component {
     state = {
+        artwork: "",
+        title: "",
+        description: "",
+        image: "",
+      };
+
+    componentDidMount() {
+      this.setState({
         artwork: this.props.artwork,
         title: this.props.artwork.title,
         description: this.props.artwork.description,
         image: this.props.artwork.image,
-      };
-
+      })
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.artwork._id !== this.props.artwork._id) {
+          this.setState({
+            artwork: this.props.artwork,
+            title: this.props.artwork.title,
+            description: this.props.artwork.description,
+            image: this.props.artwork.image,
+          })
+        }
+      }
 
     handleChange = (event) => {
         const name = event.target.name;
@@ -48,7 +66,8 @@ export default class FormUpdateOneCreation extends Component {
       }
 
     render() {
-        console.log(this.state.artwork)
+        const {artwork, title, description, image} = this.state
+        
         return (
             <section>
             <h3>Update an artwork</h3>
@@ -56,14 +75,14 @@ export default class FormUpdateOneCreation extends Component {
               <input
                 id="title"
                 name="title"
-                value={this.state.title}
+                value={title}
                 onChange={this.handleChange}
                 type="text"
                 placeholder="Title"
               />
             <textarea 
               onChange={this.handleChange}
-              value={this.state.description}
+              value={description}
               type="text"
               id="description"
               name="description" 

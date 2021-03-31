@@ -63,12 +63,12 @@ render(){
                                 <Link to={`artworks/${artwork._id}`}><img className="Miniature" src={artwork.image} alt={artwork.title}/></Link>
                             </td>
                             <td>
-                            <Link to={`artworks/${artwork._id}`}><p> {artwork.title} by {artwork.creator.username} </p></Link>
+                            <Link to={`artworks/${artwork._id}`}>{artwork.title} <span>by {artwork.creator.username}</span></Link>
                             </td>
                             <td>
                             {artwork.forSale===false? <button onClick={()=>this.handleClickSell(artwork)}>
                                 <img className="Btn-icon" src="img/auction-btn.svg" alt="auction-btn" />
-                            </button> : <Link to={`artworks/${artwork._id}`}><h4>Auction in progress</h4></Link>}
+                            </button> : <p>In auction</p>}
                             </td>
                         </tr> )
                     })}    

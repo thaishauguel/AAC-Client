@@ -32,11 +32,15 @@
   width: 20px;
 }
 
+.Profile h3 {
+    font-size: 22px;
+    font-weight: 300;
+}
+
 .Profile-credits {
   text-align: right;
   line-height: 33px;
 }
-
 
 .Profile-nav ul {
     display: flex;
@@ -62,10 +66,22 @@
 }
 .Profile-table td {
     /* border-left: 1px solid #8C8C8C; */
+    min-width: 80px;
     padding: 15px 10px ;
-    align-items: center;
-}
-.Profile-table td:last-child {
+    align-items: flex-end;
     text-align: center;
 }
+.Profile-table td:nth-child(2) {
+    text-align: left ;
+}
+.Profile-table a {
+  font-size: 16px;
+  font-weight: 500;
+}
+.Profile-table p,
+.Profile-table span  {
+  font-size: 13px;
+  font-weight: 300;
+}
+/* Activity detais */
 

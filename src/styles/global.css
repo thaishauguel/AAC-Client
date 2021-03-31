@@ -124,7 +124,7 @@ input::placeholder {
   font-size: 13px;
   color: #8c8c8c;
   text-decoration: underline;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 .Btn-black {
   font-weight: 300;
@@ -138,7 +138,10 @@ input::placeholder {
 
 .Btn-icon {
   width: 30px;
-  object-fit: cover;
+}
+
+.edit {
+  width: 20px; /* btn-edit in dashboard */
 }
 
 .Miniature {
