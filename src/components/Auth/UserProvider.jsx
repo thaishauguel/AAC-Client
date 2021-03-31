@@ -24,7 +24,7 @@ class UserProvider extends Component {
 
   setUser = (user) => {
     console.log(user,"user froM db")
-    this.setState({ user, isLoggedIn: true });
+    this.setState({ user, isLoggedIn: true })
   };
 
   removeUser = () => {

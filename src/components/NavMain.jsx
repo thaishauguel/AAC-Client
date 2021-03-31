@@ -40,7 +40,7 @@ const NavMain = (props) => {
               </Link>
             </li>
             <li>
-              <a className="Btn-minimal" onClick={handleLogout}>Logout</a>
+              <button className="Btn-minimal" onClick={handleLogout}>Logout</button>
             </li>
           </React.Fragment>
         )}
