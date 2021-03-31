@@ -20,7 +20,6 @@ class Profile extends Component {
 
   handleClick =(event)=>{
     if (this.state[event.target.id]===false){
-    // console.log(event.target.id)  
     this.setState ({
       displayCrea : false,
       displayColl:false,
@@ -31,6 +30,7 @@ class Profile extends Component {
 
   }
   render(){
+    // console.log("profile state: ",this.state)
     const {user} = this.props.context
     const {displayCrea, displayColl, displayAct, displayUpdate} = this.state
     const isActive = { fontWeight: "500" }

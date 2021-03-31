@@ -13,7 +13,6 @@ class MyCollection extends Component {
         artworkToSell : null, 
     }
 
-   
 
     componentDidMount(){
         apiHandler
@@ -24,18 +23,32 @@ class MyCollection extends Component {
         .catch(err=>console.log(err))
     }
     handleClickSell=(artwork)=>{
-        this.setState({displaySellForm : !this.state.displaySellForm, artworkToSell:artwork })
+        this.setState({displaySellForm : true, artworkToSell:artwork })
     }
         
 
     handleChange=(event)=>{
         this.setState({initialValue: event.target.value })
-    }
+    };
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.displaySellForm!==this.state.displaySellForm) {
+        apiHandler
+          .getMyCollection()
+          .then((data) => {
+            this.setState({ myCollection: data });
+          })
+          .catch((err) => console.log(err));
+        }
+      };
+      
+      closeForm = (nameOfForm) => {
+        this.setState({[nameOfForm]: false})
+      };
 
 render(){
     if (!this.state.myCollection){return <div>Loading...</div>}
-    console.log(this.state)
+    // console.log("my collection state: ",this.state)
     return (
         <div className="flex">
 
@@ -62,7 +75,7 @@ render(){
                 </tbody>
             </table>
 
-            {this.state.displaySellForm && <AddAnAuction  auction={this.state.artworkToSell}/>}
+            {this.state.displaySellForm && <AddAnAuction  artwork={this.state.artworkToSell} closeForm={this.closeForm}/>}
         </div>
     )
 }

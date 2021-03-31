@@ -29,8 +29,7 @@ export default class FormCreateAnArtwork extends Component {
       };
 
       handleSubmit = (event) => {
-        // event.preventDefault() // parti pris de faire un refresh ici
-        // console.log(this.state.title, this.state.description)
+        event.preventDefault()
         const newArtwork= new FormData()
         newArtwork.append("title", this.state.title)
         newArtwork.append("description", this.state.description)
@@ -38,7 +37,9 @@ export default class FormCreateAnArtwork extends Component {
     
         apiHandler
       .addAnArtwork(newArtwork)
-      .then(()=>console.log('artwork created!'))
+      .then(()=>{
+        this.props.closeForm("displayAddForm")
+        console.log('artwork created!')})
       .catch(err=>console.log(err))
       };
 

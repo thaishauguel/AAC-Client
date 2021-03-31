@@ -13,15 +13,18 @@ class AddAnAuction extends Component {
     }
 
     handleSubmit=(event)=>{
+        event.preventDefault()
         const newAuction={
             initialPrice: this.state.initialPrice,
-            _artworkId : this.props.auction._id,
+            _artworkId : this.props.artwork._id,
             startingDate: Date.now()
         }
 
         apiHandler
         .addAnAuction(newAuction)
-        .then(()=>console.log('created!'))
+        .then(()=>{
+            this.props.closeForm("displaySellForm");
+            console.log('created!')})
         .catch(err=>console.log(err))
 
 
@@ -35,11 +38,10 @@ class AddAnAuction extends Component {
     render() {
         return (
                 <form onSubmit={this.handleSubmit}>
-                <input required type="text"  readOnly value={this.props.auction.title}/>
+                <input required type="text"  readOnly value={this.props.artwork.title}/>
                 <input required id="initialPrice" onChange={this.handleChange} name="initialPrice" value={this.state.initialPrice} type="number" placeholder="Initial price"/>
                 <button className="Btn-black">Create an Auction</button> 
             </form>
-            
         )
     }
 }
