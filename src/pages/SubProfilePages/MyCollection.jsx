@@ -13,8 +13,7 @@ class MyCollection extends Component {
         artworkToSell : null, 
     }
 
-
-    componentDidMount(){
+    getCollection () {
         apiHandler
         .getMyCollection()
         .then((data) => {
@@ -22,23 +21,20 @@ class MyCollection extends Component {
         })
         .catch(err=>console.log(err))
     }
+    componentDidMount(){
+        this.getCollection()
+    }
     handleClickSell=(artwork)=>{
         this.setState({displaySellForm : true, artworkToSell:artwork })
     }
         
-
     handleChange=(event)=>{
         this.setState({initialValue: event.target.value })
     };
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.displaySellForm!==this.state.displaySellForm) {
-        apiHandler
-          .getMyCollection()
-          .then((data) => {
-            this.setState({ myCollection: data });
-          })
-          .catch((err) => console.log(err));
+            this.getCollection()
         }
       };
       

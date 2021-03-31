@@ -20,14 +20,16 @@ class MyCreations extends Component {
     artworkToUpdate: null,
     message: "",
   };
-
-  componentDidMount() {
+  getCreations = () => {
     apiHandler
-      .getMyCreations()
-      .then((data) => {
-        this.setState({ myCreations: data });
-      })
-      .catch((err) => console.log(err));
+    .getMyCreations()
+    .then((data) => {
+      this.setState({ myCreations: data });
+    })
+    .catch((err) => console.log(err));
+  }
+  componentDidMount() {
+    this.getCreations()
   }
   
   componentDidUpdate(prevProps, prevState) {
@@ -35,14 +37,7 @@ class MyCreations extends Component {
       prevState.displayAddForm !== this.state.displayAddForm ||
       prevState.displaySellForm !== this.state.displaySellForm ||
       prevState.displayUpdateForm !== this.state.displayUpdateForm
-    ) {
-      apiHandler
-        .getMyCreations()
-        .then((data) => {
-          this.setState({ myCreations: data });
-        })
-        .catch((err) => console.log(err));
-    }
+    ) this.getCreations()
   }
 
   handleClickSell = (artwork) => {

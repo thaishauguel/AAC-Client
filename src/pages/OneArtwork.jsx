@@ -9,13 +9,15 @@ import IsSold from "../components/BidStatus/IsSold";
 
 import "../styles/OneArtwork.css";
 
+
 export class OneArtwork extends Component {
   state = {
     artwork: null,
     otherArtworks: null,
     auction: null,
   };
-  componentDidMount() {
+ 
+  getArtwork() { 
     const artworkId = this.props.match.params.id;
     let creatorId;
     api
@@ -29,7 +31,9 @@ export class OneArtwork extends Component {
         });
       })
       .catch((err) => console.log(err));
-
+  }
+  getAuction() { 
+    const artworkId = this.props.match.params.id;
     api
       .getLastAuction(artworkId)
       .then((res) => {
@@ -42,40 +46,19 @@ export class OneArtwork extends Component {
       .catch((err) => console.log(err));
   }
 
+  componentDidMount() {
+    this.getArtwork();
+    this.getAuction();
+  }
   componentDidUpdate(prevProps, prevState) {
     if (prevState.artwork !== null) {
       if (prevState.artwork._id !== this.props.match.params.id) {
-        const artworkId = this.props.match.params.id;
-        let creatorId;
-        api
-          .getOneArtwork(artworkId)
-          .then((res) => {
-            creatorId = res.creator._id;
-            this.setState({ artwork: res });
-            api.getOneCreator(creatorId).then((res) => {
-              const selectArtworks = res.slice(0, 4);
-              this.setState({ otherArtworks: selectArtworks });
-            });
-          })
-          .catch((err) => console.log(err));
-
-        api
-          .getLastAuction(artworkId)
-          .then((res) => {
-            if (res.active) {
-              this.setState({ auction: res, isActive: true });
-            } else if (!res.active && res.bids) {
-              this.setState({ auction: res });
-            } else {
-              this.setState({ isActive: false, auction: null });
-            }
-          })
-          .catch((err) => console.log(err));
+        window.scrollTo(0,0);
+        this.getArtwork();
+        this.getAuction();
       }
     }
   }
-
-  handleChange = (artwork) => {};
 
   render() {
     const { artwork, otherArtworks, auction, isActive } = this.state;
@@ -87,7 +70,11 @@ export class OneArtwork extends Component {
         {artwork && (
           <section className="Top-artwork">
             <div>
-              <img className="One-artwork-img-size" src={artwork.image} alt="hey" />
+              <img
+                className="One-artwork-img-size"
+                src={artwork.image}
+                alt="hey"
+              />
               {console.log(auction)}
               {auction && !isActive && <IsSold bids={auction.bids} />}
               {auction && isActive && <IsActive auction={auction} />}
