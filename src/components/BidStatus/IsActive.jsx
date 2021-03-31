@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import apiHandler from "../../api/apiHandler";
 import "../../styles/BidStatus.css";
-import {withUser} from './../Auth/withUser'
+import {withUser} from './../Auth/withUser';
+import EthToDollars from "./../../controllers/EthToDollars";
 
 export class IsActive extends Component {
   state = {
@@ -10,7 +11,8 @@ export class IsActive extends Component {
     bidValue: 0,
     currentInput: "",
     message:"",
-    displayMessage : false
+    displayMessage : false,
+    dollars: null
   };
 
   componentDidMount() {
@@ -21,13 +23,18 @@ export class IsActive extends Component {
     };
   }
 
-  componentDidUpdate(prevProps, PrevState) {
+  componentDidUpdate(prevProps, prevState) {
     if(prevProps.auction._id !== this.props.auction._id ) {
       if (this.props.auction.bids.length>0) {
         this.setState({ bidValue: this.props.auction.bids[0].bidValue })
       } else {
         this.setState({bidValue : this.props.auction.initialPrice })
       }
+    }
+    if (prevState.bidValue !== this.state.bidValue) {
+      EthToDollars(this.state.bidValue)
+      .then(res => this.setState({dollars: res}))
+      .catch(err=> console.log(err));
     }
   }
 
@@ -67,7 +74,7 @@ export class IsActive extends Component {
   };
 
   render() {
-    const { isFormOpen, isSubmit, bidValue, currentInput, message, displayMessage } = this.state;
+    const { isFormOpen, isSubmit, bidValue, currentInput, message, displayMessage, dollars } = this.state;
 
     return (
       <div className="BidStatus active">
@@ -78,7 +85,7 @@ export class IsActive extends Component {
               {bidValue}
               <span className="Currency">ETH</span>
             </p>
-            <p className="Dollars">$700</p>
+            <p className="Dollars">${dollars}</p>
           </div>
 
           <button onClick={this.displayBidForm} className="Btn-bid">
