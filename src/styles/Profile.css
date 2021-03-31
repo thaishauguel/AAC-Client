@@ -58,11 +58,11 @@
     margin-right: 50px;
 }
 .Profile-table tr {
-    border: 1px solid #000;
+    border-bottom: 1px solid #c8C8C8;
 }
 .Profile-table td {
-    border-left: 1px solid #8C8C8C;
-    padding: 10px 20px ;
+    /* border-left: 1px solid #8C8C8C; */
+    padding: 15px 10px ;
     align-items: center;
 }
 .Profile-table td:last-child {

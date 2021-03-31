@@ -65,34 +65,53 @@ class MyCreations extends Component {
             <tbody>
                 {this.state.myCreations.map((artwork) => {
                   return (
-                    <tr key={artwork._id} >
-                        
-                          <td>
-                          <Link to={`artworks/${artwork._id}`}>
+                    <tr key={artwork._id}>
+                      <td>
+                        <Link to={`artworks/${artwork._id}`}>
+                          <img
+                            className="Miniature"
+                            src={artwork.image}
+                            alt={artwork.title}
+                          />
+                        </Link>
+                      </td>
+                      <td>
+                        <Link to={`artworks/${artwork._id}`}>
+                          <p>{artwork.title}</p>
+                        </Link>
+                      </td>
+                      <td>
+                        <button onClick={() => this.handleClickUpdate(artwork)}>
+                          <img
+                            className="Btn-icon"
+                            src="img/edit-btn.svg"
+                            alt="auction-btn"
+                          />
+                        </button>
+                      </td>
+
+                      <td>
+                        {artwork.creator._id === artwork.owner._id ? (
+                          artwork.forSale === false ? (
+                            <button
+                              onClick={() => this.handleClickSell(artwork)}
+                            >
                               <img
-                                className="Miniature"
-                                src={artwork.image}
-                                alt={artwork.title}
+                                className="Btn-icon"
+                                src="img/auction-btn.svg"
+                                alt="auction-btn"
                               />
-                          </Link>
-                          </td>
-                          <td>
-                            <Link to={`artworks/${artwork._id}`}>
-                              <p>{artwork.title}</p>
-                            </Link>
-                          </td>
-                        <td>
-                          <button onClick={()=>this.handleClickUpdate(artwork)}><img className="Btn-icon" src="img/edit-btn.svg" alt="auction-btn" /></button>
-                        </td>
-                        
-                        <td>
-                          {artwork.creator === artwork.owner._id ? (
-                            artwork.forSale===false? <button onClick={()=>this.handleClickSell(artwork)}><img className="Btn-icon" src="img/auction-btn.svg" alt="auction-btn" /></button> : <Link to={`artworks/${artwork._id}`}><h4>Auction in progress</h4></Link>
+                            </button>
                           ) : (
-                            <p>Already sold</p>
-                          )}
-                        </td>
-                      </tr>
+                            <Link to={`artworks/${artwork._id}`}>
+                              <h4>Auction in progress</h4>
+                            </Link>
+                          )
+                        ) : (
+                          <p>Already sold</p>
+                        )}
+                      </td>
+                    </tr>
                   );
                 })}
             </tbody>

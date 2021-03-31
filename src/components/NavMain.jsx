@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { withUser } from "../components/Auth/withUser";
 import apiHandler from "../api/apiHandler";
 import SearchBar from "./../components/SearchBar";
@@ -21,9 +21,9 @@ const NavMain = (props) => {
 
   return (
     <nav className="NavMain">
-      <NavLink exact to="/">
+      <Link exact to="/">
         <h3 className="logo">.aac</h3>
-      </NavLink>
+      </Link>
 
       <SearchBar           
         getInputSearch={props.getInputSearch}
@@ -34,23 +34,23 @@ const NavMain = (props) => {
         {context.isLoggedIn && (
           <React.Fragment>
             <li>
-              <NavLink to="/profile">
+              <Link className="Btn-minimal black" to="/profile">
                 {/* {context.user && context.user.email} */}
-                <p>Profile</p>
-              </NavLink>
+                Profile
+              </Link>
             </li>
             <li>
-              <p onClick={handleLogout}>Logout</p>
+              <a className="Btn-minimal" onClick={handleLogout}>Logout</a>
             </li>
           </React.Fragment>
         )}
         {!context.isLoggedIn && (
           <React.Fragment>
             <li>
-              <NavLink to="/signin">Log in</NavLink>
+              <Link className="Btn-minimal black" to="/signin">Log in</Link>
             </li>
             <li>
-              <NavLink to="/signup">Create account</NavLink>
+              <Link className="Btn-minimal black" to="/signup">Create account</Link>
             </li>
           </React.Fragment>
         )}

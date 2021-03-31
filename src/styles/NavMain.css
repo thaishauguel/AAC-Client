@@ -21,3 +21,20 @@
 .NavMain .nav-list li:not(:last-child) {
   margin-right: 20px;
 }
+
+.SearchBar {
+  text-align: right;
+  flex-grow: 1;
+  margin-right: 42px;
+}
+
+.SearchBar input{
+  width: 400px;
+  border: 1px solid #8c8c8c;
+  padding: 8px 13px;
+}
+
+.SearchBar input:focus {
+  border: 1px solid #00f035;
+  outline: 0;
+}

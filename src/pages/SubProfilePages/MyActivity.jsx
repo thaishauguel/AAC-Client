@@ -86,7 +86,7 @@ class MyActivity extends Component {
 
             <div>
             <h3>My current Sales</h3>
-            {this.state.myCurrentBids.length===0 && <p>You don't have any sales in progress, you can add an auction at anytime.</p>}
+            {this.state.myCurrentSales.length===0 && <p>You don't have any sales in progress, you can add an auction at anytime.</p>}
             <table className="Profile-table">
                 <tbody>
                     {this.state.myCurrentSales.map((auction)=>{

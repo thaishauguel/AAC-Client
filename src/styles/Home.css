@@ -2,31 +2,57 @@
 }
 
 .Top-artwork {
-    padding: 50px 100px;
+    padding: 50px 200px;
+    min-height: 500px;
     max-height: 764px;
     display: grid;
     grid-template-columns: repeat(2,1fr);
     grid-gap: 20px;
     align-items: center;
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
     gap: 30px;
     margin-bottom: 40px;
+    align-items: flex-start;
+}
+.Top-artwork-infos { 
+    align-self: center;
 }
 .Top-artwork h1 {
     font-size: 55px;
 }
 .Top-artwork h4 {
     font-weight: 300;
-    font-size: 20px;
+    font-size: 24px;
     color: #8C8C8C;
+    margin-bottom: 30px;
 }
 .Top-artwork img {
-    /* max-width: 550px; */
-    max-height: 500px;
+    align-self: center;
     object-fit: cover;
     margin: 0 auto;
+}
+.Top-img-size {
+    width: 100%;
+    height: auto;
+}
+
+/* BID INFO */
+.Bid-home {
+ margin-bottom: 35px;
+}
+.Bid-home h4{
+ font-size: 14px;
+ margin-bottom: 0;
+}
+.Bid-home .Price {
+    font-size: 60px;
+    line-height: 60px;
+}
+.Bid-home .Dollars {
+    font-size: 20px;
+}
+
+.Cards-gallery h3:first-of-type {
+    align-self: center;
 }
 
 .Cards-gallery {
@@ -34,7 +60,6 @@
     display: grid;
     grid-template-columns: repeat(4,1fr);
     grid-gap: 20px;
-    align-items: center;
 }
 
 .Cards-gallery h3 {

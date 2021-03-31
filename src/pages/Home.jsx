@@ -1,5 +1,6 @@
 import React from "react";
 import api from "../api/apiHandler"
+import {Link} from "react-router-dom"
 // Components
 import ArtworkCard from "../components/ArtworkCard";
 // Styles
@@ -24,14 +25,25 @@ class Home extends React.Component {
       <div className="Home">
         {artworks.length>0 &&
         <section className="Top-artwork White-bg">
-            <div>
+            <div className="Top-artwork-infos">
               <h1>{topArtwork.title}</h1>
-              <h4>{topArtwork.creator.username}</h4>
-              {/* 
-              Bid Component to add 
-            */}
+              <h4>@{topArtwork.creator.username}</h4>
+              
+              <div className="Bid-home">
+                <h4>Current Bid</h4>
+                <p className="Price">
+                  120
+                  <span className="Currency">ETH</span>
+                </p>
+                <p className="Dollars">$700</p>
+              </div>
+                <Link to={`/artworks/${topArtwork._id}`}>
+                  <button className="Btn-black">See the auction</button>
+                </Link>
+
+
             </div>
-            <img src={topArtwork.image} alt="hey" />
+            <img  className="Top-img-size"src={topArtwork.image} alt="hey" />
         </section>
         }
         

@@ -10,8 +10,8 @@ class SearchBar extends Component {
   };
   render() {
     return (
-      <div>
-        <input
+      <div className="SearchBar">
+        <input 
           onChange={(evt) => this.props.getInputSearch(evt.target.value)}
           onKeyDown={this.handleEnter}
           type="text"

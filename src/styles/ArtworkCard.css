@@ -1,10 +1,14 @@
+.ArtworkCard {
+    height: 410px;
+    background-color: #fff;
+    position: relative;
+} 
 .ArtworkCard img {
     height: 250px;
     width: 100%;
     object-fit: cover;
 } 
 .ArtworkCard .details {
-    background-color: #fff;
     padding: 16px 25px;
 }
 .ArtworkCard .details h5 {
@@ -15,15 +19,14 @@
 .ArtworkCard .details h6 {
     font-size: 16px;
     line-height: 15px;
-    margin-bottom: 30px;
 }
 .ArtworkCard .details h6::before {
    content: "@";
 }
 
 .Bid-status {
-    position: relative;
-    bottom: 0;
+    position: absolute;
+    bottom: 16px;
 }
 .Bid-status p{
     font-size: 14px;

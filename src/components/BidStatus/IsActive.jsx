@@ -21,6 +21,17 @@ export class IsActive extends Component {
     };
   }
 
+  componentDidUpdate(prevProps, PrevState) {
+    if(prevProps.auction._id !== this.props.auction._id ) {
+      if (this.props.auction.bids.length>0) {
+        this.setState({ bidValue: this.props.auction.bids[0].bidValue })
+      } else {
+        this.setState({bidValue : this.props.auction.initialPrice })
+      }
+    }
+  }
+
+
   displayBidForm = () => {
     if (this.props.context.user){
     this.setState({ isFormOpen: !this.state.isFormOpen, isSubmit: false });}

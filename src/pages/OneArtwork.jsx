@@ -6,6 +6,7 @@ import ArtworkCard from "../components/ArtworkCard";
 import IsActive from "../components/BidStatus/IsActive";
 import NeverSold from "../components/BidStatus/NeverSold";
 import IsSold from "../components/BidStatus/IsSold";
+
 import "../styles/OneArtwork.css";
 
 export class OneArtwork extends Component {
@@ -86,13 +87,13 @@ export class OneArtwork extends Component {
         {artwork && (
           <section className="Top-artwork">
             <div>
-              <img src={artwork.image} alt="hey" />
+              <img className="One-artwork-img-size" src={artwork.image} alt="hey" />
               {console.log(auction)}
               {auction && !isActive && <IsSold bids={auction.bids} />}
               {auction && isActive && <IsActive auction={auction} />}
               {!auction && !isActive && <NeverSold />}
             </div>
-            <div>
+            <div className="One-artwork-info">
               <h1>{artwork.title}</h1>
               <Link to={`/artist/${artwork.creator._id}`}>
                 <h4>{artwork.creator.username}</h4>
