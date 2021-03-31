@@ -68,7 +68,7 @@ render(){
                             <td>
                             {artwork.forSale===false? <button onClick={()=>this.handleClickSell(artwork)}>
                                 <img className="Btn-icon" src="img/auction-btn.svg" alt="auction-btn" />
-                            </button> : <p>In auction</p>}
+                            </button> : <p>Auction<br/>in progress</p>}
                             </td>
                         </tr> )
                     })}    

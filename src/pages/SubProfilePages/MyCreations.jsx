@@ -115,7 +115,7 @@ class MyCreations extends Component {
                             />
                           </button>
                         ) : (
-                            <p> In auction</p>
+                            <p>Auction<br/>in progress</p>
                         )
                       ) : (
                         <p>Sold</p>
