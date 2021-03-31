@@ -34,9 +34,11 @@ class Profile extends Component {
     console.log('voici mon nouveau user', userInCallback)
     this.setState({user: userInCallback})
   }
+  
   componentDidMount(){
     this.setState({user: this.props.context.user})
   }
+
   componentDidUpdate(prevProps, prevState){
     if (prevState.user){
       if (prevState.user.credit!==this.state.user.credit ||prevState.user.avatar!==this.state.user.avatar ){

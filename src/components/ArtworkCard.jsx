@@ -36,7 +36,7 @@ export class ArtworkCard extends Component {
         return (
             <div className="ArtworkCard">
                 <Link key={artwork._id} to={`/artworks/${artwork._id}`}>
-                    <img src={artwork.image} alt={`${artwork.title} picture`}/>
+                    <img src={artwork.image} alt={`${artwork.title}`}/>
                     <div className="details">
                         <h5>{artwork.title}</h5>
                         <h6>{artwork.creator ? artwork.creator.username : "former user of the platform"}</h6>

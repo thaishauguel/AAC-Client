@@ -66,7 +66,7 @@ export default class FormUpdateOneCreation extends Component {
       }
 
     render() {
-        const {artwork, title, description, image} = this.state
+        const {title, description} = this.state
         
         return (
             <section>

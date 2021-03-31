@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { withUser } from "../../components/Auth/withUser";
 import apiHandler from "../../api/apiHandler";
 
@@ -69,10 +69,7 @@ class FormUpdate extends Component {
     uploadData.append("description", this.state.description);
     uploadData.append("credit", this.state.credit);
 
-    console.log("uploadData => " + uploadData)
-    for (const pair of uploadData.entries()) {
-      // console.log(pair[0] + ', ' + pair[1]);
-    }
+  
 
     apiHandler
       .UpdateMyProfile(uploadData)
