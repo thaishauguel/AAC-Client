@@ -1,8 +1,10 @@
 import React, {Component} from "react";
+import {withUser} from '../components/Auth/withUser'
+import Credits from "./../components/Credits";
 import MyActivity from "./SubProfilePages/MyActivity";
 import MyCollection from "./SubProfilePages/MyCollection";
 import MyCreations from "./SubProfilePages/MyCreations";
-import FormUpdate from "./SubProfilePages/FormUpdate";
+import FormUpdateProfile from "./SubProfilePages/FormUpdateProfile";
 
 //CSS
 import "../styles/Profile.css"
@@ -18,7 +20,6 @@ class Profile extends Component {
 
   handleClick =(event)=>{
     if (this.state[event.target.id]===false){
-    // console.log(event.target.id)  
     this.setState ({
       displayCrea : false,
       displayColl:false,
@@ -29,21 +30,26 @@ class Profile extends Component {
 
   }
   render(){
-    console.log("profile state: ",this.state)
+    // console.log("profile state: ",this.state)
+    const {user} = this.props.context
     const {displayCrea, displayColl, displayAct, displayUpdate} = this.state
     const isActive = { fontWeight: "500" }
     return (
       <div className="Profile">
-        <div className="Profile-title">
-          <h1>Profile</h1>
-          <img
-            id="displayUpdate"
-            onClick={this.handleClick}
-            src="img/edit-btn.svg"
-            alt=""
-          />
-        </div>
-
+        <header className="flex">
+          <div className="Profile-title flex">
+            <img className="Avatar" src={user.avatar} alt="user avatar" />
+            <h1>Profile</h1>
+            <img
+              id="displayUpdate"
+              onClick={this.handleClick}
+              src="img/edit-btn.svg"
+              alt="edit-icon"
+            />
+          </div>
+          <Credits />          
+        </header>
+        
         <nav className="Profile-nav">
           <ul>
             <li
@@ -74,11 +80,11 @@ class Profile extends Component {
         { displayCrea && <MyCreations /> }
         { displayColl && <MyCollection /> }
         { displayAct && <MyActivity /> }
-        { displayUpdate && <FormUpdate /> }
+        { displayUpdate && <FormUpdateProfile /> }
       </div>
     );
   }
   
 };
 
-export default Profile;
+export default withUser(Profile);

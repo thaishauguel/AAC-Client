@@ -42,8 +42,8 @@ class MyCollection extends Component {
         }
       };
       
-      closeSellForm = () => {
-        this.setState({displaySellForm: false})
+      closeForm = (nameOfForm) => {
+        this.setState({[nameOfForm]: false})
       };
 
 render(){
@@ -51,6 +51,9 @@ render(){
     // console.log("my collection state: ",this.state)
     return (
         <div className="flex">
+
+            {this.state.myCollection.length===0 && <p>You don't have any artwork in your collection, buy some !</p>}
+
             <table className="Profile-table">
                 <tbody>
                     {this.state.myCollection.map((artwork)=>{
@@ -72,7 +75,7 @@ render(){
                 </tbody>
             </table>
 
-            {this.state.displaySellForm && <AddAnAuction  auction={this.state.artworkToSell} closeForm={this.closeSellForm}/>}
+            {this.state.displaySellForm && <AddAnAuction  artwork={this.state.artworkToSell} closeForm={this.closeForm}/>}
         </div>
     )
 }

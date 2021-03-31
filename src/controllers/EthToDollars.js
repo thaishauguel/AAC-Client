@@ -1,7 +1,7 @@
 const axios = require("axios");
 
-function ethToDollars(value) {
-  axios
+function EthToDollars(value) {
+  return axios
     .get(
       "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR"
     )
@@ -11,4 +11,4 @@ function ethToDollars(value) {
     .catch((err) => console.log(err));
 }
 
-ethToDollars(0.54);
+export default EthToDollars

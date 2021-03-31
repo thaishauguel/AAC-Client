@@ -1,22 +1,24 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import AddAnAuction from "../../components/Forms/AddAnAuction";
-
+import FormCreateAnArtwork from "./FormCreateAnArtwork";
+import FormUpdateOneCreation from "./FormUpdateOneCreation";
 
 import apiHandler from "../../api/apiHandler";
+import {withUser} from "./../../components/Auth/withUser";
 
 //CSS
-import "../../styles/Profile.css"
+import "../../styles/Profile.css";
 
 class MyCreations extends Component {
   state = {
     myCreations: null,
     displayAddForm: false,
-    title: "",
-    description: "",
-    image: "",
-    displaySellForm : false,
-    artworkToSell : null
+    displayUpdateForm: false,
+    displaySellForm: false,
+    artworkToSell: null,
+    artworkToUpdate: null,
+    message: "",
   };
 
   componentDidMount() {
@@ -28,150 +30,129 @@ class MyCreations extends Component {
       .catch((err) => console.log(err));
   }
 
-  handleClickSell=(artwork)=>{
-    this.setState({displaySellForm : true, artworkToSell:artwork })
-}
+  handleClickSell = (artwork) => {
+    this.setState({ displaySellForm: true, artworkToSell: artwork });
+  };
 
   handleClickAdd = () => {
     this.setState({ displayAddForm: !this.state.displayAddForm });
   };
 
-  handleFileChange = (event) => {
-    this.setState({
-      image: event.target.files[0],
-    });
+  handleClickUpdate = (artwork) => {
+    this.setState({ displayUpdateForm: true, artworkToUpdate: artwork });
   };
 
-  handleSubmit = (event) => {
-    event.preventDefault()
-    const newArtwork= new FormData()
-    newArtwork.append("title", this.state.title)
-    newArtwork.append("description", this.state.description)
-    newArtwork.append("image", this.state.image)
-
-    apiHandler
-  .addAnArtwork(newArtwork)
-  .then(()=>{
-    // after creation: close form and reset inputs
-    this.setState({displayAddForm:false});
-    this.setState({title: "", description: "", image: ""}) 
-    console.log('artwork created!')
-    })
-  .catch(err=>console.log(err))
-  };
-  
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.displayAddForm!==this.state.displayAddForm || prevState.displaySellForm!==this.state.displaySellForm) {
-    apiHandler
-      .getMyCreations()
-      .then((data) => {
-        this.setState({ myCreations: data });
-      })
-      .catch((err) => console.log(err));
+    if (
+      prevState.displayAddForm !== this.state.displayAddForm ||
+      prevState.displaySellForm !== this.state.displaySellForm ||
+      prevState.displayUpdateForm !== this.state.displayUpdateForm
+    ) {
+      apiHandler
+        .getMyCreations()
+        .then((data) => {
+          this.setState({ myCreations: data });
+        })
+        .catch((err) => console.log(err));
     }
-  };
+  }
 
-  closeSellForm = () => {
-    this.setState({displaySellForm: false})
-  };
-
-  handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    this.setState({ [name]: value });
+  closeForm = (nameOfForm) => {
+    this.setState({ [nameOfForm]: false });
   };
 
   render() {
     if (!this.state.myCreations) {
       return <div>Loading...</div>;
     }
-    // console.log("mycreation state: ",this.state);
+    // console.log(this.state);
     return (
       <div className="flex">
         <section>
-
+          {this.state.myCreations.length === 0 && (
+            <p>You don't have any creation, add some !</p>
+          )}
+          {this.state.message && (
+            <p className="Sucess-message">{this.state.message}</p>
+          )}
           <table className="Profile-table">
             <tbody>
-                {this.state.myCreations.map((artwork) => {
-                  return (
-                    <tr key={artwork._id} >
-                        
-                          <td>
+              {this.state.myCreations.map((artwork) => {
+                return (
+                  <tr key={artwork._id}>
+                    <td>
+                      <Link to={`artworks/${artwork._id}`}>
+                        <img
+                          className="Miniature"
+                          src={artwork.image}
+                          alt={artwork.title}
+                        />
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to={`artworks/${artwork._id}`}>
+                        <p>{artwork.title}</p>
+                      </Link>
+                    </td>
+                    <td>
+                      {artwork.owner=== this.props.context.user._id &&<button onClick={() => this.handleClickUpdate(artwork)}>
+                        <img
+                          className="Btn-icon"
+                          src="img/edit-btn.svg"
+                          alt="auction-btn"
+                        />
+                      </button>}
+                    </td>
+
+                    <td>
+                      {artwork.creator=== artwork.owner? (
+                        artwork.forSale === false ? (
+                          <button onClick={() => this.handleClickSell(artwork)}>
+                            <img
+                              className="Btn-icon"
+                              src="img/auction-btn.svg"
+                              alt="auction-btn"
+                            />
+                          </button>
+                        ) : (
                           <Link to={`artworks/${artwork._id}`}>
-                              <img
-                                className="Miniature"
-                                src={artwork.image}
-                                alt={artwork.title}
-                              />
+                            <h4>Auction in progress</h4>
                           </Link>
-                          </td>
-                          <td>
-                            <Link to={`artworks/${artwork._id}`}>
-                              <p>{artwork.title}</p>
-                            </Link>
-                          </td>
-                        <td>
-                          {/* TODO */}
-                          <button><img className="Btn-icon" src="img/edit-btn.svg" alt="auction-btn" /></button>
-                        </td>
-                        
-                        <td>
-                          {artwork.creator === artwork.owner._id ? (
-                            artwork.forSale===false? <button onClick={()=>this.handleClickSell(artwork)}><img className="Btn-icon" src="img/auction-btn.svg" alt="auction-btn" /></button> : <Link to={`artworks/${artwork._id}`}><h4>Auction in progress</h4></Link>
-                          ) : (
-                            <p>Already sold</p>
-                          )}
-                        </td>
-                      </tr>
-                  );
-                })}
+                        )
+                      ) : (
+                        <p>Already sold</p>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
-          <button className="Btn-black" onClick={this.handleClickAdd}>{this.state.displayAddForm ? "Close" : "Add an artwork"}</button>
+          <button className="Btn-black" onClick={this.handleClickAdd}>
+            Add an artwork
+          </button>
         </section>
 
-        {this.state.displaySellForm && <AddAnAuction  auction={this.state.artworkToSell} closeForm={this.closeSellForm}/>}
-
+        {this.state.displaySellForm && (
+          <AddAnAuction
+            artwork={this.state.artworkToSell}
+            closeForm={this.closeForm}
+          />
+        )}
 
         {this.state.displayAddForm && (
-          <section>
-            <h3>Add an artwork</h3>
-            <form onSubmit={this.handleSubmit}>
-              <input
-                id="title"
-                name="title"
-                value={this.state.title}
-                onChange={this.handleChange}
-                type="text"
-                placeholder="Title"
-              />
-            <textarea 
-              onChange={this.handleChange}
-              value={this.state.description}
-              type="text"
-              id="description"
-              name="description" 
-              placeholder="Description"
-              cols="30" 
-              rows="7"
-            >
-              
-            </textarea>
-              <input
-                id="image"
-                name="image"
-                onChange={this.handleFileChange}
-                type="file"
-                placeholder="Upload the image"
-              />
+          <FormCreateAnArtwork closeForm={this.closeForm} />
+        )}
 
-            <button className="Btn-black">Create</button>
-            </form>
-          </section>
+        {this.state.displayUpdateForm && (
+          <FormUpdateOneCreation
+            closeForm={this.closeForm}
+            artwork={this.state.artworkToUpdate}
+          />
         )}
       </div>
     );
   }
 }
 
-export default MyCreations;
+export default withUser (MyCreations);

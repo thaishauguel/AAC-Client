@@ -58,11 +58,13 @@ class MyActivity extends Component {
 
     render() {
         if (!this.state.myCurrentSales || !this.state.myCurrentBids || !this.props.context.user ){return <div>Loading...</div>}
-        console.log(this.state.myCurrentBids)
+        // console.log(this.state.myCurrentBids)
         return (
-        <div className="flex">
+        <div>
             <div>
                 <h3>My current bids</h3>
+                {this.state.myCurrentBids.length===0 && <p>You haven't bid on any artwork lately.</p>}
+
                 <table className="Profile-table">
                     <tbody>
                         {this.state.myCurrentBids.map((auction)=>{
@@ -88,9 +90,10 @@ class MyActivity extends Component {
 
             <div>
             <h3>My current Sales</h3>
+            {this.state.myCurrentBids.length===0 && <p>You don't have any sales in progress, you can add an auction at anytime.</p>}
             <table className="Profile-table">
                 <tbody>
-                    {this.state.myCurrentSales.length===0 ? <tr><td>No current sales</td></tr> : this.state.myCurrentSales.map((auction)=>{
+                    {this.state.myCurrentSales.map((auction)=>{
                         return <tr key={auction._id}>
                             <td>
                             <Link to={`artworks/${auction._artworkId._id}`}><img className="Miniature" src={auction._artworkId.image} alt={auction._artworkId.title}/></Link>

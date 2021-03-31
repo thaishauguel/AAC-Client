@@ -16,21 +16,22 @@ class Home extends React.Component {
   }
   render() {
        const {artworks} = this.state;
+      
 
     if (!artworks){return <div>Loading</div>}
-
+    let [topArtwork, ...rest]=artworks
     return (
       <div className="Home">
         {artworks.length>0 &&
         <section className="Top-artwork White-bg">
             <div>
-              <h1>{artworks[0].title}</h1>
-              <h4>{artworks[0].creator.username}</h4>
+              <h1>{topArtwork.title}</h1>
+              <h4>{topArtwork.creator.username}</h4>
               {/* 
               Bid Component to add 
             */}
             </div>
-            <img src={artworks[0].image} alt="hey" />
+            <img src={topArtwork.image} alt="hey" />
         </section>
         }
         
@@ -38,7 +39,7 @@ class Home extends React.Component {
           <h3>
             Discover current auctions.
           </h3>
-          {artworks && artworks.map(artwork =>
+          {artworks && rest.map(artwork =>
               <ArtworkCard  key={artwork._id}  artwork={artwork} />
           )}
         </section>

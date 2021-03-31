@@ -27,7 +27,7 @@ export class ArtworkCard extends Component {
                         <h5>{artwork.title}</h5>
                         <h6>{artwork.creator.username}</h6>
                         <div className="Bid-status">
-                            {!auction && <p>Never sold</p>}
+                            {!auction && <p>Not for sale</p>}
                             {auction && auction.active && auction.bids.length>0 &&(
                             <><p>Current Price</p>
                             <p className="Price">{auction.bids[0].bidValue}<span className="Currency">ETH</span></p>

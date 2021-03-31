@@ -46,6 +46,13 @@ const apiHandler = {
       .catch(errorHandler);
   },
 
+  delete() {
+    return service
+      .get("/api/auth/delete")
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
+
   // Profile Calls
   UpdateMyProfile(userInfo) {
     return service
@@ -161,6 +168,23 @@ const apiHandler = {
   deleteAuction(auctionId) {
     return service
     .delete(`/api/auctions/${auctionId}`)
+    .then((res)=>res.data)
+    .catch(errorHandler)
+  },
+  changePassword(passwords){
+    return service.patch('/api/auth/update-password', passwords)
+    .then((res)=>res.data)
+    .catch(errorHandler)
+  },
+  updateAnArtwork(artworkId, artworkUpdated){
+    return service.patch(`/api/artworks/${artworkId}`, artworkUpdated)
+      
+    .then((res)=>res.data)
+    .catch(errorHandler)
+  },
+
+  deleteAnArtwork(artworkId){
+    return service.delete(`/api/artworks/${artworkId}`)
     .then((res)=>res.data)
     .catch(errorHandler)
   }

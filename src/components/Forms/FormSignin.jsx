@@ -7,6 +7,7 @@ class FormSignin extends Component {
   state = {
     email: "",
     password: "",
+    message: ""
   };
 
   handleChange = (event) => {
@@ -27,7 +28,7 @@ class FormSignin extends Component {
       })
       .catch((error) => {
         console.log(error);
-        // Display error message here, if you set the state
+        this.setState({message: "Oups, Bad Credentials"})
       });
   };
 
@@ -42,7 +43,9 @@ class FormSignin extends Component {
         <input type="email" id="email" name="email" />
         <label htmlFor="password">Password</label>
         <input type="password" id="password" name="password" />
-        <button>Submit</button>
+        <button className="Btn-black  ">Submit</button>
+        {this.state.message && <p className="Alert-message">{this.state.message}</p>}
+
       </form>
     );
   }
