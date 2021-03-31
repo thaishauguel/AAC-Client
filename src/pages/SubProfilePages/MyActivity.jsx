@@ -70,18 +70,20 @@ class MyActivity extends Component {
                         {this.state.myCurrentBids.map((auction)=>{
                             return <tr key={auction._id}>
                                 <td>
-                                <Link to={`artworks/${auction._artworkId._id}`}><img className="Miniature" src={auction._artworkId.image} alt={auction._artworkId.title}/>
-                                </Link></td>
+                                    <Link to={`artworks/${auction._artworkId._id}`}>
+                                        <img className="Miniature" src={auction._artworkId.image} alt={auction._artworkId.title}/>
+                                    </Link>
+                                </td>
                                 <td>
-                                <Link to={`artworks/${auction._artworkId._id}`}><h4>{auction._artworkId.title}</h4>
-                                </Link></td>
-                                <td>
-                                <Link to={`artworks/${auction._artworkId._id}`}>
-                                <p>Current bid : ${auction.bids[0].bidValue}</p>
-                                {auction.bids.filter((bid)=> bid.bidder._id === this.props.context.user._id).length > 0 
-                                    && <p>My last bid : ${auction.bids.filter((bid)=>bid.bidder._id === this.props.context.user._id)[0].bidValue}</p>}
-                                </Link></td>
-                                
+                                    <Link to={`artworks/${auction._artworkId._id}`}>
+                                        {auction._artworkId.title}
+                                    </Link>
+                                    <p>
+                                        Current bid: ${auction.bids[0].bidValue} |
+                                        {auction.bids.filter((bid)=> bid.bidder._id === this.props.context.user._id).length > 0 
+                                        && ` My last bid: ${auction.bids.filter((bid)=>bid.bidder._id === this.props.context.user._id)[0].bidValue}`} 
+                                    </p>
+                                </td>
                             </tr>
                         })}
                     </tbody>
@@ -91,23 +93,44 @@ class MyActivity extends Component {
             <div>
             <h3>My current Sales</h3>
             {this.state.myCurrentSales.length===0 && <p>You don't have any sales in progress, you can add an auction at anytime.</p>}
-            <table className="Profile-table">
+            <table className="Profile-table Activity">
                 <tbody>
                     {this.state.myCurrentSales.map((auction)=>{
-                        return <tr key={auction._id}>
+                        return (
+                          <tr key={auction._id}>
                             <td>
-                            <Link to={`artworks/${auction._artworkId._id}`}><img className="Miniature" src={auction._artworkId.image} alt={auction._artworkId.title}/></Link>
+                              <Link to={`artworks/${auction._artworkId._id}`}>
+                                <img
+                                  className="Miniature"
+                                  src={auction._artworkId.image}
+                                  alt={auction._artworkId.title}
+                                />
+                              </Link>
                             </td>
                             <td>
-                            <Link to={`artworks/${auction._artworkId._id}`}><p>{auction._artworkId.title} by {auction._artworkId.creator.username}</p></Link>
+                              <Link to={`artworks/${auction._artworkId._id}`}>
+                                {auction._artworkId.title}
+                              </Link>
+                              {auction.bids[0] ? (
+                                <p>
+                                  Current bid: ${auction.bids[0].bidValue} |
+                                  Placed by: {auction.bids[0].bidder.username}
+                                </p>
+                              ) : (
+                                <p>No bid yet</p>
+                              )}
                             </td>
+                            <td></td>
                             <td>
-                            {auction.bids[0]? <div><p>Current bid : ${auction.bids[0].bidValue}</p>
-                                <p>Placed by : {auction.bids[0].bidder.username}</p></div>
-                             : <p>No bid yet</p>}
-                             </td>
-                             <td><button onClick={()=>this.closeTheAuction(auction)} className="Btn-black">Close the auction</button></td>
-                        </tr>
+                              <button
+                                onClick={() => this.closeTheAuction(auction)}
+                                className="Btn-minimal"
+                              >
+                                Close auction
+                              </button>
+                            </td>
+                          </tr>
+                        );
                     })}
                 </tbody>
             </table>

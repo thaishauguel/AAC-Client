@@ -96,7 +96,7 @@ export class OneArtwork extends Component {
             <div className="One-artwork-info">
               <h1>{artwork.title}</h1>
               <Link to={`/artist/${artwork.creator._id}`}>
-                <h4>{artwork.creator.username}</h4>
+                <h4>@{artwork.creator.username}</h4>
               </Link>
               <p>{artwork.description}</p>
             </div>

@@ -29,19 +29,7 @@ class MyCreations extends Component {
       })
       .catch((err) => console.log(err));
   }
-
-  handleClickSell = (artwork) => {
-    this.setState({ displaySellForm: true, artworkToSell: artwork });
-  };
-
-  handleClickAdd = () => {
-    this.setState({ displayAddForm: !this.state.displayAddForm });
-  };
-
-  handleClickUpdate = (artwork) => {
-    this.setState({ displayUpdateForm: true, artworkToUpdate: artwork });
-  };
-
+  
   componentDidUpdate(prevProps, prevState) {
     if (
       prevState.displayAddForm !== this.state.displayAddForm ||
@@ -56,6 +44,19 @@ class MyCreations extends Component {
         .catch((err) => console.log(err));
     }
   }
+
+  handleClickSell = (artwork) => {
+    this.setState({ displaySellForm: true, displayUpdateForm: false, displayAddForm: false, artworkToSell: artwork });
+  };
+
+  handleClickAdd = () => {
+    this.setState({ displayAddForm: true, displayUpdateForm: false, displaySellForm: false, });
+  };
+
+  handleClickUpdate = (artwork) => {
+    this.setState({ displayUpdateForm: true, displayAddForm: false, displaySellForm: false, artworkToUpdate: artwork });
+  };
+
 
   closeForm = (nameOfForm) => {
     this.setState({ [nameOfForm]: false });
@@ -91,19 +92,18 @@ class MyCreations extends Component {
                     </td>
                     <td>
                       <Link to={`artworks/${artwork._id}`}>
-                        <p>{artwork.title}</p>
+                        {artwork.title}
                       </Link>
                     </td>
                     <td>
                       {artwork.owner=== this.props.context.user._id &&<button onClick={() => this.handleClickUpdate(artwork)}>
                         <img
-                          className="Btn-icon"
+                          className="Btn-icon edit"
                           src="img/edit-btn.svg"
                           alt="auction-btn"
                         />
                       </button>}
                     </td>
-
                     <td>
                       {artwork.creator=== artwork.owner? (
                         artwork.forSale === false ? (
@@ -115,12 +115,10 @@ class MyCreations extends Component {
                             />
                           </button>
                         ) : (
-                          <Link to={`artworks/${artwork._id}`}>
-                            <h4>Auction in progress</h4>
-                          </Link>
+                            <p> In auction</p>
                         )
                       ) : (
-                        <p>Already sold</p>
+                        <p>Sold</p>
                       )}
                     </td>
                   </tr>
@@ -155,4 +153,4 @@ class MyCreations extends Component {
   }
 }
 
-export default withUser (MyCreations);
+export default withUser(MyCreations);
