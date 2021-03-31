@@ -16,7 +16,8 @@ class FormUpdate extends Component {
     isFormPwdDisplayed: false,
     formerPassword: "",
     newPassword: "",
-    message: ""
+    message: "",
+  
   };
 
   componentDidMount() {
@@ -34,6 +35,14 @@ class FormUpdate extends Component {
       }))
       .catch((err) => console.log(err));
   }
+
+    //  componentDidUpdate(prevProps,prevState){
+    //     console.log(prevProps.context.user.credit, this.props.context.user.credit)
+    //     if (prevProps.context.user.credit!==this.props.context.user.credit){
+    //       console.log(this.props.context.user.credit)
+    //     }
+    //   }
+
 
   handleChange = (event) => {
     const value = event.target.value;
@@ -62,14 +71,15 @@ class FormUpdate extends Component {
 
     console.log("uploadData => " + uploadData)
     for (const pair of uploadData.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
+      // console.log(pair[0] + ', ' + pair[1]);
     }
 
     apiHandler
       .UpdateMyProfile(uploadData)
       .then(data => {
-        this.setState({ message: "Successfully Updated" })
         console.log(data)
+        this.props.getTheUpdatedUser(data)
+        this.setState({message: "Successfully Updated" });
       })
       .catch(error => console.log(error))
   };
@@ -95,16 +105,17 @@ class FormUpdate extends Component {
 
   }
 
-  handleDelete = () => {
-    apiHandler.delete()
-      .then(data => {
-        window.location.reload()
-      }
-      )
-      .catch(err => console.log(err))
-  }
+  // handleDelete = () => {
+  //   apiHandler.delete()
+  //     .then(data => {
+  //       window.location.reload()
+  //     }
+  //     )
+  //     .catch(err => console.log(err))
+  // }
 
   render() {
+    console.log("credit", this.props.context.user.credit)
     return (
       <div style={{ display: "flex", justifyContent: "space-evenly" }}>
         {/* <h3>Parameters</h3> */}
@@ -185,7 +196,7 @@ class FormUpdate extends Component {
 
         </form>
 
-        <button onClick={this.handleDelete} className="Btn-minimal" >delete your account</button>
+        {/* <button onClick={this.handleDelete} className="Btn-minimal" >delete your account</button> */}
 
         <div>
           {!this.state.isFormPwdDisplayed && <button onClick={this.displayFormPwd} className="Btn-black">Change your password</button>}

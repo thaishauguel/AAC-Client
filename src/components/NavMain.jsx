@@ -21,7 +21,7 @@ const NavMain = (props) => {
 
   return (
     <nav className="NavMain">
-      <Link exact to="/">
+      <Link to="/">
         <h3 className="logo">.aac</h3>
       </Link>
 

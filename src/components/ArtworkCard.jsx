@@ -25,7 +25,7 @@ export class ArtworkCard extends Component {
                     <img src={artwork.image} alt={`${artwork.title} picture`}/>
                     <div className="details">
                         <h5>{artwork.title}</h5>
-                        <h6>{artwork.creator.username}</h6>
+                        <h6>{artwork.creator ? artwork.creator.username : "former user of the platform"}</h6>
                         <div className="Bid-status">
                             {!auction && <p>Not for sale</p>}
                             {auction && auction.active && auction.bids.length>0 &&(

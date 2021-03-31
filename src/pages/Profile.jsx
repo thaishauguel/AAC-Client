@@ -15,7 +15,8 @@ class Profile extends Component {
     displayCrea : false,
     displayColl:false,
     displayAct:true,
-    displayUpdate:false
+    displayUpdate:false,
+    user : null
   }  
 
   handleClick =(event)=>{
@@ -27,12 +28,29 @@ class Profile extends Component {
       displayUpdate:false
     })
   this.setState ({[event.target.id] : !this.state[event.target.id]})}
-
   }
+  
+  getTheUpdatedUser=(userInCallback)=>{
+    console.log('voici mon nouveau user', userInCallback)
+    this.setState({user: userInCallback})
+  }
+  componentDidMount(){
+    this.setState({user: this.props.context.user})
+  }
+  componentDidUpdate(prevProps, prevState){
+    if (prevState.user){
+      if (prevState.user.credit!==this.state.user.credit ||prevState.user.avatar!==this.state.user.avatar ){
+      this.setState({user:this.state.user})
+        console.log('kiki')}
+    }
+  }
+
   render(){
     // console.log("profile state: ",this.state)
-    const {user} = this.props.context
-    const {displayCrea, displayColl, displayAct, displayUpdate} = this.state
+    // const {user} = this.props.context
+    const {displayCrea, displayColl, displayAct, displayUpdate, user} = this.state
+    if (!user){return <div>Loading</div>}
+
     const isActive = { fontWeight: "500" }
     return (
       <div className="Profile">
@@ -47,7 +65,7 @@ class Profile extends Component {
               alt="edit-icon"
             />
           </div>
-          <Credits />          
+          <Credits user={user} />          
         </header>
         
         <nav className="Profile-nav">
@@ -80,7 +98,7 @@ class Profile extends Component {
         { displayCrea && <MyCreations /> }
         { displayColl && <MyCollection /> }
         { displayAct && <MyActivity /> }
-        { displayUpdate && <FormUpdateProfile /> }
+        { displayUpdate && <FormUpdateProfile getTheUpdatedUser={this.getTheUpdatedUser}/> }
       </div>
     );
   }

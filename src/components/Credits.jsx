@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {withUser} from './Auth/withUser'
+// import {withUser} from './Auth/withUser'
 import EthToDollars from '../controllers/EthToDollars'
 
 export class Credits extends Component {
@@ -7,14 +7,21 @@ export class Credits extends Component {
         credit: null
     }
     componentDidMount() {
-        EthToDollars(this.props.context.user.credit)
+        EthToDollars(this.props.user.credit)
         .then(res => {
             this.setState({credit: res})
         })
     }
 
+    // componentDidUpdate(prevProps,prevState){
+    //     console.log('coucou romain')
+    //     if (prevProps.context.user.credit!==this.props.context.user.credit){
+    //       this.setState({credit : this.props.context.user.credit})
+    //     }
+    //   }
+
     render() {
-        const {user} = this.props.context
+        const {user} = this.props
         const {credit} = this.state
        
         return (
@@ -27,4 +34,4 @@ export class Credits extends Component {
     }
 }
 
-export default withUser(Credits)
+export default Credits
