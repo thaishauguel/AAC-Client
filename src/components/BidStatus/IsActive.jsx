@@ -12,7 +12,8 @@ export class IsActive extends Component {
     currentInput: "",
     message:"",
     displayMessage : false,
-    dollars: null
+    dollars: null,
+    currentHighestBids: null // sum of user's current bid values if they are highest
   };
 
   componentDidMount() {
@@ -26,6 +27,8 @@ export class IsActive extends Component {
   componentDidUpdate(prevProps, prevState) {
     console.log(typeof prevProps.auction, typeof this.props.auction)
     if(prevProps.auction._id !== this.props.auction._id  || prevProps.auction !== this.props.auction) {
+    // if(prevProps.auction._id !== this.props.auction._id ) {
+      this.setState({displayMessage : false, currentInput: "", isFormOpen: !this.state.isFormOpen});
       if (this.props.auction.bids.length>0) {
         this.setState({ bidValue: this.props.auction.bids[0].bidValue })
       } else {
@@ -62,15 +65,41 @@ export class IsActive extends Component {
     // });
 
     if (this.state.currentInput){
-      this.setState({ bidValue: this.state.currentInput, isFormOpen: !this.state.isFormOpen, isSubmit: true},  () => {
-        apiHandler
-          .addABid(this.state.bidValue, this.props.auction._id)
-          .then((res) => {
-            console.log(res)
-            this.setState({message:"Thanks for your bid", displayMessage: true})})
-          .catch((err) => console.log(err));
-      });
-    }
+      
+      // get value of user's current highest bids
+      apiHandler.getMyCurrentBids() // get array of all active auctions on which user has already bidded
+      .then(res=>{
+        let currentHighestBids = 0 
+        if (res.length!==0){ // keep auctions where user is last bidder
+        currentHighestBids = res.filter(auction=>auction.bids[0].bidder._id===this.props.context.user._id && auction._id!==this.props.auction._id);
+        console.log("currentHighestBids after filter: ",currentHighestBids)
+        if (currentHighestBids.length===0) {
+          currentHighestBids = 0
+        } else { // add bid values
+          currentHighestBids = currentHighestBids.reduce((acc, el)=>acc+el.bids[0].bidValue, 0)
+          console.log("currentHighestBids after reduce: ",currentHighestBids)
+        }
+      } this.setState({currentHighestBids: currentHighestBids}, ()=>{
+      console.log("context.user.credit: ", this.props.context.user.credit)
+      console.log("this.state.currentHighestBids: ", this.state.currentHighestBids)
+        if ((this.props.context.user.credit - this.state.currentHighestBids)>=this.state.currentInput) 
+        { //user has enough credit
+        this.setState({ bidValue: this.state.currentInput, isFormOpen: !this.state.isFormOpen, isSubmit: true},  () => {
+          apiHandler
+            .addABid(this.state.bidValue, this.props.auction._id)
+            .then((res) => {
+              console.log(res)
+              this.setState({message:"Thanks for your bid", displayMessage: true})})
+            .catch((err) => console.log(err));
+        });
+        } else { //user is trying to bid over their credit
+          this.setState({message:"You don't have enough credit for this bid", displayMessage: true})
+        }
+      })
+    })
+      .catch(err=>console.log(err))
+      
+  }
     
   };
 

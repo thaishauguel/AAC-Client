@@ -56,7 +56,7 @@ export default class Results extends Component {
           <section className="">
           {this.state.artistsMatch.length === 0 ? <p>No results</p> : 
             this.state.artistsMatch.map(el =>
-            <Link className="Artist-search" key={el._id} art={el} to={`/artist/${el._id}`} >{el.creator.username}</Link> )
+            <Link className="Artist-search" key={el._id} art={el} to={`/artist/${el.creator._id}`} >{el.creator.username}</Link> )
           }
           </section>
             {/* Artwork section */}
