@@ -6,11 +6,9 @@ import "../../styles/Profile.css"
 
 export default class FormCreateAnArtwork extends Component {
     state = {
-        
         title: "",
         description: "",
         image: "",
-        
       };
 
 
@@ -21,7 +19,6 @@ export default class FormCreateAnArtwork extends Component {
       };
 
       handleFileChange = (event) => {
-
         // console.log("The file added by the use is: ", event.target.files[0]);
         this.setState({
           image: event.target.files[0],
