@@ -17,7 +17,8 @@ class Home extends React.Component {
     dollars: null,
     parallaxX: null,
     parallaxY: null,
-    blur: null, 
+    blur: null,
+    isUploaded: false
   };
   
   
@@ -68,7 +69,7 @@ class Home extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0);
    this.getData()
-    this.intervalID = setInterval(()=>this.getData(), 10000);
+    this.intervalID = setInterval(()=>this.getData(), 4000);
     /*
           Now we need to make it run at a specified interval,
           bind the getData() call to `this`, and keep a reference
@@ -77,8 +78,19 @@ class Home extends React.Component {
   }
 
   componentDidUpdate(prevProps,prevState) {
-    if (prevState.parallaxX !== this.state.parallaxX || prevState.parallaxY !== this.state.parallaxY ) 
-    this.setState({parallaxX: this.setState.parallaxX, parallaxY: this.setState.parallaxY, blur: this.state.blur})
+    if (prevState.parallaxX !== this.state.parallaxX || prevState.parallaxY !== this.state.parallaxY ) {
+      this.setState({parallaxX: this.setState.parallaxX, parallaxY: this.setState.parallaxY, blur: this.state.blur})
+    }
+    if (prevState.auctionTop) {
+      if (prevState.auctionTop.bids[0].bidValue !== this.state.auctionTop.bids[0].bidValue) {
+        this.setState({isUploaded: true },() => {
+          setTimeout(() => this.setState({isUploaded: false }), 5000)
+        } )
+      }
+    }
+    // if (prevState.isUploaded !== this.state.isUploaded) {
+    //   setTimeout(this.setState({isUploaded: false }, console.log(this.state.isUploaded) ), 10000)
+    // }
   }
 
   componentWillUnmount() {
@@ -91,12 +103,13 @@ class Home extends React.Component {
 
 
   render() {
-    const { artworks, auctionTop, dollars, parallaxX, parallaxY, blur } = this.state;
+    const { artworks, auctionTop, dollars, parallaxX, parallaxY, blur, isUploaded } = this.state;
     const dollarsFormat = new Intl.NumberFormat().format(dollars)
     let parallax = {
       transform: `translateX(${parallaxX}px) translateY(${parallaxY}px)`,
       filter: `blur(${blur}px)`
     }
+
     if (!artworks || !auctionTop) {
       return <Loading text="Art" />;
     }
@@ -113,13 +126,14 @@ class Home extends React.Component {
 
               <div className="Bid-home">
                 <h4>Current Bid</h4>
-                <p className="Price">
+                <p className={isUploaded ? "Price blur-bck "  : "Price"}>
                   {auctionTop.bids.length === 0
                     ? auctionTop.initialPrice
                     : auctionTop.bids[0].bidValue}
                   <span className="Currency">ETH</span>
                 </p>
                 <p className="Dollars">${dollarsFormat}</p>
+                {/* {isNaN(dollarsFormat) || <p className="Dollars">${dollarsFormat}</p>} */}
               </div>
               <Link to={`/artworks/${topArtwork._id}`}>
                 <button className="Btn-black">See the auction</button>
