@@ -36,15 +36,29 @@ class AddAnAuction extends Component {
 
     render() {
         return (
-            <section>
-                <h3>Create an auction</h3>
-                <form onSubmit={this.handleSubmit}>
-                    <input required type="text"  readOnly value={this.props.artwork.title}/>
-                    <input required id="initialPrice" onChange={this.handleChange} name="initialPrice" value={this.state.initialPrice} type="number" placeholder="Initial price"/>
-                    <button className="Btn-black">Create</button> 
-                </form>
-            </section>
-        )
+          <section>
+            <h3>Create an auction</h3>
+            <form onSubmit={this.handleSubmit}>
+              <input
+                required
+                type="text"
+                readOnly
+                value={this.props.artwork.title}
+              />
+              <input
+                required
+                id="initialPrice"
+                onChange={this.handleChange}
+                name="initialPrice"
+                value={this.state.initialPrice}
+                type="number"
+                placeholder="Initial price"
+                step="0.01"
+              />
+              <button className="Btn-black">Create</button>
+            </form>
+          </section>
+        );
     }
 }
 

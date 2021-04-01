@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import apiHandler from "../api/apiHandler";
-import ArtistCard from "./../components/ArtistCard";
+//import ArtistCard from "./../components/ArtistCard";
 import ArtworkCard from "../components/ArtworkCard";
+import Loading from "../components/Loading";
+
 
 //styles
 import "./../styles/Results.css"
@@ -12,15 +15,21 @@ export default class Results extends Component {
     artistsMatch: null
   };
   componentDidMount() {
-    apiHandler
-      .getResults(this.props.searchedValue)
-      .then((data) => {
-        this.setState({ artworksMatch: data.matchArtwork});
-        this.setState({ artistsMatch: data.matchArtist});
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    window.scrollTo(0, 0);
+    if (!this.props.searchedValue) {
+      this.setState({ artworksMatch: []});
+      this.setState({ artistsMatch: []});
+    } else {
+      apiHandler
+        .getResults(this.props.searchedValue)
+        .then((data) => {
+          this.setState({ artworksMatch: data.matchArtwork});
+          this.setState({ artistsMatch: data.matchArtist});
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }    
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.searchedValue !== this.props.searchedValue) {
@@ -36,7 +45,7 @@ export default class Results extends Component {
     }
   }
   render() {
-    if (!this.state.artworksMatch || !this.state.artistsMatch) return <h3>Loading</h3>;
+    if (!this.state.artworksMatch || !this.state.artistsMatch) return <Loading text="Art" />;
     return (
       <div>
           <section className="results">
@@ -44,10 +53,11 @@ export default class Results extends Component {
           </section>
             {/* Artist section */}
             <h3 style={{margin: "20px 70px"}}>Artists</h3>
-          <section className="Cards-gallery">
+          <section className="">
           {this.state.artistsMatch.length === 0 ? <p>No results</p> : 
-            this.state.artistsMatch.map(el => 
-              <ArtistCard key={el._id} art={el} />)}
+            this.state.artistsMatch.map(el =>
+            <Link className="Artist-search" key={el._id} art={el} to={`/artist/${el._id}`} >{el.creator.username}</Link> )
+          }
           </section>
             {/* Artwork section */}
               <h3 style={{margin: "20px 70px"}}>Artworks</h3>

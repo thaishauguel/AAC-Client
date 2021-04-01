@@ -7,20 +7,25 @@ export class Credits extends Component {
         credit: null
     }
 
-    componentDidMount() {
+    getEthToDollars() {
         EthToDollars(this.props.user.credit)
         .then(res => {
             this.setState({credit: res})
         })
     }
 
-    // componentDidUpdate(prevProps,prevState){
-    //     console.log('coucou romain')
-    //     if (prevProps.context.user.credit!==this.props.context.user.credit){
-    //       this.setState({credit : this.props.context.user.credit})
-    //     }
-    //   }
+    componentDidMount() {
+        console.log('mount')
+        this.getEthToDollars()
+    }
 
+    componentDidUpdate(prevProps,prevState){
+        console.log('update')
+        console.log("props credit", this.props.user.credit)
+        if (prevProps.user.credit !== this.props.user.credit){
+          this.getEthToDollars()
+        }
+    }
     render() {
         const {user} = this.props
         const {credit} = this.state

@@ -16,6 +16,7 @@ export default class IsSold extends Component {
     
   const { bids } = this.props;
   const {dollars} = this.state;
+  const dollarsFormat = new Intl.NumberFormat().format(dollars)
 
     return (
     <div className="BidStatus flex">
@@ -25,7 +26,7 @@ export default class IsSold extends Component {
           {bids[0].bidValue}
           <span className="Currency">ETH</span>
         </p>
-        <p className="Dollars">${dollars}</p>
+        <p className="Dollars">${dollarsFormat}</p>
       </div>
       <div className="Infos-owner">
         <h5>Owned by</h5>

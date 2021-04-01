@@ -12,3 +12,4 @@ function EthToDollars(value) {
 }
 
 export default EthToDollars
+

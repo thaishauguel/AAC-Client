@@ -69,8 +69,6 @@ class FormUpdate extends Component {
     uploadData.append("description", this.state.description);
     uploadData.append("credit", this.state.credit);
 
-  
-
     apiHandler
       .UpdateMyProfile(uploadData)
       .then(data => {
@@ -79,6 +77,8 @@ class FormUpdate extends Component {
         this.setState({message: "Successfully Updated" });
       })
       .catch(error => console.log(error))
+      window.scrollTo(0,0);
+
   };
 
   displayFormPwd = () => {
@@ -102,21 +102,13 @@ class FormUpdate extends Component {
 
   }
 
-  // handleDelete = () => {
-  //   apiHandler.delete()
-  //     .then(data => {
-  //       window.location.reload()
-  //     }
-  //     )
-  //     .catch(err => console.log(err))
-  // }
-
   render() {
     console.log("credit", this.props.context.user.credit)
     return (
-      <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-        {/* <h3>Parameters</h3> */}
+      <div className="flex">
+
         <form onSubmit={this.handleSubmit}>
+        {this.state.message && <p className="Success-message">{this.state.message}</p>}
           <label htmlFor="email">Email</label>
           <input
             onChange={this.handleChange}
@@ -189,29 +181,29 @@ class FormUpdate extends Component {
           />
 
           <button className="Btn-black" >Update</button>
-          {this.state.message && <p className="Success-message">{this.state.message}</p>}
-
         </form>
 
         {/* <button onClick={this.handleDelete} className="Btn-minimal" >delete your account</button> */}
 
-        <div>
-          {!this.state.isFormPwdDisplayed && <button onClick={this.displayFormPwd} className="Btn-black">Change your password</button>}
-          {this.state.isFormPwdDisplayed && <form onSubmit={this.handleChangePwd}>
-            <label htmlFor="formerPassword">Former password</label>
-            <input name="formerPassword" onChange={this.handleChange} id="formerPassword" type="password" placeholder="former password"
-              value={this.state.formerPassword} />
+        <div className="Update-password">
+          {!this.state.isFormPwdDisplayed && <button onClick={this.displayFormPwd} className="Btn-black Password">Change your password</button>}
+          {this.state.isFormPwdDisplayed && 
+          <React.Fragment>
+            <form onSubmit={this.handleChangePwd}>
+              <label htmlFor="formerPassword">Former password</label>
+              <input required name="formerPassword" onChange={this.handleChange} id="formerPassword" type="password" placeholder="former password"
+                value={this.state.formerPassword} />
 
-            <label htmlFor="newPassword">New password</label>
-            <input name="newPassword" onChange={this.handleChange} id="newPassword" type="password" placeholder="new password"
-              value={this.state.newPassword} />
+              <label htmlFor="newPassword">New password</label>
+              <input required name="newPassword" onChange={this.handleChange} id="newPassword" type="password" placeholder="new password"
+                value={this.state.newPassword} />
 
-            <button className="Btn-black">Update password</button>
-
-          </form>}
-          {this.state.message && <p className="Success-message">{this.state.message}</p>}
+              <button className="Btn-black">Update password</button>
+            </form>
+            <button onClick={this.displayFormPwd} className="Btn-minimal">Close Form</button>
+          </React.Fragment>
+          }
         </div>
-
 
       </div>
     );

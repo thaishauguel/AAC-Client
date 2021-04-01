@@ -60,7 +60,7 @@ class MyActivity extends Component {
         if (!this.state.myCurrentSales || !this.state.myCurrentBids || !this.props.context.user ){return <div>Loading...</div>}
         // console.log(this.state.myCurrentBids)
         return (
-        <div>
+        <div className="flex" style={{gap: "50px", flexWrap: "wrap"}}>
             <div>
                 <h3>My current bids</h3>
                 {this.state.myCurrentBids.length===0 && <p>You haven't bid on any artwork lately.</p>}

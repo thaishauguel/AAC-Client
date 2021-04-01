@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import api from "../api/apiHandler";
 
 import ArtworkCard from "../components/ArtworkCard";
+import Loading from "../components/Loading";
 import IsActive from "../components/BidStatus/IsActive";
 import NeverSold from "../components/BidStatus/NeverSold";
 import IsSold from "../components/BidStatus/IsSold";
@@ -47,13 +48,14 @@ export class OneArtwork extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.getArtwork();
     this.getAuction();
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState.artwork !== null) {
+      window.scrollTo(0,0); 
       if (prevState.artwork._id !== this.props.match.params.id) {
-        window.scrollTo(0,0);
         this.getArtwork();
         this.getAuction();
       }
@@ -63,24 +65,24 @@ export class OneArtwork extends Component {
   render() {
     const { artwork, otherArtworks, auction, isActive } = this.state;
     if (!artwork || !otherArtworks) {
-      return <div>isLoading</div>;
+      return <Loading text="Art" />;
     }
     return (
       <div className="OneArtwork">
         {artwork && (
-          <section className="Top-artwork">
-            <div>
+          <section className="Top-artwork Grid60-40 ">
+            <div className="slide-in-bid">
               <img
                 className="Top-details-img-size"
                 src={artwork.image}
                 alt="hey"
               />
               {console.log(auction)}
-              {auction && !isActive && <IsSold bids={auction.bids} />}
+              {auction && !isActive && <IsSold bids={auction.bids}/>}
               {auction && isActive && <IsActive auction={auction} />}
               {!auction && !isActive && <NeverSold />}
             </div>
-            <div className="Top-details">
+            <div className="Top-details slide-in-bid delay">
               <h1>{artwork.title}</h1>
               <Link to={`/artist/${artwork.creator._id}`}>
                 <h4>@{artwork.creator.username}</h4>

@@ -75,7 +75,7 @@ export class IsActive extends Component {
 
   render() {
     const { isFormOpen, isSubmit, bidValue, currentInput, message, displayMessage, dollars } = this.state;
-
+    const dollarsFormat = new Intl.NumberFormat().format(dollars)
     return (
       <div className="BidStatus active">
         <div className="Auction-on flex">
@@ -85,7 +85,7 @@ export class IsActive extends Component {
               {bidValue}
               <span className="Currency">ETH</span>
             </p>
-            <p className="Dollars">${dollars}</p>
+            <p className="Dollars">${dollarsFormat}</p>
           </div>
 
           <button onClick={this.displayBidForm} className="Btn-bid">
@@ -94,7 +94,7 @@ export class IsActive extends Component {
         </div>
         
         {isFormOpen && !isSubmit && (
-          <form onSubmit={this.handleSubmit} className="Input-bid flex">
+          <form onSubmit={this.handleSubmit} className="Input-bid flex slide-in-bid">
             <input
               required
               type="number"

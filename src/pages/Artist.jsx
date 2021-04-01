@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import api from "../api/apiHandler";
 import ArtworkCard from "../components/ArtworkCard";
+import Loading from "../components/Loading";
+
 
 export default class Artist extends Component {
   state = {
     artworks: null,
   };
   componentDidMount() {
+    window.scrollTo(0, 0);
     const userId = this.props.match.params.id;
     api
       .getOneCreator(userId)
@@ -15,10 +18,10 @@ export default class Artist extends Component {
   }
   render() {
     const {artworks} = this.state
-    if (!artworks) return <h3>Loading</h3>;
+    if (!artworks) return <Loading text="Artist" />;
     return (
       <div>
-        <section className="Top-artwork" >
+        <section className="Top-artwork Grid40-60" >
           <div className="Top-details Artist">
             <h1>{artworks[0].creator.username}</h1>
             <p>{artworks[0].creator.description}</p>

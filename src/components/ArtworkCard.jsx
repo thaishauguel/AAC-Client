@@ -32,7 +32,7 @@ export class ArtworkCard extends Component {
     render() {
         const {artwork} = this.props
         const {auction, dollars} = this.state
-        // console.log("ArtworkCard state: ", this.state)
+        const dollarsFormat = new Intl.NumberFormat().format(dollars)
         return (
             <div className="ArtworkCard">
                 <Link key={artwork._id} to={`/artworks/${artwork._id}`}>
@@ -45,15 +45,15 @@ export class ArtworkCard extends Component {
                             {auction && auction.active && auction.bids.length>0 &&(
                             <><p>Current Price</p>
                             <p className="Price">{auction.bids[0].bidValue}<span className="Currency">ETH</span></p>
-                            <p className="Dollars">${dollars}</p></>)}
+                            <p className="Dollars">${dollarsFormat}</p></>)}
                             {auction && auction.active && auction.bids.length===0 &&(
                             <><p>Current Price</p>
                             <p className="Price">{auction.initialPrice}<span className="Currency">ETH</span></p>
-                            <p className="Dollars">${dollars}</p></>)}
+                            <p className="Dollars">${dollarsFormat}</p></>)}
                             {auction && !auction.active && (
                             <><p>Sold for</p>
                             <p className="Price">{auction.bids[0].bidValue}<span className="Currency">ETH</span></p>
-                            <p className="Dollars">${dollars}</p></>)}
+                            <p className="Dollars">${dollarsFormat}</p></>)}
                             
                         </div>
                     </div>

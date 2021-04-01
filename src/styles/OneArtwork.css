@@ -15,7 +15,7 @@
 
 .Top-details-img-size {
     width: 100%;
-    max-height: 500px;
+    max-height: 400px;
 }
 .Top-details.Artist {
     text-align: right;
@@ -33,9 +33,8 @@
   }
 
 .Top-artwork .Avatar-img {
-    position: absolute;
     width: 650px;
-    max-height: 550px;
+    max-height: 500px;
     right: 0;
     top: 70px
 }

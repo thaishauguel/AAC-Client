@@ -1,6 +1,7 @@
 .Profile {
   margin: 0 100px;
   margin-top: 50px;
+  padding-bottom: 80px;
 }
 .Profile header {
   justify-content: space-between;
@@ -35,6 +36,7 @@
 .Profile h3 {
     font-size: 22px;
     font-weight: 300;
+    margin-bottom: 5px;
 }
 
 .Profile-credits {
@@ -58,16 +60,19 @@
 }
 .Profile-table {
     border-collapse:collapse;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     margin-right: 50px;
 }
 .Profile-table tr {
     border-bottom: 1px solid #c8C8C8;
 }
+.Profile-table tr:hover {
+    background-color: #ececec;
+}
 .Profile-table td {
     /* border-left: 1px solid #8C8C8C; */
     min-width: 80px;
-    padding: 15px 10px ;
+    padding: 15px 20px ;
     align-items: flex-end;
     text-align: center;
 }
@@ -83,5 +88,9 @@
   font-size: 13px;
   font-weight: 300;
 }
-/* Activity detais */
+
+.Update-password > .Password {
+  margin-top: 41px;
+  font-size: 12px;
+}
 

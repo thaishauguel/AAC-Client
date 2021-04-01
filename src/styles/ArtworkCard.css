@@ -1,47 +1,54 @@
 .ArtworkCard {
-    height: 410px;
-    background-color: #fff;
-    position: relative;
-} 
+  height: 410px;
+  background-color: #fff;
+  position: relative;
+  transition: all 0.5s ease-out;
+}
+.ArtworkCard:hover {
+  transition: all 0.5s ease-out;
+  transform: translateY(-4px);
+  box-shadow: 2px 1px 13px -1px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 2px 1px 13px -1px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 2px 1px 13px -1px rgba(0, 0, 0, 0.25);
+}
 .ArtworkCard img {
-    height: 250px;
-    width: 100%;
-    object-fit: cover;
-} 
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+}
 .ArtworkCard .details {
-    padding: 16px 25px;
+  padding: 16px 25px;
 }
 .ArtworkCard .details h5 {
-    font-size: 20px;
-    line-height: 24px;
-    font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 500;
 }
 .ArtworkCard .details h6 {
-    font-size: 16px;
-    line-height: 15px;
+  font-size: 16px;
+  line-height: 15px;
 }
 .ArtworkCard .details h6::before {
-   content: "@";
+  content: "@";
 }
 
 .Bid-status {
-    position: absolute;
-    bottom: 16px;
+  position: absolute;
+  bottom: 16px;
 }
-.Bid-status p{
-    font-size: 14px;
-    font-weight: 300;
+.Bid-status p {
+  font-size: 14px;
+  font-weight: 300;
 }
-.Bid-status .Price{
-    font-size: 34px;
-    font-weight: 500;
-    line-height: 30px;
+.Bid-status .Price {
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 30px;
 }
-.Bid-status .Currency{
-    font-size: 0.7em;
+.Bid-status .Currency {
+  font-size: 0.7em;
 }
-.Bid-status .Dollars{
-    line-height: 10px;
-    color: #8C8C8C;
+.Bid-status .Dollars {
+  line-height: 10px;
+  color: #8c8c8c;
 }
-

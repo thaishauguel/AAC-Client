@@ -4,17 +4,38 @@ import { Link } from "react-router-dom";
 import EthToDollars from "./../controllers/EthToDollars";
 // Components
 import ArtworkCard from "../components/ArtworkCard";
+import Loading from "../components/Loading";
 // Styles
 import "../styles/Home.css";
 import "../styles/Animations.css";
+
 
 class Home extends React.Component {
   state = {
     artworks: null,
     auctionTop: null,
     dollars: null,
+    parallaxX: null,
+    parallaxY: null,
+    blur: null
   };
+  
+  parallax = (event) => {
+    const speed = 2;
+    const x= (window.innerWidth - event.pageX*speed)/300
+    const y= (window.innerHeight - event.pageY*speed)/100
+    const blurVal= (window.innerHeight - event.pageX)/250
+    
+    this.setState({parallaxX: x, parallaxY: y, blur: blurVal})
+  }
+
+  getEthToDollars(value) {
+    EthToDollars(value)
+      .then((res) => this.setState({ dollars: res }))
+      .catch((err) => console.log(err));
+  }
   componentDidMount() {
+    window.scrollTo(0, 0);
     api.getSalesOn().then((res) =>
       this.setState({ artworks: res }, () => {
         if (this.state.artworks.length > 0) {
@@ -23,13 +44,9 @@ class Home extends React.Component {
             .then((res) =>
               this.setState({ auctionTop: res }, () => {
                 if (this.state.auctionTop.bids.length === 0) {
-                  EthToDollars(this.state.auctionTop.initialPrice)
-                    .then((res) => this.setState({ dollars: res }))
-                    .catch((err) => console.log(err));
+                  this.getEthToDollars(this.state.auctionTop.initialPrice)
                 } else {
-                  EthToDollars(this.state.auctionTop.bids[0].bidValue)
-                    .then((res) => this.setState({ dollars: res }))
-                    .catch((err) => console.log(err));
+                  this.getEthToDollars(this.state.auctionTop.bids[0].bidValue)
                 }
               })
             )
@@ -38,20 +55,30 @@ class Home extends React.Component {
       })
     );
   }
+  componentDidUpdate(prevProps,prevState) {
+    if (prevState.parallaxX !== this.state.parallaxX || prevState.parallaxY !== this.state.parallaxY ) 
+    this.setState({parallaxX: this.setState.parallaxX, parallaxY: this.setState.parallaxY, blur: this.state.blur})
+  }
+
 
   render() {
-    const { artworks, auctionTop, dollars } = this.state;
-
+    const { artworks, auctionTop, dollars, parallaxX, parallaxY, blur } = this.state;
+    const dollarsFormat = new Intl.NumberFormat().format(dollars)
+    let parallax = {
+      transform: `translateX(${parallaxX}px) translateY(${parallaxY}px)`,
+      filter: `blur(${blur}px)`
+    }
+    console.log(parallax.filter)
     if (!artworks || !auctionTop) {
-      return <div></div>;
+      return <Loading text="Art" />;
     }
     let [topArtwork, ...rest] = artworks;
     return (
-      <div className="Home">
+      <div className="Home" onMouseMove={this.parallax}>
         {artworks.length > 0 && (
-          <section className="Top-artwork ">
-            <div className="Top-arwortk-Bg slide-in-top"></div>
-            <div className="Top-artwork-infos slide-in-bottom">
+          <section className="Top-artwork Grid40-60">
+            <div className="Top-artwork-Bg slide-in-top"></div>
+            <div className="Top-artwork-infos slide-in-bottom" style={parallax}>
               <h1>{topArtwork.title}</h1>
               <h4>@{topArtwork.creator.username}</h4>
 
@@ -63,22 +90,23 @@ class Home extends React.Component {
                     : auctionTop.bids[0].bidValue}
                   <span className="Currency">ETH</span>
                 </p>
-                <p className="Dollars">${dollars}</p>
+                <p className="Dollars">${dollarsFormat}</p>
               </div>
               <Link to={`/artworks/${topArtwork._id}`}>
                 <button className="Btn-black">See the auction</button>
               </Link>
             </div>
-            <img className="Top-img-size slide-in-bottom delay" src={topArtwork.image} alt="hey" />
+            
+            <img className="Top-img-size slide-in-bottom delay2" src={topArtwork.image} alt={topArtwork.title}/>
           </section>
         )}
 
         <section className="Cards-gallery">
-          <h3>Discover current auctions.</h3>
+          <h3 style={parallax} >Discover current auctions.</h3>
           {artworks &&
             rest.map((artwork) => (
               <ArtworkCard key={artwork._id} artwork={artwork} />
-            ))}
+          ))}
         </section>
       </div>
     );

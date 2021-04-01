@@ -4,7 +4,10 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+.App {
+  position: relative;
+  min-height: 100vh;
+}
 html {
   font-family: "DM Mono", monospace, sans-serif;
   font-weight: 400;
@@ -143,8 +146,8 @@ input::placeholder {
 }
 
 .Miniature {
-  width: 50px;
-  height: 50px;
+  width: 55px;
+  height: 55px;
   object-fit: cover;
 }
 
@@ -165,11 +168,42 @@ input::placeholder {
 }
 
 footer {
+  margin: 15px 0 ;
+  position: absolute;
   bottom: 0;
-  margin: 20px 0;
   width: 100vw;
   justify-content: center;
   align-items: center;
   font-size: 12px;
   color: #00f035;
 }
+
+.Loading {
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+}
+
+.Loading h1 {
+  margin-top: -200px;
+  font-size: 100px;
+  line-height: 100px;
+  color: rgba(0,0,0, 0.1);
+}
+
+.Artist-search {
+  font-size: 50px;
+}
+
+.Artist-search:not(:last-child)::after {
+  content: "/";
+}
+
+.Artist-search:hover {
+  text-decoration: underline;
+}
+/* .Artist-search:hover::after {
+  text-decoration: none;
+} */
