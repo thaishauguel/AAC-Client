@@ -112,9 +112,9 @@ class MyActivity extends Component {
                                         {auction._artworkId.title}
                                     </Link>
                                     <p>
-                                        Current bid: ${auction.bids[0].bidValue} |
+                                        Current bid: {auction.bids[0].bidValue}ETH |
                                         {auction.bids.filter((bid)=> bid.bidder._id === this.props.context.user._id).length > 0 
-                                        && ` My last bid: ${auction.bids.filter((bid)=>bid.bidder._id === this.props.context.user._id)[0].bidValue}`} 
+                                        && ` My last bid: ${auction.bids.filter((bid)=>bid.bidder._id === this.props.context.user._id)[0].bidValue}ETH`} 
                                     </p>
                                 </td>
                             </tr>
@@ -146,7 +146,7 @@ class MyActivity extends Component {
                               </Link>
                               {auction.bids[0] ? (
                                 <p>
-                                  Current bid: ${auction.bids[0].bidValue} |
+                                  Current bid: {auction.bids[0].bidValue}ETH |
                                   Placed by: {auction.bids[0].bidder.username}
                                 </p>
                               ) : (
