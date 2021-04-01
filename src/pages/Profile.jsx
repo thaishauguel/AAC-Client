@@ -100,7 +100,7 @@ class Profile extends Component {
         </nav>
         { displayCrea && <MyCreations /> }
         { displayColl && <MyCollection /> }
-        { displayAct && <MyActivity /> }
+        { displayAct && <MyActivity getTheUpdatedUser={this.getTheUpdatedUser}/> }
         { displayUpdate && <FormUpdateProfile getTheUpdatedUser={this.getTheUpdatedUser}/> }
       </div>
     );

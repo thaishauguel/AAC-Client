@@ -25,7 +25,11 @@ class MyActivity extends Component {
         console.log(auction._auctionOwnerId, auction.bids[0].bidder._id)
         apiHandler
         .UpdateCreditsAfterSell({bidValue : auction.bids[0].bidValue, sellerId: auction._auctionOwnerId, buyerId : auction.bids[0].bidder._id})
-        .then(()=>console.log("credits updated for seller and buyer"))
+        .then((data)=>{
+          console.log("credits updated for seller and buyer")
+          this.props.context.setUser(data)
+          this.props.getTheUpdatedUser(data)
+        })
         .catch(err=>console.log(err))
 
         } else { // if no one has bidded yet, auction is deleted

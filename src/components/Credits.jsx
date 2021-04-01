@@ -33,7 +33,7 @@ export class Credits extends Component {
         return (
             <div className="Profile-credits">
                 <h4>Credits</h4>
-                <p className="Price">{user.credit}<span className="Currency">ETH</span></p>
+                <p className="Price">{user.credit.toFixed(2)}<span className="Currency">ETH</span></p>
                 <p className="Dollars">${credit}</p>
           </div>
         )
