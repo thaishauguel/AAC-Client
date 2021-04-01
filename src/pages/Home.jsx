@@ -101,6 +101,7 @@ class Home extends React.Component {
       return <Loading text="Art" />;
     }
     let [topArtwork, ...rest] = artworks;
+    
     return (
       <div className="Home" onMouseMove={this.parallax}>
         {artworks.length > 0 && (

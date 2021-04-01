@@ -53,6 +53,7 @@ class FormSignup extends Component {
       .signup(uploadData)
       .then((data) => {
         this.props.context.setUser(data)
+        
        // this.props.history.push("/profile" )
         
       })
