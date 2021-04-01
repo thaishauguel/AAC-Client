@@ -50,8 +50,8 @@ export default class App extends Component {
           <Route exact path="/artist/:id" component={Artist} />
           <Route exact path="/signin" component={Signin} />
           <Route exact path="/signup" component={Signup} />
-          <Route path="*" component={NotFound} />
           <ProtectedRoute exact path="/profile" component={Profile} />
+          <Route path="*" component={NotFound} />
         </Switch>
 
         <Footer />
