@@ -24,7 +24,8 @@ export class IsActive extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevProps.auction._id !== this.props.auction._id ) {
+    console.log(typeof prevProps.auction, typeof this.props.auction)
+    if(prevProps.auction._id !== this.props.auction._id  || prevProps.auction !== this.props.auction) {
       if (this.props.auction.bids.length>0) {
         this.setState({ bidValue: this.props.auction.bids[0].bidValue })
       } else {
@@ -74,13 +75,16 @@ export class IsActive extends Component {
   };
 
   render() {
-    const { isFormOpen, isSubmit, bidValue, currentInput, message, displayMessage, dollars } = this.state;
+    const { isFormOpen, isSubmit, bidValue, currentInput, message, displayMessage, dollars, } = this.state;
     const dollarsFormat = new Intl.NumberFormat().format(dollars)
+    console.log(bidValue)
     return (
       <div className="BidStatus active">
         <div className="Auction-on flex">
           <div className="Infos-sale">
             <h5>Current Bid</h5>
+            <p className="Dollars">by {this.props.auction.bids[0].bidder.username}</p>
+
             <p className="Price">
               {bidValue}
               <span className="Currency">ETH</span>

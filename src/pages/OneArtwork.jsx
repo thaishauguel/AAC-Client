@@ -18,6 +18,12 @@ export class OneArtwork extends Component {
     auction: null,
   };
  
+  intervalID; 
+     /* 
+        declare a member variable to hold the interval ID
+        that we can reference later.
+      */
+
   getArtwork() { 
     const artworkId = this.props.match.params.id;
     let creatorId;
@@ -51,15 +57,26 @@ export class OneArtwork extends Component {
     this.getArtwork();
     this.getAuction();
     window.scrollTo(0, 0);
+    this.intervalID = setInterval(()=>this.getAuction(), 10000);
   }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevState.artwork !== null) {
-      window.scrollTo(0,0); 
       if (prevState.artwork._id !== this.props.match.params.id) {
         this.getArtwork();
         this.getAuction();
+        window.scrollTo(0,0); 
+
       }
     }
+  }
+
+  componentWillUnmount() {
+    /*
+      stop getData() from continuing to run even
+      after unmounting this component
+    */
+    clearInterval(this.intervalID);
   }
 
   render() {
@@ -67,6 +84,7 @@ export class OneArtwork extends Component {
     if (!artwork || !otherArtworks) {
       return <Loading text="Art" />;
     }
+
     return (
       <div className="OneArtwork">
         {artwork && (
