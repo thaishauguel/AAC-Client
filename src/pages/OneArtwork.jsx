@@ -48,9 +48,9 @@ export class OneArtwork extends Component {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0);
     this.getArtwork();
     this.getAuction();
+    window.scrollTo(0, 0);
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState.artwork !== null) {
@@ -77,7 +77,7 @@ export class OneArtwork extends Component {
                 src={artwork.image}
                 alt="hey"
               />
-              {console.log(auction)}
+              {/* {console.log(auction)} */}
               {auction && !isActive && <IsSold bids={auction.bids}/>}
               {auction && isActive && <IsActive auction={auction} />}
               {!auction && !isActive && <NeverSold />}

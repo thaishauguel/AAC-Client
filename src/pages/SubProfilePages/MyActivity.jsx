@@ -27,34 +27,56 @@ class MyActivity extends Component {
         .catch(err=>console.log(err))
         }
     }
+    getCurrentSales=()=>{
+      apiHandler
+      .getMyCurrentBids()
+      .then((data) => {
+      this.setState({myCurrentBids : data})
+      })
+      .catch(err=>console.log(err))
+    }
+
+    getCurrentBids=()=>{
+      apiHandler
+      .getMyCurrentSales()
+      .then((data) => {
+      this.setState({myCurrentSales : data})
+      })
+      .catch(err=>console.log(err))
+    }
+
+    intervalID;
+   /* 
+        declare a member variable to hold the interval ID
+        that we can reference later.
+      */
+
+    componentDidMount(){    
+      this.getCurrentSales()  
+      this.getCurrentBids()
+      this.intervalID = setInterval(()=>{
+        this.getCurrentSales() 
+        this.getCurrentBids()}, 10000);
+
+  }
 
     componentDidUpdate(prevProps, prevState){
         if (prevState.myCurrentSales){
             if (prevState.boolean!==this.state.boolean){
-                apiHandler
-                .getMyCurrentSales()
-                .then((data) => {
-                this.setState({myCurrentSales : data})
-                })
-                .catch(err=>console.log(err))
-                }
+              this.getCurrentSales() 
+            }
         } 
     }
 
-    componentDidMount(){      
-        apiHandler
-        .getMyCurrentBids()
-        .then((data) => {
-        this.setState({myCurrentBids : data})
-        })
-        .catch(err=>console.log(err))
-        apiHandler
-        .getMyCurrentSales()
-        .then((data) => {
-        this.setState({myCurrentSales : data})
-        })
-        .catch(err=>console.log(err))
+    componentWillUnmount() {
+      /*
+        stop getData() from continuing to run even
+        after unmounting this component
+      */
+
+      clearInterval(this.intervalID);
     }
+
 
     render() {
         if (!this.state.myCurrentSales || !this.state.myCurrentBids || !this.props.context.user ){return <div>Loading...</div>}

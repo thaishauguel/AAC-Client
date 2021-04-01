@@ -17,9 +17,11 @@ class Home extends React.Component {
     dollars: null,
     parallaxX: null,
     parallaxY: null,
-    blur: null
+    blur: null, 
   };
   
+  
+
   parallax = (event) => {
     const speed = 2;
     const x= (window.innerWidth - event.pageX*speed)/300
@@ -34,8 +36,9 @@ class Home extends React.Component {
       .then((res) => this.setState({ dollars: res }))
       .catch((err) => console.log(err));
   }
-  componentDidMount() {
-    window.scrollTo(0, 0);
+
+
+  getData=()=>{
     api.getSalesOn().then((res) =>
       this.setState({ artworks: res }, () => {
         if (this.state.artworks.length > 0) {
@@ -55,9 +58,35 @@ class Home extends React.Component {
       })
     );
   }
+
+  intervalID;
+   /* 
+        declare a member variable to hold the interval ID
+        that we can reference later.
+      */
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
+   this.getData()
+    this.intervalID = setInterval(()=>this.getData(), 10000);
+    /*
+          Now we need to make it run at a specified interval,
+          bind the getData() call to `this`, and keep a reference
+          to the invterval so we can clear it later.
+        */
+  }
+
   componentDidUpdate(prevProps,prevState) {
     if (prevState.parallaxX !== this.state.parallaxX || prevState.parallaxY !== this.state.parallaxY ) 
     this.setState({parallaxX: this.setState.parallaxX, parallaxY: this.setState.parallaxY, blur: this.state.blur})
+  }
+
+  componentWillUnmount() {
+    /*
+      stop getData() from continuing to run even
+      after unmounting this component
+    */
+    clearInterval(this.intervalID);
   }
 
 
@@ -68,7 +97,6 @@ class Home extends React.Component {
       transform: `translateX(${parallaxX}px) translateY(${parallaxY}px)`,
       filter: `blur(${blur}px)`
     }
-    console.log(parallax.filter)
     if (!artworks || !auctionTop) {
       return <Loading text="Art" />;
     }
