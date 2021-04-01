@@ -1,6 +1,30 @@
-.results {
-    margin: 80px 100px 20px;
-}
-.searched-keyword {
+.Results h2 {
+    margin-top: 60px;
+    margin-bottom: 30px;
+  }
+  
+  .Results h3 {
+    margin-bottom: 10px;
+  }
+  
+  .Results > section:not(:first-of-type) {
+    margin-top: 50px;
+  }
+  
+  .Artist-result a {
+    font-size: 50px;
+    line-height: 40px;
+    font-weight: 500;
+  }
+  
+  .Artist-result a:not(:last-child)::after {
+    content: " / ";
+  }
+  
+.Searched-keyword {
     text-decoration: underline;
+    color: #00f035
+}
+.No-results {
+    font-size: 60px;
 }

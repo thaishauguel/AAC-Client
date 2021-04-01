@@ -22,7 +22,7 @@ export default class Artist extends Component {
     return (
       <div>
         <section className="Top-artwork Grid40-60" >
-          <div className="Top-details Artist">
+          <div className="Top-details Artist slide-in-bid">
             <h1>{artworks[0].creator.username}</h1>
             <p>{artworks[0].creator.description}</p>
 
@@ -51,11 +51,11 @@ export default class Artist extends Component {
             </div>
           </div>
           <div>
-            <img className="Avatar-img" src={artworks[0].creator.avatar} alt={artworks[0].creator.username} />
+            <img className="Avatar-img slide-in-bid delay" src={artworks[0].creator.avatar} alt={artworks[0].creator.username} />
           </div>
         </section>
 
-        <section className="More-artworks">
+        <section className="More-artworks init-margin">
           <h4 className="">Creations</h4>
           <section className="Cards-gallery">
             {artworks.map((artwork) => (

@@ -16,6 +16,7 @@ export class OneArtwork extends Component {
     artwork: null,
     otherArtworks: null,
     auction: null,
+    isActive: false
   };
  
   getArtwork() { 
@@ -41,7 +42,9 @@ export class OneArtwork extends Component {
         if (res.active) {
           this.setState({ auction: res, isActive: true });
         } else if (!res.active && res.bids) {
-          this.setState({ auction: res });
+          this.setState({ auction: res, isActive: false });
+        } else {
+          this.setState({auction: null, isActive: false})
         }
       })
       .catch((err) => console.log(err));
@@ -78,9 +81,9 @@ export class OneArtwork extends Component {
                 alt="hey"
               />
               {console.log(auction)}
+              {!auction && !isActive && <NeverSold />}
               {auction && !isActive && <IsSold bids={auction.bids}/>}
               {auction && isActive && <IsActive auction={auction} />}
-              {!auction && !isActive && <NeverSold />}
             </div>
             <div className="Top-details slide-in-bid delay">
               <h1>{artwork.title}</h1>
@@ -92,7 +95,7 @@ export class OneArtwork extends Component {
           </section>
         )}
 
-        <section className="More-artworks">
+        <section className="More-artworks init-margin ">
           <h4 className="">From the same artist</h4>
           <section className="Cards-gallery">
             {otherArtworks &&

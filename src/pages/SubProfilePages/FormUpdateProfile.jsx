@@ -74,6 +74,7 @@ class FormUpdate extends Component {
       .then(data => {
         console.log(data)
         this.props.getTheUpdatedUser(data)
+        this.props.context.setUser(data)
         this.setState({message: "Successfully Updated" });
       })
       .catch(error => console.log(error))

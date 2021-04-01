@@ -167,6 +167,10 @@ input::placeholder {
   color: black;
 }
 
+.init-margin {
+  margin: 0 100px;
+}
+
 footer {
   margin: 15px 0 ;
   position: absolute;
@@ -190,20 +194,6 @@ footer {
   margin-top: -200px;
   font-size: 100px;
   line-height: 100px;
-  color: rgba(0,0,0, 0.1);
+  color: rgba(0, 0, 0, 0.15);
+  /* color: rgba(0, 240, 53,0.8); */
 }
-
-.Artist-search {
-  font-size: 50px;
-}
-
-.Artist-search:not(:last-child)::after {
-  content: "/";
-}
-
-.Artist-search:hover {
-  text-decoration: underline;
-}
-/* .Artist-search:hover::after {
-  text-decoration: none;
-} */
