@@ -11,11 +11,30 @@ export class ArtworkCard extends Component {
         auction: null,
         dollars: null
     }
-    componentDidMount(){
+    
+    getData=()=>{
         apiHandler.getLastAuction(this.props.artwork._id)
         .then(data=> this.setState({auction: data}))
         .catch(err=> console.log(err));
     }
+
+    intervalID; 
+     /* 
+        declare a member variable to hold the interval ID
+        that we can reference later.
+      */
+
+
+    componentDidMount(){
+    this.getData()
+    this.intervalID = setInterval(()=>this.getData(), 10000);
+    /*
+          Now we need to make it run at a specified interval,
+          bind the getData() call to `this`, and keep a reference
+          to the invterval so we can clear it later.
+        */
+    }
+
     componentDidUpdate(prevProps, prevState){
         if (this.state.auction && (prevState.auction !==this.state.auction)) {
         if ((this.state.auction.active && this.state.auction.bids.length>0) || (this.state.auction && !this.state.auction.active)) {
@@ -29,6 +48,16 @@ export class ArtworkCard extends Component {
             }
         }
     }
+
+    componentWillUnmount() {
+        /*
+          stop getData() from continuing to run even
+          after unmounting this component
+        */
+        clearInterval(this.intervalID);
+      }
+
+
     render() {
         const {artwork} = this.props
         const {auction, dollars} = this.state
