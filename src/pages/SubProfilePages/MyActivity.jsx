@@ -17,10 +17,19 @@ class MyActivity extends Component {
     closeTheAuction=(auction)=>{
         if (auction.bids[0]) { // if there is at least one bid, new owner is last bidder
         apiHandler
-        .closeAnAuction(auction._id,{owner : auction.bids[0].bidder._id } )
+        .closeAnAuction(auction._id,{owner : auction.bids[0].bidder._id })
         .then(()=>this.setState({boolean : !this.state.boolean}))
         .catch(err=>console.log(err))
+
+
+        console.log(auction._auctionOwnerId, auction.bids[0].bidder._id)
+        apiHandler
+        .UpdateCreditsAfterSell({bidValue : auction.bids[0].bidValue, sellerId: auction._auctionOwnerId, buyerId : auction.bids[0].bidder._id})
+        .then(()=>console.log("credits updated for seller and buyer"))
+        .catch(err=>console.log(err))
+
         } else { // if no one has bidded yet, auction is deleted
+
         apiHandler
         .deleteAuction(auction._id)
         .then(()=>this.setState({boolean : !this.state.boolean}))
@@ -29,18 +38,18 @@ class MyActivity extends Component {
     }
     getCurrentSales=()=>{
       apiHandler
-      .getMyCurrentBids()
+      .getMyCurrentSales()
       .then((data) => {
-      this.setState({myCurrentBids : data})
+      this.setState({myCurrentSales : data})
       })
       .catch(err=>console.log(err))
     }
 
     getCurrentBids=()=>{
       apiHandler
-      .getMyCurrentSales()
+      .getMyCurrentBids()
       .then((data) => {
-      this.setState({myCurrentSales : data})
+      this.setState({myCurrentBids : data})
       })
       .catch(err=>console.log(err))
     }

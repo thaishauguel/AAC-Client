@@ -187,6 +187,12 @@ const apiHandler = {
     return service.delete(`/api/artworks/${artworkId}`)
     .then((res)=>res.data)
     .catch(errorHandler)
+  },
+
+  UpdateCreditsAfterSell(infos){
+    return service.patch(`/api/auctions/update-credits`, infos)
+    .then((res)=>res.data)
+    .catch(errorHandler)
   }
 };
 
