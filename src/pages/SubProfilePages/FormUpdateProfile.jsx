@@ -72,7 +72,6 @@ class FormUpdate extends Component {
     apiHandler
       .UpdateMyProfile(uploadData)
       .then(data => {
-        console.log(data)
         this.props.getTheUpdatedUser(data)
         this.props.context.setUser(data)
         this.setState({message: "Successfully Updated" });

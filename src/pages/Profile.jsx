@@ -31,7 +31,6 @@ class Profile extends Component {
   }
   
   getTheUpdatedUser=(userInCallback)=>{
-    console.log('voici mon nouveau user', userInCallback)
     this.setState({user: userInCallback})
   }
   

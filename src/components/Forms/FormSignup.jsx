@@ -52,12 +52,10 @@ class FormSignup extends Component {
     apiHandler
       .signup(uploadData)
       .then((data) => {
-        console.log('this.props.context', this.props.context)
         this.props.context.setUser(data)
        // this.props.history.push("/profile" )
         
       })
-      
       .catch((error) => {
         this.setState({message: "Oups, email or username already exist"})
         console.log(error);
@@ -68,7 +66,6 @@ class FormSignup extends Component {
     if (this.props.context.user) {
       return <Redirect to="/profile" />;
     }
-    console.log("message is", this.state.message)
 
     return (
       <form  onSubmit={this.handleSubmit}>

@@ -184,16 +184,38 @@ footer {
 
 .Loading {
   display: flex;
-  justify-content:center;
   align-items: center;
   width: 100vw;
   min-height: 100vh;
 }
 
 .Loading h1 {
-  margin-top: -200px;
+  margin: 0 auto;
   font-size: 100px;
   line-height: 100px;
   color: rgba(0, 0, 0, 0.15);
   /* color: rgba(0, 240, 53,0.8); */
 }
+
+.NotFound {
+  margin-top: 60px;
+  flex-direction: column;
+  justify-content:center;
+  text-align: center;
+  align-items: center;
+  height: 100%;
+}
+
+.NotFound h1 {
+  font-size: 200px;
+  line-height: 200px;
+  color: rgba(0, 0, 0, 0.15);
+}
+
+.NotFound a {
+  z-index: 100;
+  color: #00f035;
+}
+
+
+

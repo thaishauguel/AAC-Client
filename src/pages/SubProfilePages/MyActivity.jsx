@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import apiHandler from "../../api/apiHandler";
-import { withUser } from "../../components/Auth/withUser";
 import {Link} from 'react-router-dom'
 import { withRouter} from "react-router-dom";
-
-
+import apiHandler from "../../api/apiHandler";
+import { withUser } from "../../components/Auth/withUser";
 
 
 class MyActivity extends Component {
@@ -80,7 +78,7 @@ class MyActivity extends Component {
 
     render() {
         if (!this.state.myCurrentSales || !this.state.myCurrentBids || !this.props.context.user ){return <div>Loading...</div>}
-        // console.log(this.state.myCurrentBids)
+        
         return (
         <div className="flex" style={{gap: "50px", flexWrap: "wrap"}}>
             <div>

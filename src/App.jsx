@@ -11,6 +11,7 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import Artist from "./pages/Artist";
+import NotFound from "./pages/NotFound";
 
 import Results from "./pages/Results";
 import OneArtwork from "./pages/OneArtwork";
@@ -49,6 +50,7 @@ export default class App extends Component {
           <Route exact path="/artist/:id" component={Artist} />
           <Route exact path="/signin" component={Signin} />
           <Route exact path="/signup" component={Signup} />
+          <Route path="*" component={NotFound} />
           <ProtectedRoute exact path="/profile" component={Profile} />
         </Switch>
 

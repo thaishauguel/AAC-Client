@@ -57,6 +57,7 @@ export class OneArtwork extends Component {
   }
 
   componentDidMount() {
+    console.log("mount")
     this.getArtwork();
     this.getAuction();
     window.scrollTo(0, 0);
@@ -64,6 +65,7 @@ export class OneArtwork extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    
     if (prevState.artwork !== null) {
       if (prevState.artwork._id !== this.props.match.params.id) {
         this.getArtwork();
