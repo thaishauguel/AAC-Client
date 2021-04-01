@@ -19,6 +19,12 @@ export class OneArtwork extends Component {
     isActive: false
   };
  
+  intervalID; 
+     /* 
+        declare a member variable to hold the interval ID
+        that we can reference later.
+      */
+
   getArtwork() { 
     const artworkId = this.props.match.params.id;
     let creatorId;
@@ -51,18 +57,29 @@ export class OneArtwork extends Component {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0);
     this.getArtwork();
     this.getAuction();
+    window.scrollTo(0, 0);
+    this.intervalID = setInterval(()=>this.getAuction(), 10000);
   }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevState.artwork !== null) {
-      window.scrollTo(0,0); 
       if (prevState.artwork._id !== this.props.match.params.id) {
         this.getArtwork();
         this.getAuction();
+        window.scrollTo(0,0); 
+
       }
     }
+  }
+
+  componentWillUnmount() {
+    /*
+      stop getData() from continuing to run even
+      after unmounting this component
+    */
+    clearInterval(this.intervalID);
   }
 
   render() {
@@ -70,6 +87,7 @@ export class OneArtwork extends Component {
     if (!artwork || !otherArtworks) {
       return <Loading text="Art" />;
     }
+
     return (
       <div className="OneArtwork">
         {artwork && (
@@ -80,10 +98,9 @@ export class OneArtwork extends Component {
                 src={artwork.image}
                 alt="hey"
               />
-              {console.log(auction)}
-              {!auction && !isActive && <NeverSold />}
               {auction && !isActive && <IsSold bids={auction.bids}/>}
               {auction && isActive && <IsActive auction={auction} />}
+              {!auction && !isActive && <NeverSold />}
             </div>
             <div className="Top-details slide-in-bid delay">
               <h1>{artwork.title}</h1>

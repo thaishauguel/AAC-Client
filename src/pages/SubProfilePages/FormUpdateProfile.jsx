@@ -76,6 +76,7 @@ class FormUpdate extends Component {
         this.props.getTheUpdatedUser(data)
         this.props.context.setUser(data)
         this.setState({message: "Successfully Updated" });
+        this.props.context.setUser(data)
       })
       .catch(error => console.log(error))
       window.scrollTo(0,0);
