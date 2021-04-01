@@ -129,7 +129,7 @@ class Home extends React.Component {
           </section>
         )}
 
-        <section className="Cards-gallery">
+        <section className="Cards-gallery init-margin ">
           <h3 style={parallax} >Discover current auctions.</h3>
           {artworks &&
             rest.map((artwork) => (

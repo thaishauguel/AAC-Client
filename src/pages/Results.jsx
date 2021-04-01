@@ -45,28 +45,38 @@ export default class Results extends Component {
     }
   }
   render() {
-    if (!this.state.artworksMatch || !this.state.artistsMatch) return <Loading text="Art" />;
+    const {artworksMatch, artistsMatch} = this.state;
+    if (!artworksMatch || !artistsMatch) return <Loading text="Art" />;
     return (
-      <div>
-          <section className="results">
-          <h2>Results for: <span className="searched-keyword">{this.props.searchedValue}</span></h2>
+      <div className="Results init-margin">
+          <h2>Results for: <span className="Searched-keyword">{this.props.searchedValue}</span></h2>
+
+          {(artistsMatch.length === 0 && artworksMatch.length === 0) ? 
+          <section>
+            <h2 className="No-results">Sorry,<br/> no results found…</h2>
+            <Link className="Btn-minimal" to="/">Back to home</Link>
           </section>
-            {/* Artist section */}
-            <h3 style={{margin: "20px 70px"}}>Artists</h3>
-          <section className="">
-          {this.state.artistsMatch.length === 0 ? <p>No results</p> : 
-            this.state.artistsMatch.map(el =>
-            <Link className="Artist-search" key={el._id} art={el} to={`/artist/${el.creator._id}`} >{el.creator.username}</Link> )
-          }
-          </section>
-            {/* Artwork section */}
-              <h3 style={{margin: "20px 70px"}}>Artworks</h3>
-            <section className="Cards-gallery">
-            {this.state.artworksMatch.length === 0 ? <p>No results</p> : 
-            this.state.artworksMatch.map((el) => (
-              <ArtworkCard key={el._id} artwork={el} />
-            ))}
+          :
+          <React.Fragment>
+            <section className="Artist-result">
+              <h3>Artists</h3>
+              {artistsMatch.length === 0 ? <p>No results found</p> : 
+                artistsMatch.map(el =>
+                <Link  key={el._id} art={el} to={`/artist/${el.creator._id}`} >{el.creator.username}</Link> )
+              }
+              </section>
+
+              <section>
+                <h3>Artworks</h3>
+                <section className="Cards-gallery">
+                {artworksMatch.length === 0 ? <p>No results found</p> : 
+                artworksMatch.map((el) => (
+                  <ArtworkCard key={el._id} artwork={el} />
+                ))}
+                </section>
             </section>
+          </React.Fragment>
+          }
       </div>
     );
   }
