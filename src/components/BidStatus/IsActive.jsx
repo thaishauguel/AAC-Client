@@ -26,6 +26,7 @@ export class IsActive extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.auction._id !== this.props.auction._id ) {
+      this.setState({displayMessage : false, currentInput: "", isFormOpen: !this.state.isFormOpen});
       if (this.props.auction.bids.length>0) {
         this.setState({ bidValue: this.props.auction.bids[0].bidValue })
       } else {
@@ -68,7 +69,7 @@ export class IsActive extends Component {
       .then(res=>{
         let currentHighestBids = 0 
         if (res.length!==0){ // keep auctions where user is last bidder
-        currentHighestBids = res.filter(auction=>auction.bids[0].bidder._id===this.props.context.user._id);
+        currentHighestBids = res.filter(auction=>auction.bids[0].bidder._id===this.props.context.user._id && auction._id!==this.props.auction._id);
         console.log("currentHighestBids after filter: ",currentHighestBids)
         if (currentHighestBids.length===0) {
           currentHighestBids = 0
