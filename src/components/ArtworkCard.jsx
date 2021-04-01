@@ -27,7 +27,7 @@ export class ArtworkCard extends Component {
 
     componentDidMount(){
     this.getData()
-    this.intervalID = setInterval(()=>this.getData(), 10000);
+    this.intervalID = setInterval(()=>this.getData(), 4000);
     /*
           Now we need to make it run at a specified interval,
           bind the getData() call to `this`, and keep a reference
