@@ -56,7 +56,7 @@ class MyActivity extends Component {
       this.getCurrentBids()
       this.intervalID = setInterval(()=>{
         this.getCurrentSales() 
-        this.getCurrentBids()}, 2000);
+        this.getCurrentBids()}, 10000);
 
   }
 

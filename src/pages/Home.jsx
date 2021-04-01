@@ -68,7 +68,7 @@ class Home extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0);
    this.getData()
-    this.intervalID = setInterval(()=>this.getData(), 2000);
+    this.intervalID = setInterval(()=>this.getData(), 10000);
     /*
           Now we need to make it run at a specified interval,
           bind the getData() call to `this`, and keep a reference
