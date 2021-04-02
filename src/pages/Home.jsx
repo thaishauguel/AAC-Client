@@ -81,8 +81,8 @@ class Home extends React.Component {
     if (prevState.parallaxX !== this.state.parallaxX || prevState.parallaxY !== this.state.parallaxY ) {
       this.setState({parallaxX: this.setState.parallaxX, parallaxY: this.setState.parallaxY, blur: this.state.blur})
     }
-    if (prevState.auctionTop) {
-      if (prevState.auctionTop.bids[0].bidValue !== this.state.auctionTop.bids[0].bidValue) {
+    if (prevState.auctionTop && this.state.auctionTop.bids.length!==0) {
+      if (prevState.auctionTop.bids[0].bidValue !== this.state.auctionTop.bids[0].bidValue  ) {
         this.setState({isUploaded: true },() => {
           setTimeout(() => this.setState({isUploaded: false }), 5000)
         } )
