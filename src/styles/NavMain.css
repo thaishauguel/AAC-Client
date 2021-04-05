@@ -38,3 +38,30 @@
   border: 1px solid #00f035;
   outline: 0;
 }
+
+@media (max-width: 420px) {
+  .NavMain {
+    padding: 10px 10px;
+
+  }
+  .NavMain h3 {
+    font-size: 30px;
+  }
+
+  .SearchBar {
+    margin-right: 20px;
+  }
+
+  .SearchBar input{
+    width: 170px;
+    border: 1px solid #8c8c8c;
+    padding: 8px 13px;
+  }
+  .NavMain .nav-list {
+    display: block;
+    text-align: right;
+  }
+  .NavMain .nav-list li:not(:last-child) {
+    margin-right: 0px;
+  }
+}

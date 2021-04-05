@@ -82,3 +82,55 @@
     font-weight: 400;
     text-decoration: underline;
 }
+
+@media (max-width: 420px) {
+    .Top-artwork-Bg {
+        height: 90vh;
+    }
+
+    .Grid40-60 {
+        grid-template-columns: 1fr;
+    }
+    .Top-artwork {
+        padding: 50px 50px;
+        max-height: 90vh;
+    }
+
+    .Top-img-size {
+        margin: 0;
+        max-height: 40vh;
+        max-width: 80vw;
+        order: -1;
+    }
+    
+    .Top-artwork h1 {
+        font-size: 35px;
+    }
+    .Top-artwork h4 {
+        font-weight: 300;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .Bid-home .Price {
+        font-size: 45px;
+        line-height: 40px;
+    }
+    .Bid-home .Dollars {
+        font-size: 16px;
+    }
+
+    .Cards-gallery h3:first-of-type {
+        margin-top: 30px;
+    }
+    
+    .Cards-gallery {
+        padding-bottom: 40px;
+        grid-template-columns: 1fr;
+        grid-gap: 20px;
+    }
+    
+    .Cards-gallery h3 {
+        font-size: 30px;
+    }
+}
