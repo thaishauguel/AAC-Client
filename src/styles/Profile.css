@@ -22,7 +22,6 @@
   font-weight: 400;
   font-size: 50px;
   text-decoration: underline;
-  
 }
 
 .Profile h1 + img {
@@ -34,9 +33,9 @@
 }
 
 .Profile h3 {
-    font-size: 22px;
-    font-weight: 300;
-    margin-bottom: 5px;
+  font-size: 22px;
+  font-weight: 300;
+  margin-bottom: 5px;
 }
 
 .Profile-credits {
@@ -45,46 +44,46 @@
 }
 
 .Profile-nav ul {
-    display: flex;
-    margin-bottom: 40px;
-    align-items: center;
+  display: flex;
+  margin-bottom: 40px;
+  align-items: center;
 }
 .Profile-nav li {
-    cursor: pointer;
-    text-align: center;
-    padding: 0 10px;
-    font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  padding: 0 10px;
+  font-size: 20px;
 }
 .Profile-nav li:first-child {
-    padding: 0 10px 0 0;
+  padding: 0 10px 0 0;
 }
 .Profile-table {
-    border-collapse:collapse;
-    margin-bottom: 25px;
-    margin-right: 50px;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+  margin-right: 50px;
 }
 .Profile-table tr {
-    border-bottom: 1px solid #c8C8C8;
+  border-bottom: 1px solid #c8c8c8;
 }
 .Profile-table tr:hover {
-    background-color: #ececec;
+  background-color: #ececec;
 }
 .Profile-table td {
-    /* border-left: 1px solid #8C8C8C; */
-    min-width: 80px;
-    padding: 15px 20px ;
-    align-items: flex-end;
-    text-align: center;
+  /* border-left: 1px solid #8C8C8C; */
+  min-width: 80px;
+  padding: 15px 20px;
+  align-items: flex-end;
+  text-align: center;
 }
 .Profile-table td:nth-child(2) {
-    text-align: left ;
+  text-align: left;
 }
 .Profile-table a {
   font-size: 16px;
   font-weight: 500;
 }
 .Profile-table p,
-.Profile-table span  {
+.Profile-table span {
   font-size: 13px;
   font-weight: 300;
 }
@@ -94,3 +93,85 @@
   font-size: 12px;
 }
 
+@media (max-width: 420px) {
+  .FormUpdate,
+  .MyCreations,
+  .MyCollection {
+    flex-direction: column;
+  }
+  .Profile {
+    margin: 0 10px;
+  }
+
+  .Profile h1 + img {
+    top: 10px;
+    right: -20px;
+    width: 15px;
+  }
+
+  .Profile-title .Avatar {
+    height: 40px;
+    width: 40px;
+  }
+  .Profile h1 {
+    font-weight: 400;
+    font-size: 25px;
+  }
+  .Profile h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .Profile-table a {
+    font-size: 14px;
+  }
+
+  .Profile-table p {
+    font-size: 12px;
+  }
+
+  .Profile-credits{
+    line-height: 25px;
+  }
+  .Profile-credits .Price {
+    font-size: 25px;
+  }
+ 
+  .Profile-nav li {
+    padding: 0 5px;
+    font-size: 15px;
+  }
+
+  .Profile-table {
+    margin-bottom: 25px;
+    margin-right: 10px;
+  }
+
+  .Profile-table td {
+    padding: 15px 4px;
+  }
+}
+
+@media (max-width: 320px) {
+  .Profile-nav li:first-child {
+    padding: 0;
+  }
+  .Profile-nav li {
+    padding: 0;
+    font-size: 13px;
+  }
+  .Profile-credits > h1 {
+    font-size: 14px;
+  }
+  .Profile-credits > h4 {
+    font-size: 12px;
+    line-height: 12px;
+  } 
+  
+  .Profile-credits > .Price {
+    font-size: 18px;
+  } 
+  .Profile-credits > .Dollars {
+    font-size: 12px;
+  } 
+}

@@ -153,7 +153,6 @@ class MyActivity extends Component {
                                 <p>No bid yet</p>
                               )}
                             </td>
-                            <td></td>
                             <td>
                               <button
                                 onClick={() => this.closeTheAuction(auction)}

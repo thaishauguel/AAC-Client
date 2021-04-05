@@ -59,3 +59,38 @@
   color: #00f035;
   width: 50%;
 }
+
+
+@media (max-width: 420px) {
+  .BidStatus {
+    padding: 20px 20px;
+  }
+
+  .Auction-on {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .Infos-sale .Price {
+    font-size: 32px;
+    font-weight: 500;
+  }
+  
+  .Btn-bid {
+    padding: 7px 15px;
+    margin-top: 20px;
+  }
+  .BidStatus h5 {
+    font-size: 16px;
+  }
+  
+  .Input-bid {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .Input-bid input {
+    width: 100%;
+  }
+  
+}    

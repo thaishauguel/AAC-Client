@@ -46,7 +46,7 @@ render(){
     if (!this.state.myCollection){return <div>Loading...</div>}
     // console.log("my collection state: ",this.state)
     return (
-        <div className="flex">
+        <div className="MyCollection flex">
 
             {this.state.myCollection.length===0 && <p>You don't have any artwork in your collection, buy some !</p>}
 

@@ -85,36 +85,48 @@
 
 @media (max-width: 420px) {
     .Top-artwork-Bg {
+        left: 0;
+        top: 70px;
         height: 90vh;
     }
 
     .Grid40-60 {
         grid-template-columns: 1fr;
     }
+
+    .Grid60-40 {
+        grid-template-columns: 1fr;
+    }
+    
     .Top-artwork {
+        position:static;
         padding: 50px 50px;
-        max-height: 90vh;
+        margin-bottom: 40px;
+    }
+
+    .Top-artwork img {
+        margin: 0;
+
     }
 
     .Top-img-size {
-        margin: 0;
-        max-height: 40vh;
-        max-width: 80vw;
+        max-height: 35vh;
+        max-width: 70vw;
         order: -1;
     }
     
     .Top-artwork h1 {
-        font-size: 35px;
+        font-size: 26px;
     }
     .Top-artwork h4 {
         font-weight: 300;
-        font-size: 16px;
+        font-size: 14px;
         margin-bottom: 10px;
     }
 
     .Bid-home .Price {
-        font-size: 45px;
-        line-height: 40px;
+        font-size: 35px;
+        line-height: 30px;
     }
     .Bid-home .Dollars {
         font-size: 16px;
@@ -125,7 +137,7 @@
     }
     
     .Cards-gallery {
-        padding-bottom: 40px;
+        padding-bottom: 80px;
         grid-template-columns: 1fr;
         grid-gap: 20px;
     }

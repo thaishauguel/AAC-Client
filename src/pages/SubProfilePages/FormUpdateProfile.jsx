@@ -105,7 +105,7 @@ class FormUpdate extends Component {
   render() {
     console.log("credit", this.props.context.user.credit)
     return (
-      <div className="flex">
+      <div className="FormUpdate flex">
 
         <form onSubmit={this.handleSubmit}>
         {this.state.message && <p className="Success-message">{this.state.message}</p>}

@@ -9,6 +9,7 @@ import NeverSold from "../components/BidStatus/NeverSold";
 import IsSold from "../components/BidStatus/IsSold";
 
 import "../styles/OneArtwork.css";
+import "../styles/Home.css";
 
 
 export class OneArtwork extends Component {

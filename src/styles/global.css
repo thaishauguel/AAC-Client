@@ -228,4 +228,22 @@ footer {
     width: 300px;
     margin: 0 20px 20px 0;
   }
+
+  .Btn-black:not(:first-of-type),
+  .Btn-minimal:not(:first-of-type) {
+    margin: 0 15px;
+  }
+  .Btn-minimal {
+    font-size: 12px;
+  }
+  .Btn-black {
+    font-size: 14px;
+    padding: 13px 20px;
+  }
 }
+
+@media (max-width: 736px) {
+  .init-margin {
+    margin: 0 50px;
+  }
+}  

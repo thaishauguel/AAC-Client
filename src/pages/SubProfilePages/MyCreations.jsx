@@ -63,7 +63,7 @@ class MyCreations extends Component {
     }
     // console.log(this.state);
     return (
-      <div className="flex">
+      <div className="MyCreations flex">
         <section>
           {this.state.myCreations.length === 0 && (
             <p>You don't have any creation, add some !</p>
