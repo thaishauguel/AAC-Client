@@ -25,19 +25,21 @@ export class IsActive extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevProps.auction._id !== this.props.auction._id) this.setState({displayMessage: false, currentInput: "", isFormOpen: false});
+    const {auction} = this.props
+    const {bidValue} = this.state
+    if(prevProps.auction._id !== auction._id) this.setState({displayMessage: false, currentInput: "", isFormOpen: false});
 
-    if(prevProps.auction._id !== this.props.auction._id  || prevProps.auction !== this.props.auction) {
+    if(prevProps.auction._id !== auction._id  || prevProps.auction !== auction) {
     // if(prevProps.auction._id !== this.props.auction._id ) {
-      if (this.props.auction.bids.length>0) {
-        this.setState({ bidValue: this.props.auction.bids[0].bidValue })
+      if (auction.bids.length>0) {
+        this.setState({ bidValue: auction.bids[0].bidValue })
       } else {
-        this.setState({bidValue : this.props.auction.initialPrice })
+        this.setState({bidValue : auction.initialPrice })
       }
     }
-    if (prevState.bidValue !== this.state.bidValue) {
+    if (prevState.bidValue !== bidValue) {
 
-      EthToDollars(this.state.bidValue)
+      EthToDollars(bidValue)
       .then(res => this.setState({dollars: res}))
       .catch(err=> console.log(err));
     }

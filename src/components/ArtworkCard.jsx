@@ -36,13 +36,14 @@ export class ArtworkCard extends Component {
     }
 
     componentDidUpdate(prevProps, prevState){
-        if (this.state.auction && (prevState.auction !==this.state.auction)) {
-        if ((this.state.auction.active && this.state.auction.bids.length>0) || (this.state.auction && !this.state.auction.active)) {
-            EthToDollars(this.state.auction.bids[0].bidValue)
+        const {auction} = this.state
+        if (auction && (prevState.auction !== auction)) {
+        if ((auction.active && auction.bids.length>0) || (auction && !auction.active)) {
+            EthToDollars(auction.bids[0].bidValue)
             .then(res => this.setState({dollars: res}))
             .catch(err=> console.log(err));
-            } else if (this.state.auction.active && this.state.auction.bids.length===0) {
-                EthToDollars(this.state.auction.initialPrice)
+            } else if (auction.active && auction.bids.length===0) {
+                EthToDollars(auction.initialPrice)
                 .then(res => this.setState({dollars: res}))
                 .catch(err=> console.log(err));
             }
