@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {withUser} from '../components/Auth/withUser'
+import React, { Component } from "react";
+import { withUser } from "../components/Auth/withUser";
 import Credits from "./../components/Credits";
 import MyActivity from "./SubProfilePages/MyActivity";
 import MyCollection from "./SubProfilePages/MyCollection";
@@ -7,58 +7,72 @@ import MyCreations from "./SubProfilePages/MyCreations";
 import FormUpdateProfile from "./SubProfilePages/FormUpdateProfile";
 
 //CSS
-import "../styles/Profile.css"
+import "../styles/Profile.css";
 
 class Profile extends Component {
+  state = {
+    displayCrea: false,
+    displayColl: false,
+    displayAct: true,
+    displayUpdate: false,
+    user: null,
+  };
 
-  state={
-    displayCrea : false,
-    displayColl:false,
-    displayAct:true,
-    displayUpdate:false,
-    user : null
-  }  
+  handleClick = (event) => {
+    if (this.state[event.target.id] === false) {
+      this.setState({
+        displayCrea: false,
+        displayColl: false,
+        displayAct: false,
+        displayUpdate: false,
+      });
+      this.setState({ [event.target.id]: !this.state[event.target.id] });
+    }
+  };
 
-  handleClick =(event)=>{
-    if (this.state[event.target.id]===false){
-    this.setState ({
-      displayCrea : false,
-      displayColl:false,
-      displayAct:false,
-      displayUpdate:false
-    })
-  this.setState ({[event.target.id] : !this.state[event.target.id]})}
-  }
-  
-  getTheUpdatedUser=(userInCallback)=>{
-    this.setState({user: userInCallback})
-  }
-  
-  componentDidMount(){
+  getTheUpdatedUser = (userInCallback) => {
+    this.setState({ user: userInCallback });
+  };
+
+  componentDidMount() {
     window.scrollTo(0, 0);
-    this.setState({user: this.props.context.user})
+    this.setState({ user: this.props.context.user });
   }
 
-  componentDidUpdate(prevProps, prevState){
-    if (prevState.user){
-      if (prevState.user.credit!==this.state.user.credit ||prevState.user.avatar!==this.state.user.avatar ){
-      this.setState({user:this.state.user})
-        console.log('kiki')}
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.user) {
+      if (
+        prevState.user.credit !== this.state.user.credit ||
+        prevState.user.avatar !== this.state.user.avatar
+      ) {
+        this.setState({ user: this.state.user });
+        console.log("kiki");
+      }
     }
   }
 
-  render(){
+  render() {
     // console.log("profile state: ",this.state)
     // const {user} = this.props.context
-    const {displayCrea, displayColl, displayAct, displayUpdate, user} = this.state
-    if (!user){return <div>Loading</div>}
+    const {
+      displayCrea,
+      displayColl,
+      displayAct,
+      displayUpdate,
+      user,
+    } = this.state;
+    if (!user) {
+      return <div>Loading</div>;
+    }
 
-    const isActive = { fontWeight: "500" }
+    const isActive = { fontWeight: "500" };
     return (
       <div className="Profile">
         <header className="flex">
           <div className="Profile-title flex">
-            <img className="Avatar" src={user.avatar} alt="user avatar" />
+            {user.avatar && (
+              <img className="Avatar" src={user.avatar} alt="user avatar" />
+            )}
             <h1>Profile</h1>
             <img
               id="displayUpdate"
@@ -67,9 +81,9 @@ class Profile extends Component {
               alt="edit-icon"
             />
           </div>
-          <Credits user={user} />          
+          <Credits user={user} />
         </header>
-        
+
         <nav className="Profile-nav">
           <ul>
             <li
@@ -97,14 +111,17 @@ class Profile extends Component {
             </li>
           </ul>
         </nav>
-        { displayCrea && <MyCreations /> }
-        { displayColl && <MyCollection /> }
-        { displayAct && <MyActivity getTheUpdatedUser={this.getTheUpdatedUser}/> }
-        { displayUpdate && <FormUpdateProfile getTheUpdatedUser={this.getTheUpdatedUser}/> }
+        {displayCrea && <MyCreations />}
+        {displayColl && <MyCollection />}
+        {displayAct && (
+          <MyActivity getTheUpdatedUser={this.getTheUpdatedUser} />
+        )}
+        {displayUpdate && (
+          <FormUpdateProfile getTheUpdatedUser={this.getTheUpdatedUser} />
+        )}
       </div>
     );
   }
-  
-};
+}
 
 export default withUser(Profile);

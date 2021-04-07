@@ -5,16 +5,16 @@ import apiHandler from "../../api/apiHandler";
 
 class FormSignup extends Component {
   state = {
-    email: "toto@gmail.com",
-    password: "toto",
-    username:"toto",
-    avatar: "https://cdn.boldomatic.com/content/post/fl4sZw/LOVE-ME-I-M-AN-ARTIST?size=800",
-    instagram:"",
-    website:"",
-    description:"",
-    credit:0,
+    email: "",
+    password: "",
+    username: "",
+    avatar: "",
+    instagram: "",
+    website: "",
+    description: "",
+    credit: 0,
     DetailsOpen: false,
-    message: ""
+    message: "",
   };
 
   handleChange = (event) => {
@@ -25,7 +25,6 @@ class FormSignup extends Component {
   };
 
   handleFileChange = (event) => {
-
     console.log("The file added by the use is: ", event.target.files[0]);
     this.setState({
       avatar: event.target.files[0],
@@ -33,11 +32,11 @@ class FormSignup extends Component {
   };
 
   handleToggle = () => {
-    this.setState({DetailsOpen: !this.state.DetailsOpen})
-  }
+    this.setState({ DetailsOpen: !this.state.DetailsOpen });
+  };
 
   handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     const uploadData = new FormData();
     uploadData.append("email", this.state.email);
     uploadData.append("password", this.state.password);
@@ -48,17 +47,15 @@ class FormSignup extends Component {
     uploadData.append("description", this.state.description);
     uploadData.append("credit", this.state.credit);
 
-
     apiHandler
       .signup(uploadData)
       .then((data) => {
-        this.props.context.setUser(data)
-        
-       // this.props.history.push("/profile" )
-        
+        this.props.context.setUser(data);
+
+        // this.props.history.push("/profile" )
       })
       .catch((error) => {
-        this.setState({message: "Oups, email or username already exist"})
+        this.setState({ message: "Oups, email or username already exist" });
         console.log(error);
       });
   };
@@ -69,7 +66,7 @@ class FormSignup extends Component {
     }
 
     return (
-      <form  onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <label htmlFor="email">Email</label>
         <input
           required
@@ -97,7 +94,6 @@ class FormSignup extends Component {
           id="username"
           name="username"
         />
-        
         <label htmlFor="credit">Credits</label>
         <input
           required
@@ -108,21 +104,18 @@ class FormSignup extends Component {
           name="credit"
           min="0"
         />
-
-        
-
-        <button className="Btn-minimal" onClick={this.handleToggle}>{this.state.DetailsOpen ? "Close" : "Add more infos"}</button>
-
-        { this.state.DetailsOpen && 
+        <label htmlFor="avatar">Avatar</label>
+        <input
+          onChange={this.handleFileChange}
+          type="file"
+          id="avatar"
+          name="avatar"
+        />
+        {/* <button className="Btn-minimal" onClick={this.handleToggle}>
+          {this.state.DetailsOpen ? "Close" : "Add more infos"}
+        </button> */}
+        {/* {this.state.DetailsOpen && (
           <React.Fragment>
-            <label htmlFor="avatar">Avatar</label>
-            <input
-              onChange={this.handleFileChange}
-              type="file"
-              id="avatar"
-              name="avatar"
-            />
-
             <label htmlFor="instagram">Instagram</label>
             <input
               onChange={this.handleChange}
@@ -147,15 +140,20 @@ class FormSignup extends Component {
               id="description"
               name="description"
               maxLength="300"
-              cols="30" 
+              cols="30"
               rows="7"
             >
-            Description
+              Description
             </textarea>
-          </React.Fragment>
-        }  
-        <button className="Btn-black">Submit</button>
-        {this.state.message && <p className="Alert-message">{this.state.message}</p>}
+          </React.Fragment> 
+        )}
+          */}
+        <button style={{ margin: "20px 0" }} className="Btn-black">
+          Submit
+        </button>
+        {this.state.message && (
+          <p className="Alert-message">{this.state.message}</p>
+        )}
       </form>
     );
   }
